@@ -10,11 +10,15 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
+
 export class RegisterPage implements OnInit {
 
   constructor() { }
 
   ngOnInit() {
+    console.log('RegisterPage');
   }
+
+
 
 }
