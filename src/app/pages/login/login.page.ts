@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
-import { ApiRestFullService } from 'src/app/services/api-rest-full.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { SocialAuthService, SocialUser, GoogleSigninButtonModule, FacebookLoginProvider, } from '@abacritt/angularx-social-login';
 import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/login-facebook-google.module';
 import { from } from 'rxjs';
+import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -19,26 +19,27 @@ import { from } from 'rxjs';
 })
 export class LoginPage implements OnInit {
 
-  characters: any[] = [];
   params = {} as any;
+  users: any[] = [];
 
   loginForm!: FormGroup;
   socialUser!: any;
   isLoggedin: any;
 
+  ApiRestFulService = inject(ApiRestFulService);
+
   constructor(
-    private apiRestFull: ApiRestFullService,
-    private authService: SocialAuthService,
+    @Inject(SocialAuthService) private authService: SocialAuthService,
     private formBuilder: FormBuilder,
+    private apiRestFulService: ApiRestFulService
   ) { }
 
-    getUserLogin() {
-    this.apiRestFull.getUserApi()
-      .subscribe(
-        (data) => { console.log(this.params = data); },
-        (error) => { console.log(error); }
-      )
-
+  getUsers(event?: any){
+    this.apiRestFulService.getUsers().subscribe({
+      next: (res: any) => {
+        console.log(res);
+      }
+    });
   }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class LoginPage implements OnInit {
       console.log(this.socialUser);
     });
     this.params.page = 0;
-    this.getUserLogin();
+    this.getUsers();
   }
 
   signInWithFB(): void {
