@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ApiRestFulService } from '../services/api-rest-ful.service';
-import { HeadersInterceptor } from '../interceptors/headers.interceptor';
+import { ApiInterceptor, interceptorService } from '../interceptor/api.interceptor';
+
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { HeadersInterceptor } from '../interceptors/headers.interceptor';
   ],
   providers: [
     ApiRestFulService,
-    //{ provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true}
+    interceptorService,
   ]
 })
 export class SharedModule { }
+  
