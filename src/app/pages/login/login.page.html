@@ -1,3 +1,5 @@
+<!-- FILEPATH: /c:/Users/Juan_David/Documents/CHAMBA/PROYECTO MARKMELO/MarkMelo_App/src/app/pages/login/login.page.html -->
+<!-- BEGIN: abpxx6d04wxr -->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>login</ion-title>
@@ -12,25 +14,40 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="button-container">
-    <ion-button (click)="signInWithFB()">
-      Iniciar sesión con Facebook
-    </ion-button>
+  <ion-content [fullscreen]="true">
+    <div class="login-container">
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
 
-    <ion-button *ngIf="!socialUser">
-      <asl-google-signin-button type='standard' size='small' theme="filled_blue"></asl-google-signin-button>
-    </ion-button>
-  </div>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
 
-  <ion-button (click)="signOut()">
-    Sign Out
-  </ion-button>
+      <div class="button-container">
+        <ion-button (click)="signInWithFB()" expand="full" color="primary">
+          Iniciar sesión con Facebook
+        </ion-button>
 
-  <div class="user-info" *ngIf="socialUser">
-    <img src="{{ socialUser.photoUrl }}" alt="User profile picture">
-    <div>
-      <h2>{{ socialUser.name }}</h2>
-      <h2>{{ socialUser.email }}</h2>
+        <ion-button *ngIf="!socialUser" expand="full" color="primary">
+          <asl-google-signin-button type='standard' size='small' theme="filled_blue"></asl-google-signin-button>
+        </ion-button>
+      </div>
+
+      <ion-button (click)="signOut()" expand="full" color="danger">
+        Cerrar sesión
+      </ion-button>
+
+      <div class="user-info" *ngIf="socialUser">
+        <img src="{{ socialUser.photoUrl }}" alt="Foto de perfil del usuario">
+        <div>
+          <h2>{{ socialUser.name }}</h2>
+          <h2>{{ socialUser.email }}</h2>
+        </div>
+      </div>
     </div>
-  </div>
+  </ion-content>
 </ion-content>
+<!-- END: abpxx6d04wxr -->
