@@ -19,7 +19,6 @@ import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/
 import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

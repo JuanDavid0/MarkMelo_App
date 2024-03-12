@@ -12,20 +12,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button (click)="signInWithFB()">
-    Iniciar sesión con Facebook
-  </ion-button>
+  <div class="button-container">
+    <ion-button (click)="signInWithFB()">
+      Iniciar sesión con Facebook
+    </ion-button>
 
-  <ion-button>
-    <asl-google-signin-button type='standard' size='small' theme="filled_blue" *ngIf="!socialUser"></asl-google-signin-button>
-  </ion-button>
+    <ion-button *ngIf="!socialUser">
+      <asl-google-signin-button type='standard' size='small' theme="filled_blue"></asl-google-signin-button>
+    </ion-button>
+  </div>
 
   <ion-button (click)="signOut()">
     Sign Out
   </ion-button>
 
-  <div *ngIf="socialUser">
-    <img src="{{ socialUser.photoUrl }}">
+  <div class="user-info" *ngIf="socialUser">
+    <img src="{{ socialUser.photoUrl }}" alt="User profile picture">
     <div>
       <h2>{{ socialUser.name }}</h2>
       <h2>{{ socialUser.email }}</h2>
