@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <script src="https://accounts.google.com/gsi/client" async></script>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-text center>
+    <h1 class="ion-padding" style="text-align: center">Crear Cuenta</h1>
+  </ion-text>
+
+  <form>
+    <div class="ion-padding">
+      <ion-card>
+        <ion-item>
+          <label for="nombre" class="ion-text-bold"></label>
+          <ion-input
+            type="text"
+            id="nombre"
+            placeholder="Ingresa tu nombre"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="apellido" class="ion-text-bold"></label>
+          <ion-input
+            type="text"
+            id="apellido"
+            placeholder="Ingresa tu apellido"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="email" class="ion-text-bold"></label>
+          <ion-input
+            type="email"
+            id="email"
+            placeholder="Correo electrónico"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="password" class="ion-text-bold"></label>
+          <ion-input
+            type="password"
+            id="password"
+            placeholder="Contraseña"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="confirmpassword" class="ion-text-bold"></label>
+          <ion-input
+            type="password"
+            id="password"
+            placeholder="Confirmar contraseña"
+          ></ion-input>
+        </ion-item>
+      </ion-card>
+      <div class="button-container-login" flex-direction="column">
+        <ion-button color="primary" [routerLink]="['/login']"
+          >crear cuenta</ion-button>
+      </div>  
+    </div>
+  </form>
+</ion-content>

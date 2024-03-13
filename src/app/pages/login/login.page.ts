@@ -1,4 +1,3 @@
-import { interceptorService } from './../../interceptor/api.interceptor';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -19,6 +18,7 @@ import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/
 import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -31,6 +31,7 @@ import { Inject } from '@angular/core';
     SharedModule,
     LoginFacebookGoogleModule,
     GoogleSigninButtonModule,
+    RouterModule,
   ],
 })
 export class LoginPage implements OnInit {
@@ -105,4 +106,5 @@ export class LoginPage implements OnInit {
       }
     );
   }
+  
 }
