@@ -18,7 +18,8 @@ import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/
 import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -37,11 +38,15 @@ import { RouterModule } from '@angular/router';
 export class LoginPage implements OnInit {
   params = {} as any;
   users: any[] = [];
+  email = '';
+  password = '';
 
   loginForm!: FormGroup;
   socialUser!: any;
   isLoggedin: any;
   ApiRestFulService = inject(ApiRestFulService);
+  authServiceLogin = inject(AuthService);
+  router = inject(Router);
 
   constructor(
     @Inject(SocialAuthService) private authService: SocialAuthService,
@@ -59,6 +64,19 @@ export class LoginPage implements OnInit {
         });
       }
 */
+  login(event : Event){
+    event.preventDefault();
+    console.log(`login ${this.email}/ ${this.password}`);
+    this.authServiceLogin.login({
+      email: this.email,
+      password: this.password
+    }).subscribe(() => {
+      alert("login success");
+      this.router.navigate(['/login']);
+    }
+    );
+  } 
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
