@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,11 @@ import { environment } from 'src/environments/environment';
 
 export class ApiRestFulService {
 
+  private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private loggedUser?: string;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+
+  
   http = inject(HttpClient);
 
   constructor() { }
