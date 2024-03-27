@@ -85,6 +85,8 @@ export class LoginPage implements OnInit {
         alert('Login successful! User data:');
         //console.log('Login successful! User data:', response.results[0].token_user);
         localStorage.setItem('TOKEN_USER',  response.results[0].token_user);
+        const tokenExpDate: Date = new Date(response.results[0].token_exp_user * 1000); // Multiplicamos por 1000 porque el tiempo UNIX está en segundos
+        console.log(tokenExpDate);
       } else {
         console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
@@ -92,8 +94,6 @@ export class LoginPage implements OnInit {
       console.log('Response SIUUUU:', response);
     });
   }
-
-
 
 
 

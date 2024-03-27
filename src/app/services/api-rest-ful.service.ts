@@ -29,6 +29,7 @@ export class ApiRestFulService {
 
   postLogin(user: any) {
     console.log('User:', user);
+    debugger;
     const formData = new FormData();
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
