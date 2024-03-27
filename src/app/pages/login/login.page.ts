@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -18,7 +19,8 @@ import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/
 import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -32,6 +34,7 @@ import { RouterModule } from '@angular/router';
     LoginFacebookGoogleModule,
     GoogleSigninButtonModule,
     RouterModule,
+    ReactiveFormsModule
   ],
 })
 export class LoginPage implements OnInit {
@@ -46,8 +49,63 @@ export class LoginPage implements OnInit {
   constructor(
     @Inject(SocialAuthService) private authService: SocialAuthService,
     private formBuilder: FormBuilder,
-    private apiRestFulService: ApiRestFulService
-  ) {}
+    private apiRestFulService: ApiRestFulService,
+    private http: HttpClient,
+    private router: Router,
+  ) {
+  }
+
+  ngOnInit() {
+    /*
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+    this.authService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.isLoggedin = user != null;
+      console.log(this.socialUser);
+    });
+    this.params.page = 0;
+    */
+    this.infLogin()
+  }
+
+  infLogin(event?: any){
+    this.loginForm = this.formBuilder.group({
+      email_user: ['', Validators.required],
+      password_user: ['', Validators.required],
+    });
+  }
+  
+  onLogin(){
+    console.log(this.loginForm.value);
+    this.ApiRestFulService.postLogin(this.loginForm.value).subscribe(response => {
+      if (response.status === 200) {
+        alert('Login successful! User data:');
+        //console.log('Login successful! User data:', response.results[0].token_user);
+        localStorage.setItem('TOKEN_USER',  response.results[0].token_user);
+      } else {
+        console.error('Login failed with status:', response.status);
+        alert('Inicio de sesión fallido');
+      }
+      console.log('Response SIUUUU:', response);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /*
     -> este metodo se encarga de obtener los usuarios, por el momento se implemento como prueba de coneccion
@@ -59,19 +117,6 @@ export class LoginPage implements OnInit {
         });
       }
 */
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-    this.authService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.isLoggedin = user != null;
-      console.log(this.socialUser);
-    });
-    this.params.page = 0;
-  }
-
   signInWithFB(): void {
     /*if (window.location.protocol !== 'https:') {
       console.error('Facebook login requires HTTPS. Please switch to HTTPS and retry.');
@@ -106,5 +151,6 @@ export class LoginPage implements OnInit {
       }
     );
   }
-  
 }
+
+

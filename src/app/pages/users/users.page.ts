@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-prove',
-  templateUrl: './prove.page.html',
-  styleUrls: ['./prove.page.scss'],
+  selector: 'app-users',
+  templateUrl: './users.page.html',
+  styleUrls: ['./users.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ProvePage implements OnInit {
+export class UsersPage implements OnInit {
 
   constructor() { }
 

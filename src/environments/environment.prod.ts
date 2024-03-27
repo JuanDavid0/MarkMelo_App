@@ -2,10 +2,11 @@ export const environment = {
   production: true,
 
   urlApiRestful: 'https://api.uptc.online',
+  sales: '/sales',
+  users: '/users',
+  orders: '/orders',
+  authorization: 'c5LTA6WPbMwHhEabYu77nN9cn4VcMj',
 
-  sales: '/sales/',
-  users: '/users/',
-  orders: '/orders/',
+  login: '/users?login=true',
   
-  authorization: 'c5LTA6WPbMwHhEabYu77nN9cn4VcMj'
 };

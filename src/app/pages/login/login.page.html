@@ -10,12 +10,13 @@
     <h1 class="ion-padding" style="text-align: center">Iniciar sesión</h1>
   </ion-text>
 
-  <form>
+  <form [formGroup]="loginForm">
     <div class="ion-padding">
       <ion-card>
         <ion-item>
           <label for="email" class="ion-text-bold"></label>
           <ion-input
+            formControlName="email_user"
             type="email"
             id="email"
             placeholder="Ingresa tu correo electrónico"
@@ -24,19 +25,19 @@
         <ion-item>
           <label for="password" class="ion-text-bold"></label>
           <ion-input
+            formControlName="password_user"
             type="password"
             id="password"
             placeholder="Ingresa tu contraseña"
           ></ion-input>
         </ion-item>
       </ion-card>
-
       <div>
         <a [routerLink]="['/reset-password']">¿Olvidaste tú contraseña?</a>
         <p>¿No tienes cuenta? <a [routerLink]="['/singup']">Registrate</a></p>
       </div>
       <div class="button-container-login">
-        <ion-button color="primary" [routerLink]="['/home']"
+        <ion-button (click)="onLogin()" color="primary" [routerLink]="['/login']"
           >Iniciar sesión</ion-button
         >
         <ion-button (click)="signInWithFB()" class="social"

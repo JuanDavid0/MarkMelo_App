@@ -13,6 +13,7 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [
     ApiRestFulService,
