@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Users</ion-title>
+      <ion-button (click)="logout()" color="primary" [routerLink]="['/login']">
+        Sign Out
+      </ion-button>
+    </ion-toolbar>
+
+    <pre>
+      <code>
+        {{userData | json}}
+      </code>
+    </pre>
+  </ion-header>
+</ion-content>
