@@ -10,13 +10,21 @@ import {
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
+/**
+ * Interceptor de la APIRestFul.
+ */
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
   constructor() {}
   
+  /**
+   * Intercepta las solicitudes HTTP salientes y agrega el encabezado de autorización.
+   * @param request - La solicitud HTTP saliente.
+   * @param next - El siguiente controlador de la cadena de interceptores.
+   * @returns Un Observable que emite el evento HTTP resultante.
+   */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('InterceptorAPI');
     request = request.clone({
       setHeaders:{
         'Authorization': environment.authorization,

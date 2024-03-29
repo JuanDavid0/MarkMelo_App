@@ -5,7 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -20,7 +20,7 @@ import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -34,7 +34,8 @@ import { HttpClient } from '@angular/common/http';
     LoginFacebookGoogleModule,
     GoogleSigninButtonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class LoginPage implements OnInit {
@@ -51,16 +52,11 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private apiRestFulService: ApiRestFulService,
     private http: HttpClient,
-    private router: Router,
-  ) {
-  }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     /*
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-    });
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = user != null;
@@ -68,55 +64,37 @@ export class LoginPage implements OnInit {
     });
     this.params.page = 0;
     */
-    this.infLogin()
+    this.infLogin();
   }
 
-  infLogin(event?: any){
+  /**
+   * Asigna los valores iniciales al formulario de inicio de sesión
+   * @param event
+   */
+  infLogin(event?: any) {
     this.loginForm = this.formBuilder.group({
       email_user: ['', Validators.required],
       password_user: ['', Validators.required],
     });
   }
-  
-  onLogin(){
-    console.log(this.loginForm.value);
-    this.ApiRestFulService.postLogin(this.loginForm.value).subscribe(response => {
-      if (response.status === 200) {
-        alert('Login successful! User data:');
-        //console.log('Login successful! User data:', response.results[0].token_user);
-        localStorage.setItem('TOKEN_USER',  response.results[0].token_user);
-        const tokenExpDate: Date = new Date(response.results[0].token_exp_user * 1000); // Multiplicamos por 1000 porque el tiempo UNIX está en segundos
-        console.log(tokenExpDate);
-      } else {
-        console.error('Login failed with status:', response.status);
-        alert('Inicio de sesión fallido');
+
+  /**
+   * Realiza el inicio de sesión y segun la respuesta redirige a la pagina de usuarios
+   * o muestra un mensaje de error
+   */
+  onLogin() {
+    this.ApiRestFulService.postlogin(this.loginForm.value).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          this.router.navigate(['/users']);
+        } else {
+          console.error('Login failed with status:', response.status);
+          alert('Inicio de sesión fallido');
+        }
       }
-      console.log('Response SIUUUU:', response);
-    });
+    );
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-    -> este metodo se encarga de obtener los usuarios, por el momento se implemento como prueba de coneccion
-      getUsers(event?: any){
-        this.apiRestFulService.getUsers().subscribe({
-          next: (res: any) => {
-            console.log(res);
-          }
-        });
-      }
-*/
   signInWithFB(): void {
     /*if (window.location.protocol !== 'https:') {
       console.error('Facebook login requires HTTPS. Please switch to HTTPS and retry.');
@@ -152,5 +130,3 @@ export class LoginPage implements OnInit {
     );
   }
 }
-
-
