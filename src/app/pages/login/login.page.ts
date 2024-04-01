@@ -50,8 +50,6 @@ export class LoginPage implements OnInit {
   constructor(
     @Inject(SocialAuthService) private authService: SocialAuthService,
     private formBuilder: FormBuilder,
-    private apiRestFulService: ApiRestFulService,
-    private http: HttpClient,
     private router: Router
   ) {}
 
