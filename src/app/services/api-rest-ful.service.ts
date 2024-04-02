@@ -1,26 +1,30 @@
-import { HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import { SharedModule } from './../shared/shared.module';
+import { Router, RouterModule } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-/**
- * @description Servicio que se encarga de realizar las peticiones a la API RestFul
- * @class ApiRestFulService
- * @implements {OnInit}
- */
-
 export class ApiRestFulService {
+  private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private loggedUser?: string;
+  private value: any;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private router = inject(Router);
 
   http = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
+
   /**
    * implementacion del metodo que se encarga de obtener los usuarios
-   * @returns 
+   * @returns
    */
-  getUsers(){
-    return this.http.get(environment.urlApiRestful + environment.users)
+  getUsers() {
+    return this.http.get(environment.urlApiRestful + environment.users);
   }
 
   /**
@@ -95,24 +99,22 @@ export class ApiRestFulService {
    * @returns retorna (false) si el token ha expirado o (true) si no ha expirado
    */
   tokenExpired() {
-    const token = localStorage.getItem(this.JWT_TOKEN); // Obtiene el token del localstorage
+    const token = localStorage.getItem(this.JWT_TOKEN);
     if (!token) return false;
 
-    const decodedToken = jwtDecode(token); // Decodifica el token
+    const decodedToken = jwtDecode(token);
 
-    if (!decodedToken.exp) return false; // Si no hay fecha de expiración, el token es inválido
+    if (!decodedToken.exp) return false;
 
-    const expirationDate = decodedToken.exp * 1000; // Multiplica la fecha de expiración por 1000 para convertirla en milisegundos
-    const dateNow = new Date().getTime(); // Obtiene la fecha actual en milisegundos
-    return dateNow < expirationDate; // Retorna si la fecha actual es menor a la fecha de expiración
+    const expirationDate = decodedToken.exp * 1000;
+    const dateNow = new Date().getTime();
+    const dateformat = new Date(dateNow);
+    return dateNow < expirationDate;
   }
 
-  register(user: any) { 
-    debugger;
-    const formData = new FormData();
-    formData.append('username_user', user.username_user);
-    formData.append('email_user', user.email_user);
-    formData.append('password_user', user.password_user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+  getRol(){
+    const rol = 'user'
+    console.log('prueba');
+    return rol;
   }
 }

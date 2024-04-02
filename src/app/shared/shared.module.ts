@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [
     ApiRestFulService,
@@ -18,4 +19,3 @@ import { Router, RouterModule } from '@angular/router';
   ]
 })
 export class SharedModule { }
-  
