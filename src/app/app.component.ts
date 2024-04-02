@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { AuthService } from './services/auth.service';
 import { provideHttpClient } from '@angular/common/http';
 
 

@@ -48,8 +48,6 @@ export class LoginPage implements OnInit {
   socialUser!: any;
   isLoggedin: any;
   ApiRestFulService = inject(ApiRestFulService);
-  authServiceLogin = inject(AuthService);
-  router = inject(Router);
 
   constructor(
     @Inject(SocialAuthService) private authService: SocialAuthService,
