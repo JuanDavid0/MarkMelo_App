@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
     this.ApiRestFulService.postlogin(this.loginForm.value).subscribe(
       (response) => {
         if (response.status === 200) {
-          this.router.navigate(['/users']);
+          this.router.navigate([this.ApiRestFulService.getRol()]);
         } else {
           console.error('Login failed with status:', response.status);
           alert('Inicio de sesión fallido');

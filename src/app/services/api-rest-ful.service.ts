@@ -111,4 +111,10 @@ export class ApiRestFulService {
     const dateformat = new Date(dateNow);
     return dateNow < expirationDate;
   }
+
+  getRol(){
+    const rol = 'user'
+    console.log('prueba');
+    return rol;
+  }
 }

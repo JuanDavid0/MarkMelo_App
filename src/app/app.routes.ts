@@ -22,8 +22,45 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
   },
   {
-    path: 'users',
-    loadComponent: () => import('./pages/users/users.page').then( m => m.UsersPage),
+    path: 'produccion',
+    loadComponent: () => import('./pages/allUsers/produccion/produccion.page').then( m => m.ProduccionPage),
     canActivate: [AuthAccessGuard],
   },
+  {
+    path: 'alistamiento',
+    loadComponent: () => import('./pages/allUsers/alistamiento/alistamiento.page').then( m => m.AlistamientoPage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'montaje-digital',
+    loadComponent: () => import('./pages/allUsers/montaje-digital/montaje-digital.page').then( m => m.MontajeDigitalPage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'marcacion',
+    loadComponent: () => import('./pages/allUsers/marcacion/marcacion.page').then( m => m.MarcacionPage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'empaque',
+    loadComponent: () => import('./pages/allUsers/empaque/empaque.page').then( m => m.EmpaquePage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'entrega',
+    loadComponent: () => import('./pages/allUsers/entrega/entrega.page').then( m => m.EntregaPage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'admin',
+    loadComponent: () => import('./pages/allUsers/admin/admin.page').then( m => m.AdminPage),
+    canActivate: [AuthAccessGuard],
+  },
+  {
+    path: 'user',
+    loadComponent: () => import('./pages/allUsers/user/user.page').then( m => m.UserPage),
+    canActivate: [AuthAccessGuard],
+    
+  },
+
 ];

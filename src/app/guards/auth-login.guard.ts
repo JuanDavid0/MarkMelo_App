@@ -28,8 +28,9 @@ class LoginGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
+    const accessAuth = this.apiService.getRol(); 
     if (this.apiService.isloggedIn()) {
-      this.router.navigate(['/users']);
+      this.router.navigate([accessAuth]);
       return false;
     } else {
       return true;

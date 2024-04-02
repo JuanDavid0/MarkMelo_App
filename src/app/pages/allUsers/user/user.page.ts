@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.page.html',
-  styleUrls: ['./users.page.scss'],
+  selector: 'app-user',
+  templateUrl: './user.page.html',
+  styleUrls: ['./user.page.scss'],
   standalone: true,
   imports: [
     IonicModule,
@@ -21,12 +21,13 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  })
-export class UsersPage implements OnInit {
+})
+export class UserPage implements OnInit {
 
+  
   userData: any;
   ApiRestFulService = inject(ApiRestFulService);
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.showCurrentUser();
@@ -47,5 +48,4 @@ export class UsersPage implements OnInit {
   logout(){
     this.ApiRestFulService.logout();
   }
-
 }
