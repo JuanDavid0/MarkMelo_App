@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { provideHttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,11 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   standalone: true,
   imports: [IonApp, IonRouterOutlet, HttpClientModule],
 })
+
+
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    
+  }
 }
+

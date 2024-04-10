@@ -112,6 +112,15 @@ export class ApiRestFulService {
     return dateNow < expirationDate;
   }
 
+  register(user: any) { 
+    debugger;
+    const formData = new FormData();
+    formData.append('username_user', user.username_user);
+    formData.append('email_user', user.email_user);
+    formData.append('password_user', user.password_user);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+  }
+
   getRol(){
     const rol = 'user'
     console.log('prueba');

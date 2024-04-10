@@ -6,8 +6,6 @@ import { ApiInterceptor, interceptorService } from '../interceptor/api.intercept
 import { IonicModule } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [],
   imports: [

@@ -41,6 +41,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class LoginPage implements OnInit {
   params = {} as any;
   users: any[] = [];
+  email = '';
+  password = '';
 
   loginForm!: FormGroup;
   socialUser!: any;
