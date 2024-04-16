@@ -16,7 +16,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '915867215653-0et730o4k93as60jssekg33cbpphtc1r.apps.googleusercontent.com'
+              '848044749115-etc770jht149ldhnm3f7vou0ciimeskn.apps.googleusercontent.com'
             )
           },
           {
