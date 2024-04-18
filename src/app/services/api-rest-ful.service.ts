@@ -24,7 +24,7 @@ export class ApiRestFulService {
    * @returns
    */
   getUsers() {
-    return this.http.get(environment.urlApiRestful + environment.users);
+    return this.http.get('https://api.toolsmarketingsas.com/proxy/categorias');
   }
 
   /**
@@ -37,7 +37,7 @@ export class ApiRestFulService {
     formData.append('password_user', user.password_user);
 
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', formData)
+      .post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -75,7 +75,7 @@ export class ApiRestFulService {
 
   /**
    * checkea si hay un token en el localstorage
-   * @returns retorna si el usuario esta logueado o no 
+   * @returns retorna si el usuario esta logueado o no
    */
   isloggedIn() {
     return localStorage.getItem(this.JWT_TOKEN) !== null;
@@ -89,14 +89,14 @@ export class ApiRestFulService {
     return this.http.get(
       environment.urlApiRestful +
         environment.users +
-        '?select=email_user&linkTo=token_user&equalTo='+
+        '?select=email_user&linkTo=token_user&equalTo=' +
         localStorage.getItem(this.JWT_TOKEN)
     );
   }
 
   /**
    * Metodo que se encarga de verificar si el token ha expirado o no
-   * @returns retorna (false) si el token ha expirado o (true) si no ha expirado
+   * @returns retorna (false) si el token ha expirado(o no existe) o (true) si no ha expirado
    */
   tokenExpired() {
     const token = localStorage.getItem(this.JWT_TOKEN);
@@ -112,17 +112,20 @@ export class ApiRestFulService {
     return dateNow < expirationDate;
   }
 
-  register(user: any) { 
+  register(user: any) {
     debugger;
     const formData = new FormData();
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+    return this.http.post<any>(
+      environment.urlApiRestful + environment.register,
+      formData
+    );
   }
 
-  getRol(){
-    const rol = 'user'
+  getRol() {
+    const rol = 'user';
     console.log('prueba');
     return rol;
   }
