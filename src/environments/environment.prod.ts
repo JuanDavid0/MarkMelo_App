@@ -8,5 +8,19 @@ export const environment = {
   authorization: 'c5LTA6WPbMwHhEabYu77nN9cn4VcMj',
 
   login: '/users?login=true',
-  
+  register: '/users?register=true',
+
+  urlApiProducts: 'https://api.toolsmarketingsas.com/proxy',
+  categorias: '/categorias/',
+  productos: '/productos/',
+  stock: '/stock/',
+
+
+
+
+
+
+
+
+
 };

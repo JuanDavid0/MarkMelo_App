@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true">
+  <ion-text center>
+    <h1 class="ion-padding" style="text-align: center">Usuario</h1>
+  </ion-text>
+
+  <ion-card>
+    <ion-card-header> User Information </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="userData">
+        <p>Email: {{ userData.results[0].email_user}}</p>
+        <!-- Agrega más campos según la estructura de userData -->
+      </div>
+      <div *ngIf="!userData">
+        <p>Loading user data...</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="logout()" color="primary">Cerrar sesión</ion-button>
+
+  <ion-item>
+    <ion-label>Categoría principal</ion-label>
+    <ion-select (ionChange)="selectCategory($event)" aria-label="Categoría">
+      <ion-select-option
+        *ngFor="let mainCategory of getMainCategory()"
+        [value]="mainCategory.id"
+      >
+        {{ mainCategory.nombre}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="getSubCategory(selectedCategoryId).length > 0">
+    <ion-label>sub principal</ion-label>
+    <ion-select (ionChange)="selectSubCategory($event)">
+      <ion-select-option
+        *ngFor="let subCategory of getSubCategory(selectedCategoryId)"
+        [value]="subCategory.id"
+      >
+        {{ subCategory.nombre}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button (click)="showProducts()" color="primary">Consultar</ion-button>
+
+  <ion-col
+    *ngFor="let p of productos"
+    size-lg="4"
+    size-md="6"
+    size-sm="12"
+    size="12"
+  >
+    <ion-card class="episode-card">
+      <ion-avatar>
+        <img
+          src="https://www.w3schools.com/howto/img_avatar.png"
+          alt="avatar"
+        />
+      </ion-avatar>
+      <ion-card-content class="space-between">
+        <ion-card-title>{{ p.nombre }}</ion-card-title>
+        <div [innerHTML]="p.resumen"></div>
+        <div [innerHTML]="p.descripcionProducto"></div>
+        <p>{{ p.precio1 }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-content>

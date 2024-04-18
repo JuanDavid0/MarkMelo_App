@@ -10,21 +10,25 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class ApiRestFulService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private readonly GOOGLE_TOKEN = 'googleToken';
+  private readonly FACEBOOK_TOKEN = 'facebookToken';
   private loggedUser?: string;
   private value: any;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private router = inject(Router);
 
+  public userDetails?: any;
+
   http = inject(HttpClient);
 
-  constructor() {}
+  constructor() { }
 
   /**
    * implementacion del metodo que se encarga de obtener los usuarios
    * @returns
    */
   getUsers() {
-    return this.http.get(environment.urlApiRestful + environment.users);
+    return this.http.get('https://api.toolsmarketingsas.com/proxy/categorias');
   }
 
   /**
@@ -37,7 +41,7 @@ export class ApiRestFulService {
     formData.append('password_user', user.password_user);
 
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', formData)
+      .post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -73,12 +77,32 @@ export class ApiRestFulService {
     this.router.navigate(['/login']);
   }
 
+  googleLogOut() {
+    localStorage.removeItem(this.GOOGLE_TOKEN);
+    this.isAuthenticatedSubject.next(false);
+    this.router.navigate(['/login']);
+  }
+
+  facebookLogOut() {
+    localStorage.removeItem(this.FACEBOOK_TOKEN);
+    this.isAuthenticatedSubject.next(false);
+    this.router.navigate(['/login']);
+  }
+
   /**
    * checkea si hay un token en el localstorage
-   * @returns retorna si el usuario esta logueado o no 
+   * @returns retorna si el usuario esta logueado o no
    */
   isloggedIn() {
     return localStorage.getItem(this.JWT_TOKEN) !== null;
+  }
+
+  isGoogleloggedIn() {
+    return localStorage.getItem(this.GOOGLE_TOKEN) !== null;
+  }
+
+  isFacebookloggedIn() {
+    return localStorage.getItem(this.FACEBOOK_TOKEN) !== null;
   }
 
   /**
@@ -88,15 +112,33 @@ export class ApiRestFulService {
   currentUser() {
     return this.http.get(
       environment.urlApiRestful +
-        environment.users +
-        '?select=email_user&linkTo=token_user&equalTo='+
-        localStorage.getItem(this.JWT_TOKEN)
+      environment.users +
+      '?select=email_user&linkTo=token_user&equalTo=' +
+      localStorage.getItem(this.JWT_TOKEN)
+    );
+  }
+
+  currentUserGoogle() {
+    return this.http.get(
+      environment.urlApiRestful +
+      environment.users +
+      '?select=email_user&linkTo=token_user&equalTo=' +
+      localStorage.getItem(this.GOOGLE_TOKEN)
+    );
+  }
+
+  currentUserFacebook() {
+    return this.http.get(
+      environment.urlApiRestful +
+      environment.users +
+      '?select=email_user&linkTo=token_user&equalTo=' +
+      localStorage.getItem(this.FACEBOOK_TOKEN)
     );
   }
 
   /**
    * Metodo que se encarga de verificar si el token ha expirado o no
-   * @returns retorna (false) si el token ha expirado o (true) si no ha expirado
+   * @returns retorna (false) si el token ha expirado(o no existe) o (true) si no ha expirado
    */
   tokenExpired() {
     const token = localStorage.getItem(this.JWT_TOKEN);
@@ -110,5 +152,40 @@ export class ApiRestFulService {
     const dateNow = new Date().getTime();
     const dateformat = new Date(dateNow);
     return dateNow < expirationDate;
+  }
+
+  register(user: any) {
+    debugger;
+    const formData = new FormData();
+    formData.append('username_user', user.username_user);
+    formData.append('email_user', user.email_user);
+    formData.append('password_user', user.password_user);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+  }
+
+  registerGoogleSocial(user: any) {
+    debugger;
+    const formData = new FormData();
+    formData.append('username_user', user.name);
+    formData.append('email_user', user.email);
+    formData.append('picture_user', user.photoUrl);
+    formData.append('token_user', user.idToken);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+  }
+
+  registerFacebookSocial(user: any) {
+    debugger;
+    const formData = new FormData();
+    formData.append('username_user', user.name);
+    formData.append('email_user', user.email);
+    formData.append('picture_user', user.photoUrl);
+    formData.append('token_user', user.authToken);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+  }
+
+  getRol() {
+    const rol = 'user'
+    console.log('prueba');
+    return rol;
   }
 }

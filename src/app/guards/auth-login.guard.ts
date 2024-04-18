@@ -20,18 +20,25 @@ class LoginGuard {
   /**
    * Metodo que se encarga de verificar si el usuario esta logueado o no
    * y redirigirlo a la ruta X si ya esta logueado
-   * @param route 
-   * @param state 
-   * @returns 
+   * @param route
+   * @param state
+   * @returns
    */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.apiService.isloggedIn()) {
-      this.router.navigate(['/users']);
-      return false;
-    } else {
+    const accessAuth = this.apiService.getRol();
+    if(this.apiService.isloggedIn()){ // existe un token? si es asi
+      if(this.apiService.tokenExpired()){ // el token ha expirado? aun no expira
+        this.router.navigate([accessAuth]); // redirige a la ruta X
+        return false; // no permite entrar al login porque tiene token y esta vigente
+      }else{ // si el token ha expirado
+        localStorage.removeItem('JWT_TOKEN'); // elimina el token del localstorage
+        this.router.navigate(['/login']); // redirige a la pagina de login
+        return false;// no permite entrar al login porque el token ha expirado
+      } 
+    }else{ // si no existe un token en el localstorage
       return true;
     }
   }

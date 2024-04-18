@@ -1,16 +1,17 @@
+import { routes } from './../../../app.routes';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.page.html',
-  styleUrls: ['./users.page.scss'],
+  selector: 'app-produccion',
+  templateUrl: './produccion.page.html',
+  styleUrls: ['./produccion.page.scss'],
   standalone: true,
   imports: [
     IonicModule,
@@ -19,31 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
-  ],
-  })
-export class UsersPage implements OnInit {
-
-  userData: any;
+    HttpClientModule  ]
+})
+export class ProduccionPage implements OnInit {
   ApiRestFulService = inject(ApiRestFulService);
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.showCurrentUser();
+    console.log('ProduccionPage');
   }
 
-  /**
-   * Metodo que se encarga de obtener los datos del usuario actual
-   */
-  showCurrentUser(){
-    this.ApiRestFulService.currentUser().subscribe((data: any) => {
-      this.userData = data;
-    });
-  }
-
-  /**
-   * Metodo que se encarga de cerrar la sesion del usuario
-   */
   logout(){
     this.ApiRestFulService.logout();
   }
