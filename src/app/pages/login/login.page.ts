@@ -14,8 +14,9 @@ import {
   SocialAuthService,
   GoogleSigninButtonModule,
   FacebookLoginProvider,
+  GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
-import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google/login-facebook-google.module';
+import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google.module';
 import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
@@ -49,21 +50,23 @@ export class LoginPage implements OnInit {
   isLoggedin: any;
   ApiRestFulService = inject(ApiRestFulService);
 
+  private googleToken: any;
+  private facebookToken: any;
+
   constructor(
     @Inject(SocialAuthService) private authService: SocialAuthService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
-    /*
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = user != null;
-      console.log(this.socialUser);
+      this.setGoogleToken(user);
+      this.onGoogleSocialLogin();
     });
     this.params.page = 0;
-    */
     this.infLogin();
   }
 
@@ -79,9 +82,9 @@ export class LoginPage implements OnInit {
   }
 
   /**
-   * Realiza el inicio de sesión y segun la respuesta redirige a la pagina de usuarios
-   * o muestra un mensaje de error
-   */
+ * Realiza el inicio de sesión y segun la respuesta redirige a la pagina de usuarios
+ * o muestra un mensaje de error
+ */
   onLogin() {
     this.ApiRestFulService.postlogin(this.loginForm.value).subscribe(
       (response) => {
@@ -95,38 +98,49 @@ export class LoginPage implements OnInit {
     );
   }
 
+  /**
+   * Realiza el inicio de sesión con Facebook
+   */
   signInWithFB(): void {
-    /*if (window.location.protocol !== 'https:') {
-      console.error('Facebook login requires HTTPS. Please switch to HTTPS and retry.');
-      return;
-    }*/
-    this.authService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(() => {
-        this.authService.authState.subscribe((user) => {
-          this.socialUser = user;
-          this.isLoggedin = user != null;
-          alert('Facebook login success');
-          console.log('Facebook login success:', user);
-        });
-      })
-      .catch((error) => {
-        alert('Facebook login failed');
-        console.error('Facebook login failed:', error);
-      });
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((response) => {
+      this.socialUser = response;
+      this.isLoggedin = response != null;
+      this.facebookToken = response.authToken;
+      localStorage.setItem('FBToken', JSON.stringify(response.authToken));
+      this.onFacebookSocialLogin();
+      //this.router.navigateByUrl('/user');
+    });
   }
 
-  signOut(): void {
-    from(this.authService.signOut()).subscribe(
-      () => {
-        alert('User signed out');
-        console.log('User signed out');
-        this.isLoggedin = false;
-      },
-      (error) => {
-        alert('User sign out failed');
-        console.error('User sign out failed:', error);
+
+  /**
+   * Captura el token de inicio de sesión con Google
+   */
+  setGoogleToken(user: any) {
+    this.googleToken = user.idToken;
+    localStorage.setItem('googleToken', JSON.stringify(user.idToken));
+    //this.router.navigateByUrl('/user');
+  }
+
+  onGoogleSocialLogin() {
+    this.ApiRestFulService.registerGoogleSocial(this.socialUser).subscribe((response) => {
+      if (response.status === 200) {
+        console.log('Login success with status:', response.status);
+      } else {
+        console.error('Login failed with status:', response.status);
+        alert('Inicio de sesión fallido');
       }
-    );
+    });
+  }
+
+  onFacebookSocialLogin() {
+    this.ApiRestFulService.registerFacebookSocial(this.socialUser).subscribe((response) => {
+      if (response.status === 200) {
+        console.log('Login success with status:', response.status);
+      } else {
+        console.error('Login failed with status:', response.status);
+        alert('Inicio de sesión fallido');
+      }
+    });
   }
 }

@@ -15,6 +15,8 @@ import { chevronExpandOutline, logoIonic } from 'ionicons/icons';
 })
 
 
+
+
 export class AppComponent {
   constructor() {
     addIcons({
@@ -22,4 +24,5 @@ export class AppComponent {
     });
   }
 }
+
 
