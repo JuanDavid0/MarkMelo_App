@@ -1,0 +1,8 @@
+.button-container-login {
+  display: flex;
+  flex-direction: column; /* Muestra los botones en una columna */
+  justify-content: center; /* Centra los botones horizontalmente */
+}
+ion-button.social {
+  margin-top: 2rem;
+}

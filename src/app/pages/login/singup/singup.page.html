@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <script src="https://accounts.google.com/gsi/client" async></script>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-text center>
+    <h1 class="ion-padding" style="text-align: center">Crear Cuenta</h1>
+  </ion-text>
+
+  <form [formGroup]="registerForm">
+    <div class="ion-padding">
+      <ion-card>
+        <ion-item>
+          <label for="username" class="ion-text-bold"></label>
+          <ion-input
+          formControlName="username_user"
+            type="text"
+            id="username"
+            placeholder="Ingresa tu nombre"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="email" class="ion-text-bold"></label>
+          <ion-input
+            formControlName="email_user"
+            type="email"
+            id="email"
+            placeholder="Ingresa tu correo electrónico"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <label for="password" class="ion-text-bold"></label>
+          <ion-input
+            formControlName="password_user"
+            type="password"
+            id="password"
+            placeholder="Ingresa tu contraseña"
+          ></ion-input>
+        </ion-item>
+      </ion-card>
+      <div class="button-container-login" flex-direction="column">
+        <ion-button (click)="onRegister()" color="primary" [routerLink]="['/login']"
+          >crear cuenta</ion-button>
+      </div>  
+    </div>
+  </form>
+</ion-content>

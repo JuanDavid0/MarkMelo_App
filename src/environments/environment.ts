@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  urlApiRestful: 'https://api.uptc.online',
+  sales: '/sales',
+  users: '/users',
+  orders: '/orders',
+  authorization: 'c5LTA6WPbMwHhEabYu77nN9cn4VcMj',
+
+  login: '/users?login=true',
+  
 };
 
 /*
