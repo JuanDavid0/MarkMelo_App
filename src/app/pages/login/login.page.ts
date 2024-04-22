@@ -64,7 +64,8 @@ export class LoginPage implements OnInit {
       this.socialUser = user;
       this.isLoggedin = user != null;
       this.setGoogleToken(user);
-      this.onGoogleSocialLogin();
+      this.onGoogleSocialLogin(user);
+      console.log(this.socialUser);
     });
     this.params.page = 0;
     this.infLogin();
@@ -106,9 +107,8 @@ export class LoginPage implements OnInit {
       this.socialUser = response;
       this.isLoggedin = response != null;
       this.facebookToken = response.authToken;
-      localStorage.setItem('FBToken', JSON.stringify(response.authToken));
-      this.onFacebookSocialLogin();
-      //this.router.navigateByUrl('/user');
+      localStorage.setItem('JWT_TOKEN', JSON.stringify(this.facebookToken));
+      this.onFacebookSocialLogin(response);
     });
   }
 
@@ -118,14 +118,14 @@ export class LoginPage implements OnInit {
    */
   setGoogleToken(user: any) {
     this.googleToken = user.idToken;
-    localStorage.setItem('googleToken', JSON.stringify(user.idToken));
-    //this.router.navigateByUrl('/user');
+    localStorage.setItem('JWT_TOKEN', JSON.stringify(this.googleToken));
   }
 
-  onGoogleSocialLogin() {
-    this.ApiRestFulService.registerGoogleSocial(this.socialUser).subscribe((response) => {
+  onGoogleSocialLogin(user: any) {
+    this.ApiRestFulService.registerGoogleSocial(user).subscribe((response) => {
       if (response.status === 200) {
         console.log('Login success with status:', response.status);
+        this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
         console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
@@ -133,10 +133,11 @@ export class LoginPage implements OnInit {
     });
   }
 
-  onFacebookSocialLogin() {
-    this.ApiRestFulService.registerFacebookSocial(this.socialUser).subscribe((response) => {
+  onFacebookSocialLogin(user: any) {
+    this.ApiRestFulService.registerFacebookSocial(user).subscribe((response) => {
       if (response.status === 200) {
         console.log('Login success with status:', response.status);
+        this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
         console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
