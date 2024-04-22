@@ -155,7 +155,6 @@ export class ApiRestFulService {
   }
 
   register(user: any) {
-    debugger;
     const formData = new FormData();
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
@@ -164,7 +163,6 @@ export class ApiRestFulService {
   }
 
   registerGoogleSocial(user: any) {
-    debugger;
     const formData = new FormData();
     formData.append('username_user', user.name);
     formData.append('email_user', user.email);
@@ -174,7 +172,6 @@ export class ApiRestFulService {
   }
 
   registerFacebookSocial(user: any) {
-    debugger;
     const formData = new FormData();
     formData.append('username_user', user.name);
     formData.append('email_user', user.email);

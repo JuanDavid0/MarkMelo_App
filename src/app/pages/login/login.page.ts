@@ -69,7 +69,15 @@ export class LoginPage implements OnInit {
     this.params.page = 0;
     this.infLogin();
   }
-
+  
+  togglePasswordVisibility(){
+    let password = document.getElementById('password') as HTMLInputElement;
+    if(password.type == 'password'){
+      password.type = 'text';
+    }else{
+      password.type = 'password';
+    }
+  }
   /**
    * Asigna los valores iniciales al formulario de inicio de sesión
    * @param event

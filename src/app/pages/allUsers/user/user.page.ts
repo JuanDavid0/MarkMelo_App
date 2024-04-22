@@ -80,13 +80,13 @@ export class UserPage implements OnInit {
 
   selectCategory(event: any) {
     this.selectedCategoryId = event.detail.value;
-    console.log('Selected category ID:', this.selectedCategoryId);
-    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
+    console.log('Selected category ID: ', this.selectedCategoryId);
+    console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
   }
   selectSubCategory(event: any) {
     if (event && event.detail && event.detail.value) {
       this.selectedSubCategoryId = event.detail.value;
-      console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
+      console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
     } else {
       this.selectedSubCategoryId = undefined;
       console.log('No subcategories available');

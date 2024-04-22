@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
-import { chevronExpandOutline, logoIonic } from 'ionicons/icons';
+import { chevronExpandOutline, eyeOutline, logoIonic } from 'ionicons/icons';
 
 
 @Component({
@@ -21,6 +21,7 @@ export class AppComponent {
   constructor() {
     addIcons({
       'chevron-expand-outline': chevronExpandOutline,
+      'eye-outline': eyeOutline,
     });
   }
 }

@@ -49,18 +49,21 @@
     size-sm="12"
     size="12"
   >
-    <ion-card class="episode-card">
-      <ion-avatar>
-        <img
-          src="https://www.w3schools.com/howto/img_avatar.png"
-          alt="avatar"
-        />
-      </ion-avatar>
-      <ion-card-content class="space-between">
-        <ion-card-title>{{ p.nombre }}</ion-card-title>
-        <div [innerHTML]="p.resumen"></div>
+    <ion-card>
+      <img
+        alt="image_product"
+        src="https://catalogospromocionales.com{{ p.imageUrl }} "
+        style="display: block; margin: 0 auto; width: 200px; height: 150px"
+      />
+      <ion-card-header>
+        <ion-card-title> {{ p.nombre }} </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-card-subtitle>
+          <div [innerHTML]="p.resumen"></div>
+        </ion-card-subtitle>
         <div [innerHTML]="p.descripcionProducto"></div>
-        <p>{{ p.precio1 }}</p>
       </ion-card-content>
     </ion-card>
   </ion-col>
