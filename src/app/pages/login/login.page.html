@@ -30,6 +30,12 @@
             id="password"
             placeholder="Ingresa tu contraseña"
           ></ion-input>
+          <ion-icon
+            name="eye-outline"
+            slot="end"
+            id="togglePassword"
+            (click)="togglePasswordVisibility()"
+          ></ion-icon>
         </ion-item>
       </ion-card>
       <div>
@@ -37,7 +43,10 @@
         <p>¿No tienes cuenta? <a [routerLink]="['/singup']">Registrate</a></p>
       </div>
       <div class="button-container-login">
-        <ion-button (click)="onLogin()" color="primary" [routerLink]="['/login']"
+        <ion-button
+          (click)="onLogin()"
+          color="primary"
+          [routerLink]="['/login']"
           >Iniciar sesión</ion-button
         >
         <ion-button (click)="signInWithFB()" class="social"
@@ -50,13 +59,6 @@
             theme="filled_blue"
           ></asl-google-signin-button>
         </ion-button>
-      </div>
-      <div class="user-info" *ngIf="socialUser">
-        <img src="{{ socialUser.photoUrl }}" alt="Foto de perfil del usuario" />
-        <div>
-          <h2>{{ socialUser.name }}</h2>
-          <h2>{{ socialUser.email }}</h2>
-        </div>
       </div>
     </div>
   </form>

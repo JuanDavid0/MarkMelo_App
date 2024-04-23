@@ -69,20 +69,14 @@ export class SingupPage implements OnInit {
 
   onRegister(){
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-      this.apiRestFulService.register(this.registerForm.value).subscribe(
-        (response) => {
-          alert('¡Registro exitoso!');
-        },
-        (error) => {
-          console.error('Error al registrar:', error);
-          if (error.status === 400 && error.error.message === 'Not Found') {
-            alert('El correo electrónico no está registrado.');
-          } else {
-            alert('El correo electrónico ya está registrado.');
-          }
-        }
-      );
+        const email = this.registerForm.value.email;
+      if (!this.apiRestFulService.isExistingEmail(email)) {
+        console.log(this.registerForm.value);
+        alert('Registro exitoso.');
+        this.apiRestFulService.register(this.registerForm.value)
+      } else {
+        alert('El correo ya está registrado.');
+      }
     } else {
       alert('Por favor, complete el formulario correctamente.');
     }

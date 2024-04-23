@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class ApiRestFulService {
    * @returns
    */
   getUsers() {
-    return this.http.get(environment.urlApiRestful + environment.users);
+    return this.http.get('https://api.toolsmarketingsas.com/proxy/categorias');
   }
 
   /**
@@ -39,12 +39,12 @@ export class ApiRestFulService {
     formData.append('password_user', user.password_user);
 
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', formData)
+      .post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
             tokens.results[0].email_user,
-            'tokens.results[0].token_user'
+            tokens.results[0].token_user
           )
         )
       );
@@ -77,7 +77,7 @@ export class ApiRestFulService {
 
   /**
    * checkea si hay un token en el localstorage
-   * @returns retorna si el usuario esta logueado o no 
+   * @returns retorna si el usuario esta logueado o no
    */
   isloggedIn() {
     return localStorage.getItem(this.JWT_TOKEN) !== null;
@@ -98,7 +98,7 @@ export class ApiRestFulService {
 
   /**
    * Metodo que se encarga de verificar si el token ha expirado o no
-   * @returns retorna (false) si el token ha expirado o (true) si no ha expirado
+   * @returns retorna (false) si el token ha expirado(o no existe) o (true) si no ha expirado
    */
   tokenExpired() {
     const token = localStorage.getItem(this.JWT_TOKEN);
@@ -119,24 +119,41 @@ export class ApiRestFulService {
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-    formData.append('method_user', 'direct');
     return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
   }
 
+  isExistingEmail(email: string): boolean {
+    this.http.get('https://api.uptc.online/users?select=email_user&linkTo=email_user&equalTo=' + email)
+      .subscribe((response) => {
+        this.value = response;
+      });
+    if (this.value == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Metodo que se encarga de registrar un usuario con google en la API
   registerGoogleSocial(user: any) {
-    const googleFormData = new FormData();
-    googleFormData.append('username_user', user.name);
-    googleFormData.append('email_user', user.email);
-    googleFormData.append('picture_user', user.photoUrl);
-    googleFormData.append('token_user', user.idToken);
-    this.postGoogleLogin(user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', googleFormData);
+    if (this.isExistingEmail(user.email) == false) {
+      console.log('No existe, se inserta');
+      const googleFormData = new FormData();
+      googleFormData.append('username_user', user.name);
+      googleFormData.append('email_user', user.email);
+      googleFormData.append('picture_user', user.photoUrl);
+      googleFormData.append('method_user', user.provider);
+      return this.http.post<any>('https://api.uptc.online/users?register=true', googleFormData);
+    } else {
+      console.log('Existe, se loguea');
+      return this.postGoogleLogin(user)
+    }
   }
 
   postGoogleLogin(user: any): Observable<any> {
     const googleFormData = new FormData();
     googleFormData.append('email_user', user.email);
-    googleFormData.append('token_user', user.idToken);
+
     return this.http.post<any>('https://api.uptc.online/users?login=true', googleFormData).pipe(
       tap((tokens: any) =>
         this.doLoginUser(
@@ -147,20 +164,26 @@ export class ApiRestFulService {
     );
   }
 
+
   registerFacebookSocial(user: any) {
-    const facebookFormData = new FormData();
-    facebookFormData.append('username_user', user.name);
-    facebookFormData.append('email_user', user.email);
-    facebookFormData.append('picture_user', user.picture_user);
-    facebookFormData.append('token_user', user.authToken);
-    this.postFacebookLogin(user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', facebookFormData);
+    if (this.isExistingEmail(user.email) == false) {
+      console.log('No existe, se inserta');
+      const facebookFormData = new FormData();
+      facebookFormData.append('username_user', user.name);
+      facebookFormData.append('email_user', user.email);
+      facebookFormData.append('picture_user', user.picture_user);
+      facebookFormData.append('method_user', user.provider);
+      return this.http.post<any>('https://api.uptc.online/users?register=true', facebookFormData);
+    }else{
+      console.log('Existe, se loguea');
+      return this.postFacebookLogin(user);
+    }
   }
 
   postFacebookLogin(user: any): Observable<any> {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
-    facebookFormData.append('token_user', user.authToken);
+
     return this.http.post<any>('https://api.uptc.online/users?login=true', facebookFormData).pipe(
       tap((tokens: any) =>
         this.doLoginUser(
@@ -168,17 +191,6 @@ export class ApiRestFulService {
           tokens.results[0].token_user
         )
       )
-    );
-  }
-
-  checkEmail(email: string): Observable<boolean> {
-    return this.http.get<any>(`https://api.uptc.online/users?select=email_user&linkTo=email_user&search=${email}`).pipe(
-      map(response => {
-        return response.status === 200; 
-      }),
-      catchError((err: any, caught: Observable<boolean>) => {
-        return of(false); 
-      })
     );
   }
 
