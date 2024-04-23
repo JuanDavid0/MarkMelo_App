@@ -22,7 +22,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
-              '777497250059829'
+              '722074826741941'
             ),
           },
         ],

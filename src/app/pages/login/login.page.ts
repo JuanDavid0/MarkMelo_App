@@ -63,7 +63,6 @@ export class LoginPage implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = user != null;
-      this.setGoogleToken(user);
       this.onGoogleSocialLogin(user);
       console.log(this.socialUser);
     });
@@ -115,20 +114,15 @@ export class LoginPage implements OnInit {
       this.socialUser = response;
       this.isLoggedin = response != null;
       this.facebookToken = response.authToken;
-      localStorage.setItem('JWT_TOKEN', JSON.stringify(this.facebookToken));
+      //localStorage.setItem('JWT_TOKEN', JSON.stringify(this.facebookToken));
       this.onFacebookSocialLogin(response);
     });
   }
 
-
   /**
-   * Captura el token de inicio de sesión con Google
+   * Realiza el proceso de insersion de un usuario registrado con Google
+   * @param user 
    */
-  setGoogleToken(user: any) {
-    this.googleToken = user.idToken;
-    localStorage.setItem('JWT_TOKEN', JSON.stringify(this.googleToken));
-  }
-
   onGoogleSocialLogin(user: any) {
     this.ApiRestFulService.registerGoogleSocial(user).subscribe((response) => {
       if (response.status === 200) {
@@ -141,6 +135,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  /**
+   * Realiza el proceso de insersion de un usuario registrado con Facebook
+   * @param user 
+   */
   onFacebookSocialLogin(user: any) {
     this.ApiRestFulService.registerFacebookSocial(user).subscribe((response) => {
       if (response.status === 200) {
