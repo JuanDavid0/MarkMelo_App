@@ -31,10 +31,19 @@ class AccessGuard {
   ): boolean {
     const accessAuth = this.apiService.getRol(); 
     const currentPage = route.url[0].path; 
-    if (this.apiService.isloggedIn() && this.apiService.tokenExpired() && accessAuth == currentPage) {
-      return true;
-    }else {
-      this.router.navigate([accessAuth]);
+    if(this.apiService.isloggedIn() && this.apiService.tokenExpired()){
+      console.log('logged in');
+      if(accessAuth == currentPage){
+        console.log('access granted');
+        return true;
+      }else {
+        this.router.navigate([accessAuth]);
+        console.log('access denied');
+        return false;
+      }
+    }else{
+      console.log('not logged in, back to login page');
+      this.router.navigate(['/login']);
       return false;
     }
   }
