@@ -10,8 +10,6 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class ApiRestFulService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
-  private readonly GOOGLE_TOKEN = 'googleToken';
-  private readonly FACEBOOK_TOKEN = 'facebookToken';
   private loggedUser?: string;
   private value: any;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -46,7 +44,7 @@ export class ApiRestFulService {
         tap((tokens: any) =>
           this.doLoginUser(
             tokens.results[0].email_user,
-            tokens.results[0].token_user
+            'tokens.results[0].token_user'
           )
         )
       );
@@ -77,32 +75,12 @@ export class ApiRestFulService {
     this.router.navigate(['/login']);
   }
 
-  googleLogOut() {
-    localStorage.removeItem(this.GOOGLE_TOKEN);
-    this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);
-  }
-
-  facebookLogOut() {
-    localStorage.removeItem(this.FACEBOOK_TOKEN);
-    this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);
-  }
-
   /**
    * checkea si hay un token en el localstorage
    * @returns retorna si el usuario esta logueado o no
    */
   isloggedIn() {
     return localStorage.getItem(this.JWT_TOKEN) !== null;
-  }
-
-  isGoogleloggedIn() {
-    return localStorage.getItem(this.GOOGLE_TOKEN) !== null;
-  }
-
-  isFacebookloggedIn() {
-    return localStorage.getItem(this.FACEBOOK_TOKEN) !== null;
   }
 
   /**
@@ -115,24 +93,6 @@ export class ApiRestFulService {
       environment.users +
       '?select=email_user&linkTo=token_user&equalTo=' +
       localStorage.getItem(this.JWT_TOKEN)
-    );
-  }
-
-  currentUserGoogle() {
-    return this.http.get(
-      environment.urlApiRestful +
-      environment.users +
-      '?select=email_user&linkTo=token_user&equalTo=' +
-      localStorage.getItem(this.GOOGLE_TOKEN)
-    );
-  }
-
-  currentUserFacebook() {
-    return this.http.get(
-      environment.urlApiRestful +
-      environment.users +
-      '?select=email_user&linkTo=token_user&equalTo=' +
-      localStorage.getItem(this.FACEBOOK_TOKEN)
     );
   }
 
@@ -163,21 +123,51 @@ export class ApiRestFulService {
   }
 
   registerGoogleSocial(user: any) {
-    const formData = new FormData();
-    formData.append('username_user', user.name);
-    formData.append('email_user', user.email);
-    formData.append('picture_user', user.photoUrl);
-    formData.append('token_user', user.idToken);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+    const googleFormData = new FormData();
+    googleFormData.append('username_user', user.name);
+    googleFormData.append('email_user', user.email);
+    googleFormData.append('picture_user', user.photoUrl);
+    googleFormData.append('token_user', user.idToken);
+    this.postGoogleLogin(user);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', googleFormData);
+  }
+
+  postGoogleLogin(user: any): Observable<any> {
+    const googleFormData = new FormData();
+    googleFormData.append('email_user', user.email);
+    googleFormData.append('token_user', user.idToken);
+    return this.http.post<any>('https://api.uptc.online/users?login=true', googleFormData).pipe(
+      tap((tokens: any) =>
+        this.doLoginUser(
+          tokens.results[0].email_user,
+          tokens.results[0].token_user
+        )
+      )
+    );
   }
 
   registerFacebookSocial(user: any) {
-    const formData = new FormData();
-    formData.append('username_user', user.name);
-    formData.append('email_user', user.email);
-    formData.append('picture_user', user.photoUrl);
-    formData.append('token_user', user.authToken);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+    const facebookFormData = new FormData();
+    facebookFormData.append('username_user', user.name);
+    facebookFormData.append('email_user', user.email);
+    facebookFormData.append('picture_user', user.picture_user);
+    facebookFormData.append('token_user', user.authToken);
+    this.postFacebookLogin(user);
+    return this.http.post<any>('https://api.uptc.online/users?register=true', facebookFormData);
+  }
+
+  postFacebookLogin(user: any): Observable<any> {
+    const facebookFormData = new FormData();
+    facebookFormData.append('email_user', user.email);
+    facebookFormData.append('token_user', user.authToken);
+    return this.http.post<any>('https://api.uptc.online/users?login=true', facebookFormData).pipe(
+      tap((tokens: any) =>
+        this.doLoginUser(
+          tokens.results[0].email_user,
+          tokens.results[0].token_user
+        )
+      )
+    );
   }
 
   getRol() {
