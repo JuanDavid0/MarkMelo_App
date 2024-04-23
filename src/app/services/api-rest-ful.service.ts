@@ -14,12 +14,11 @@ export class ApiRestFulService {
   private value: any;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private router = inject(Router);
-
   public userDetails?: any;
 
   http = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
 
   /**
    * implementacion del metodo que se encarga de obtener los usuarios
@@ -37,16 +36,22 @@ export class ApiRestFulService {
     const formData = new FormData();
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-
     return this.http
       .post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
-        tap((tokens: any) =>
-          this.doLoginUser(
-            tokens.results[0].email_user,
-            'tokens.results[0].token_user'
-          )
-        )
+        tap((infUser: any) => {
+          const method = infUser.results[0].method_user;
+          if (method === 'direct') {
+            this.doLoginUser(
+              infUser.results[0].email_user,
+              infUser.results[0].token_user
+            );
+          } else {
+            alert(
+              `Este correo ya está registrado en otro medio (${method}). Por favor inicie sesión con Google o Facebook.`
+            );
+          }
+        })
       );
   }
 
@@ -90,9 +95,9 @@ export class ApiRestFulService {
   currentUser() {
     return this.http.get(
       environment.urlApiRestful +
-      environment.users +
-      '?select=email_user&linkTo=token_user&equalTo=' +
-      localStorage.getItem(this.JWT_TOKEN)
+        environment.users +
+        '?select=email_user&linkTo=token_user&equalTo=' +
+        localStorage.getItem(this.JWT_TOKEN)
     );
   }
 
@@ -119,7 +124,10 @@ export class ApiRestFulService {
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+    return this.http.post<any>(
+      'https://api.uptc.online/users?register=true',
+      formData
+    );
   }
 
   registerGoogleSocial(user: any) {
@@ -129,21 +137,26 @@ export class ApiRestFulService {
     googleFormData.append('picture_user', user.photoUrl);
     googleFormData.append('token_user', user.idToken);
     this.postGoogleLogin(user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', googleFormData);
+    return this.http.post<any>(
+      'https://api.uptc.online/users?register=true',
+      googleFormData
+    );
   }
 
   postGoogleLogin(user: any): Observable<any> {
     const googleFormData = new FormData();
     googleFormData.append('email_user', user.email);
     googleFormData.append('token_user', user.idToken);
-    return this.http.post<any>('https://api.uptc.online/users?login=true', googleFormData).pipe(
-      tap((tokens: any) =>
-        this.doLoginUser(
-          tokens.results[0].email_user,
-          tokens.results[0].token_user
+    return this.http
+      .post<any>('https://api.uptc.online/users?login=true', googleFormData)
+      .pipe(
+        tap((tokens: any) =>
+          this.doLoginUser(
+            tokens.results[0].email_user,
+            tokens.results[0].token_user
+          )
         )
-      )
-    );
+      );
   }
 
   registerFacebookSocial(user: any) {
@@ -153,26 +166,33 @@ export class ApiRestFulService {
     facebookFormData.append('picture_user', user.picture_user);
     facebookFormData.append('token_user', user.authToken);
     this.postFacebookLogin(user);
-    return this.http.post<any>('https://api.uptc.online/users?register=true', facebookFormData);
+    return this.http.post<any>(
+      'https://api.uptc.online/users?register=true',
+      facebookFormData
+    );
   }
 
   postFacebookLogin(user: any): Observable<any> {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
     facebookFormData.append('token_user', user.authToken);
-    return this.http.post<any>('https://api.uptc.online/users?login=true', facebookFormData).pipe(
-      tap((tokens: any) =>
-        this.doLoginUser(
-          tokens.results[0].email_user,
-          tokens.results[0].token_user
+    return this.http
+      .post<any>('https://api.uptc.online/users?login=true', facebookFormData)
+      .pipe(
+        tap((tokens: any) =>
+          this.doLoginUser(
+            tokens.results[0].email_user,
+            tokens.results[0].token_user
+          )
         )
-      )
-    );
+      );
   }
 
   getRol() {
-    const rol = 'user'
+    const rol = 'user';
     console.log('prueba');
     return rol;
   }
+
+  setMethodUser() {}
 }
