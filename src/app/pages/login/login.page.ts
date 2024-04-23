@@ -113,6 +113,8 @@ export class LoginPage implements OnInit {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((response) => {
       this.socialUser = response;
       this.isLoggedin = response != null;
+      this.facebookToken = response.authToken;
+      //localStorage.setItem('JWT_TOKEN', JSON.stringify(this.facebookToken));
       this.onFacebookSocialLogin(response);
     });
   }
