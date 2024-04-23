@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
@@ -115,11 +115,11 @@ export class ApiRestFulService {
   }
 
   register(user: any) {
-    debugger;
     const formData = new FormData();
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
+    formData.append('method_user', 'direct');
     return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
   }
 
@@ -168,6 +168,17 @@ export class ApiRestFulService {
           tokens.results[0].token_user
         )
       )
+    );
+  }
+
+  checkEmail(email: string): Observable<boolean> {
+    return this.http.get<any>(`https://api.uptc.online/users?select=email_user&linkTo=email_user&search=${email}`).pipe(
+      map(response => {
+        return response.status === 200; 
+      }),
+      catchError((err: any, caught: Observable<boolean>) => {
+        return of(false); 
+      })
     );
   }
 
