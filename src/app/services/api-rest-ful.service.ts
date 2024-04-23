@@ -119,6 +119,7 @@ export class ApiRestFulService {
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
+    formData.append('method_user', 'direct');
     return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
   }
 
@@ -163,7 +164,6 @@ export class ApiRestFulService {
       )
     );
   }
-
 
   registerFacebookSocial(user: any) {
     if (this.isExistingEmail(user.email) == false) {
