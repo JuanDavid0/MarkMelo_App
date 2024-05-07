@@ -118,7 +118,9 @@ export class ApiRestFulService {
     const formData = new FormData();
     formData.append('username_user', user.username_user);
     formData.append('email_user', user.email_user);
+    formData.append('phone_user',user.phone_user);
     formData.append('password_user', user.password_user);
+    formData.append('method_user', 'direct');
     return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
   }
 

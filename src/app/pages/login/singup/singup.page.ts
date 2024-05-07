@@ -42,9 +42,12 @@ export class SingupPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       username_user: ['', Validators.required],
       email_user: ['', [Validators.required, Validators.email]],
-      password_user: ['', [Validators.required, Validators.minLength(8), this.validateUppercase,this.validateSpecialCharacter,this.validateNumber]],
-    });
+      phone_user: ['', [Validators.required , Validators.pattern('^[+][0-9]{1,3}[0-9]{5,12}$')]] ,
+      password_user: ['', [Validators.required, Validators.minLength(8), this.validateUppercase, this.validateSpecialCharacter, this.validateNumber]],
+      confirm_password: ['', Validators.required]
+    }, {validator: this.passwordMatchValidator});
   }
+  
   
   validateUppercase(control: AbstractControl) {
     if (!/[A-Z]/.test(control.value)) {
@@ -65,6 +68,16 @@ export class SingupPage implements OnInit {
       return { number: true };
     }
     return null;
+  }
+
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password_user')?.value;
+    const confirmPassword = formGroup.get('confirm_password')?.value;
+    if (password !== confirmPassword) {
+      formGroup.get('confirm_password')?.setErrors({ mismatch: true });
+    } else {
+      formGroup.get('confirm_password')?.setErrors(null);
+    }
   }
 
   onRegister(){
