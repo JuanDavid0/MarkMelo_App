@@ -15,7 +15,7 @@
             formControlName="username_user"
             type="text"
             id="username"
-            placeholder="Ingrese su nombre"
+            placeholder="Ingresa tu nombre"
           ></ion-input>
         </ion-item>
         <div *ngIf="registerForm.get('username_user')?.hasError('required') && registerForm.get('username_user')?.touched">
@@ -27,7 +27,7 @@
             formControlName="email_user"
             type="email"
             id="email"
-            placeholder="Ingrese su correo electrónico"
+            placeholder="Ingresa tu correo electrónico"
           ></ion-input>
         </ion-item>
         <div *ngIf="registerForm.get('email_user')?.hasError('required') && registerForm.get('email_user')?.touched">
@@ -37,26 +37,33 @@
           <ion-text color="danger">Ingresa un correo electrónico válido.</ion-text>
         </div>
 
-        <ion-item>
-          <ion-input
-            formControlName ="phone_user" 
-            type="tel"
-            id="phone_user" 
+        <div style="display: flex;">
+          <ion-item style="flex: 1;">
+            <ion-input 
+            type="tel" 
+            id="country_code" 
+            placeholder="codigo de pais"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+            required>
+            </ion-input>
+          </ion-item>
+          
+          <ion-item style="flex: 4;">
+            <ion-input 
+            formControlName="phone_user" 
+            type="tel" id="phone_user"
             placeholder="Ingrese su número de teléfono"
-          ></ion-input>
-        </ion-item>
-        <div *ngIf="registerForm.get('phone_user')?.hasError('required') && registerForm.get('phone_user')?.touched">
-          <ion-text color="danger">El número de teléfono es requerido.</ion-text>
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+            </ion-input>
+          </ion-item>
         </div>
-        <div *ngIf="registerForm.get('phone_user')?.hasError('pattern') && registerForm.get('phone_user')?.touched">
-          <ion-text color="danger">Ingresa un número de teléfono válido , debe colocar el codigo de pais al principio (+57) .</ion-text>
-        </div>
+
         <ion-item>
           <ion-input
             formControlName="password_user"
             type="password"
             id="password"
-            placeholder="Ingrese su contraseña"
+            placeholder="Ingresa tu contraseña"
           ></ion-input>
         </ion-item>
         <div *ngIf="registerForm.get('password_user')?.hasError('required') && registerForm.get('password_user')?.touched">
@@ -76,27 +83,24 @@
         </div>
 
         <ion-item>
-          <ion-input
-            formControlName="confirm_password"
-            type="password"
-            id="confirm_password"
-            placeholder="Confirme su contraseña"
-          ></ion-input>
+          <ion-input 
+          type="password" 
+          id="confirm_password"
+          placeholder="Confirme su contraseña"
+          required>
+        </ion-input>
         </ion-item>
-        <div *ngIf="registerForm.get('confirm_password')?.hasError('mismatch') && registerForm.get('confirm_password')?.touched">
-          <ion-text color="danger">Las contraseñas no coinciden.</ion-text>
-        </div>
       </ion-card>
 
       <div class="button-container-login" flex-direction="column">
-        <ion-button [disabled]="!registerForm.valid" (click)="onRegister()" color="primary" [routerLink]="['/login']"
-          >crear cuenta</ion-button>
-      </div>
-      <div class="button-container-login" flex-direction="column">
-        <ion-button color="primary" [routerLink]="['/login']"
-          >Back</ion-button>
+        <ion-button [disabled]="!registerForm.valid" (click)="onRegister()" color="primary"
+          [routerLink]="['/login']">crear cuenta</ion-button>
       </div>
 
+      <div class="button-container-login" flex-direction="column">
+        <ion-button color="primary" [routerLink]="['/login']">Back</ion-button>
+      </div>
+      
     </div>
   </form>
 </ion-content>

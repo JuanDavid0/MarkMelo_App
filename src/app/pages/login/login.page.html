@@ -3,6 +3,10 @@
     <ion-title style="text-align: center; background: none">MarkMelo</ion-title>
   </ion-toolbar>
   <script src="https://accounts.google.com/gsi/client" async></script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0&appId=722074826741941"
+    nonce="8MUJQzur"></script>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -15,27 +19,14 @@
       <ion-card>
         <ion-item>
           <label for="email" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="email_user"
-            type="email"
-            id="email"
-            placeholder="Ingresa tu correo electrónico"
-          ></ion-input>
+          <ion-input formControlName="email_user" type="email" id="email"
+            placeholder="Ingresa tu correo electrónico"></ion-input>
         </ion-item>
         <ion-item>
           <label for="password" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="password_user"
-            type="password"
-            id="password"
-            placeholder="Ingresa tu contraseña"
-          ></ion-input>
-          <ion-icon
-            name="eye-outline"
-            slot="end"
-            id="togglePassword"
-            (click)="togglePasswordVisibility()"
-          ></ion-icon>
+          <ion-input formControlName="password_user" type="password" id="password"
+            placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-icon name="eye-outline" slot="end" id="togglePassword" (click)="togglePasswordVisibility()"></ion-icon>
         </ion-item>
       </ion-card>
       <div>
@@ -43,21 +34,13 @@
         <p>¿No tienes cuenta? <a [routerLink]="['/singup']">Registrate</a></p>
       </div>
       <div class="button-container-login">
-        <ion-button
-          (click)="onLogin()"
-          color="primary"
-          [routerLink]="['/login']"
-          >Iniciar sesión</ion-button
-        >
-        <ion-button (click)="signInWithFB()" class="social"
-          >Iniciar con Facebook</ion-button
-        >
-        <ion-button *ngIf="!socialUser" color="primary" class="google">
-          <asl-google-signin-button
-            type="standard"
-            size="small"
-            theme="filled_blue"
-          ></asl-google-signin-button>
+        <ion-button (click)="onLogin()" color="primary" [routerLink]="['/login']">Iniciar sesión</ion-button>
+        <ion-button (click)="signInWithFB()" class="social">
+          <div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout=""
+            data-auto-logout-link="false" data-use-continue-as="false">Inicia sesión con Facebook</div>
+        </ion-button>
+        <ion-button color="primary" class="google">
+          <asl-google-signin-button type="standard" size="small" theme="filled_blue"></asl-google-signin-button>
         </ion-button>
       </div>
     </div>
