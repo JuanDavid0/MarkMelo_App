@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Categorias } from 'src/app/models/categorias.model';
 import { Productos } from 'src/app/models/productos.model';
+import { categoriesData } from 'src/app/models/mainCategorias';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,7 @@ export class UserPage implements OnInit {
   selectedCategoryId!: number;
   selectedSubCategoryId?: number;
   productos: Productos[] = [];
+  categoriesData = categoriesData;
 
   constructor(private router: Router) {}
 
@@ -41,7 +43,10 @@ export class UserPage implements OnInit {
     );
     this.showCurrentUser();
     this.getCategorys();
-    this.getMainCategory();
+  }
+
+  prueba(){
+    console.log('prueba')
   }
 
   /**
@@ -64,6 +69,26 @@ export class UserPage implements OnInit {
     this.ApiProductsService.categorias().subscribe({
       next: (response: any) => {
         this.allCategories = response.resultado;
+      },
+    });
+  }
+
+  showProducts() {
+    console.log('Selected category ID:', this.selectedCategoryId);
+    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
+
+    let categoryIdToUse: number;
+
+    if (this.selectedSubCategoryId !== undefined) {
+      categoryIdToUse = this.selectedSubCategoryId;
+    } else {
+      categoryIdToUse = this.selectedCategoryId;
+    }
+
+    this.ApiProductsService.productsByCategory(categoryIdToUse).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.productos = response.resultado;
       },
     });
   }
@@ -91,25 +116,5 @@ export class UserPage implements OnInit {
       this.selectedSubCategoryId = undefined;
       console.log('No subcategories available');
     }
-  }
-
-  showProducts() {
-    console.log('Selected category ID:', this.selectedCategoryId);
-    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
-
-    let categoryIdToUse: number;
-
-    if (this.selectedSubCategoryId !== undefined) {
-      categoryIdToUse = this.selectedSubCategoryId;
-    } else {
-      categoryIdToUse = this.selectedCategoryId;
-    }
-
-    this.ApiProductsService.productsByCategory(categoryIdToUse).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.productos = response.resultado;
-      },
-    });
   }
 }
