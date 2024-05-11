@@ -42,10 +42,11 @@ export class SingupPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       username_user: ['', Validators.required],
       email_user: ['', [Validators.required, Validators.email]],
+      phone_user: ['',] ,
       password_user: ['', [Validators.required, Validators.minLength(8), this.validateUppercase,this.validateSpecialCharacter,this.validateNumber]],
     });
   }
-  
+
   validateUppercase(control: AbstractControl) {
     if (!/[A-Z]/.test(control.value)) {
       return { uppercase: true };
@@ -67,15 +68,38 @@ export class SingupPage implements OnInit {
     return null;
   }
 
+  formatPhone() {
+    const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
+    const countryCode = countryCodeInput.value;
+    if (countryCode.trim() !== '' && this.registerForm.value.phone_user.trim() !== '') {
+      console.log(countryCodeInput.value);
+      this.registerForm.patchValue({
+        phone_user: "+"+ countryCodeInput.value + "_" + this.registerForm.value.phone_user
+      });
+    } else {
+      this.registerForm.patchValue({
+        phone_user: 'NULL'
+      });
+    }
+  }
+
+  checkPasswords() {
+    const password = this.registerForm.get('password_user')?.value;
+    const confirmPassword = document.getElementById('confirm_password') as HTMLInputElement;
+    return password !== confirmPassword.value;
+  }
+
   onRegister(){
     if (this.registerForm.valid) {
-        const email = this.registerForm.value.email;
-      if (!this.apiRestFulService.isExistingEmail(email)) {
-        console.log(this.registerForm.value);
-        alert('Registro exitoso.');
-        this.apiRestFulService.register(this.registerForm.value)
+      if (this.checkPasswords()) {
+        alert('Las contraseñas no coinciden.');
       } else {
-        alert('El correo ya está registrado.');
+        console.log(this.registerForm.value);
+        this.formatPhone();
+        this.apiRestFulService.register(this.registerForm.value).subscribe(response => {
+        }, error => {
+          alert('Registro fallido! Intente nuevamente.');
+        });
       }
     } else {
       alert('Por favor, complete el formulario correctamente.');

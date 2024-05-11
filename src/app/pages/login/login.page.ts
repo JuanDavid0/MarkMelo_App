@@ -64,7 +64,6 @@ export class LoginPage implements OnInit {
       this.socialUser = user;
       this.isLoggedin = user != null;
       this.onGoogleSocialLogin(user);
-      console.log(this.socialUser);
     });
     this.params.page = 0;
     this.infLogin();
@@ -114,7 +113,6 @@ export class LoginPage implements OnInit {
       this.socialUser = response;
       this.isLoggedin = response != null;
       this.facebookToken = response.authToken;
-      //localStorage.setItem('JWT_TOKEN', JSON.stringify(this.facebookToken));
       this.onFacebookSocialLogin(response);
     });
   }
@@ -126,10 +124,8 @@ export class LoginPage implements OnInit {
   onGoogleSocialLogin(user: any) {
     this.ApiRestFulService.registerGoogleSocial(user).subscribe((response) => {
       if (response.status === 200) {
-        console.log('Login success with status:', response.status);
         this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
-        console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
       }
     });
@@ -142,10 +138,8 @@ export class LoginPage implements OnInit {
   onFacebookSocialLogin(user: any) {
     this.ApiRestFulService.registerFacebookSocial(user).subscribe((response) => {
       if (response.status === 200) {
-        console.log('Login success with status:', response.status);
         this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
-        console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
       }
     });

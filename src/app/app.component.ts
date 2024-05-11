@@ -9,6 +9,7 @@ import {
   documentAttachOutline,
   eyeOutline,
   fileTrayFullOutline,
+  logoFacebook,
   megaphoneOutline,
   menuOutline,
   peopleOutline,
@@ -35,6 +36,7 @@ export class AppComponent {
       'time-outline': timeOutline,
       'file-tray-full-outline': fileTrayFullOutline,
       'document-attach-outline': documentAttachOutline,
+      'logo-facebook': logoFacebook,
     });
   }
 }

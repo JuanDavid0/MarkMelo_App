@@ -37,6 +37,27 @@
           <ion-text color="danger">Ingresa un correo electrónico válido.</ion-text>
         </div>
 
+        <div style="display: flex;">
+          <ion-item style="flex: 1;">
+            <ion-input 
+            type="tel" 
+            id="country_code" 
+            placeholder="codigo de pais"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+            required>
+            </ion-input>
+          </ion-item>
+          
+          <ion-item style="flex: 4;">
+            <ion-input 
+            formControlName="phone_user" 
+            type="tel" id="phone_user"
+            placeholder="Ingrese su número de teléfono"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+            </ion-input>
+          </ion-item>
+        </div>
+
         <ion-item>
           <ion-input
             formControlName="password_user"
@@ -60,17 +81,26 @@
         <div *ngIf="registerForm.get('password_user')?.hasError('number') && registerForm.get('password_user')?.touched">
           <ion-text color="danger">La contraseña debe contener al menos un numero</ion-text>
         </div>
+
+        <ion-item>
+          <ion-input 
+          type="password" 
+          id="confirm_password"
+          placeholder="Confirme su contraseña"
+          required>
+        </ion-input>
+        </ion-item>
       </ion-card>
 
       <div class="button-container-login" flex-direction="column">
-        <ion-button [disabled]="!registerForm.valid" (click)="onRegister()" color="primary" [routerLink]="['/login']"
-          >crear cuenta</ion-button>
-      </div>
-      <div class="button-container-login" flex-direction="column">
-        <ion-button color="primary" [routerLink]="['/login']"
-          >Back</ion-button>
+        <ion-button [disabled]="!registerForm.valid" (click)="onRegister()" color="primary"
+          [routerLink]="['/login']">crear cuenta</ion-button>
       </div>
 
+      <div class="button-container-login" flex-direction="column">
+        <ion-button color="primary" [routerLink]="['/login']">Back</ion-button>
+      </div>
+      
     </div>
   </form>
 </ion-content>
