@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
@@ -37,18 +37,23 @@ export class ApiRestFulService {
     const formData = new FormData();
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-
-    return this.http
-      .post<any>(environment.urlApiRestful + environment.login, formData)
+  
+    return this.http.post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
-        tap((tokens: any) =>
-          this.doLoginUser(
-            tokens.results[0].email_user,
-            'tokens.results[0].token_user'
-          )
-        )
+        catchError(error => {
+          console.error('Error during login:', error);
+          throw error;
+        }),
+        tap(tokens => {
+          if (tokens.results && tokens.results[0].method_user === 'direct') {
+            this.doLoginUser(tokens.results[0].email_user, tokens.results[0].token_user);
+          } else {
+              alert('Login attempted with non-direct method, use: '+ tokens.results[0].method_user);
+          }
+        })
       );
   }
+  
 
   /**
    * Encargado de alamacenar el token del usuario en el localstorage
@@ -91,7 +96,7 @@ export class ApiRestFulService {
     return this.http.get(
       environment.urlApiRestful +
       environment.users +
-      '?select=email_user&linkTo=token_user&equalTo=' +
+      '?select=username_user&linkTo=token_user&equalTo=' +
       localStorage.getItem(this.JWT_TOKEN)
     );
   }

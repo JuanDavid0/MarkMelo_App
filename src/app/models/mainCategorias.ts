@@ -1,0 +1,23 @@
+export const categoriesData = [
+    { id: 12, name: 'Confecciones' },
+    { id: 13, name: 'Cuidado Personal' },
+    { id: 15, name: 'Herramientas' },
+    { id: 16, name: 'Hogar' },
+    { id: 17, name: 'Iluminacion' },
+    { id: 18, name: 'Produccion Nacional' },
+    { id: 19, name: 'llaveros' },
+    { id: 22, name: 'Master Line' },
+    { id: 23, name: 'Bebida' },
+    { id: 24, name: 'oficina' },
+    { id: 25, name: 'Paraguas' },
+    { id: 27, name: 'Relojes' },
+    { id: 31, name: 'memorias USB' },
+    { id: 253, name:'Boligrafos' },
+    { id: 107, name:'Maletines' },
+    { id: 109, name:'Golf' },
+    { id: 112, name:'Tecnologia' },
+    { id: 292, name:'Gorras'},
+];
+
+//{ id: 11, name: 'Calculadoras' },
+//{ id: 28, name: 'Variedades' },
