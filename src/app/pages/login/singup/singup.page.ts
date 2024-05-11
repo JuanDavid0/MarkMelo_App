@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -41,22 +41,66 @@ export class SingupPage implements OnInit {
   infRegister(event?: any){
     this.registerForm = this.formBuilder.group({
       username_user: ['', Validators.required],
-      email_user: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
-      password_user: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
+      email_user: ['', [Validators.required, Validators.email]],
+      phone_user: ['',] ,
+      password_user: ['', [Validators.required, Validators.minLength(8), this.validateUppercase,this.validateSpecialCharacter,this.validateNumber]],
     });
   }
-  
+
+  validateUppercase(control: AbstractControl) {
+    if (!/[A-Z]/.test(control.value)) {
+      return { uppercase: true };
+    }
+    return null;
+  }
+
+  validateSpecialCharacter(control: AbstractControl) {
+    if (!/[!@#$%^&.*]/.test(control.value)) {
+      return { specialCharacter: true };
+    }
+    return null;
+  }
+
+  validateNumber(control: AbstractControl) {
+    if (!/\d/.test(control.value)) {
+      return { number: true };
+    }
+    return null;
+  }
+
+  formatPhone() {
+    const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
+    const countryCode = countryCodeInput.value;
+    if (countryCode.trim() !== '' && this.registerForm.value.phone_user.trim() !== '') {
+      console.log(countryCodeInput.value);
+      this.registerForm.patchValue({
+        phone_user: "+"+ countryCodeInput.value + "_" + this.registerForm.value.phone_user
+      });
+    } else {
+      this.registerForm.patchValue({
+        phone_user: 'NULL'
+      });
+    }
+  }
+
+  checkPasswords() {
+    const password = this.registerForm.get('password_user')?.value;
+    const confirmPassword = document.getElementById('confirm_password') as HTMLInputElement;
+    return password !== confirmPassword.value;
+  }
+
   onRegister(){
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-      this.apiRestFulService.register(this.registerForm.value).subscribe(response => {
-        if (response.status === 200) {
-          alert('REGISTRO EXITOSO!');
-        } else {
-          console.error('Login failed with status:', response.status);
+      if (this.checkPasswords()) {
+        alert('Las contraseñas no coinciden.');
+      } else {
+        console.log(this.registerForm.value);
+        this.formatPhone();
+        this.apiRestFulService.register(this.registerForm.value).subscribe(response => {
+        }, error => {
           alert('Registro fallido! Intente nuevamente.');
-        }
-      });
+        });
+      }
     } else {
       alert('Por favor, complete el formulario correctamente.');
     }

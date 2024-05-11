@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Categorias } from 'src/app/models/categorias.model';
 import { Productos } from 'src/app/models/productos.model';
+import { categoriesData } from 'src/app/models/mainCategorias';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,7 @@ export class UserPage implements OnInit {
   selectedCategoryId!: number;
   selectedSubCategoryId?: number;
   productos: Productos[] = [];
+  categoriesData = categoriesData;
 
   constructor(private router: Router) {}
 
@@ -41,7 +43,10 @@ export class UserPage implements OnInit {
     );
     this.showCurrentUser();
     this.getCategorys();
-    this.getMainCategory();
+  }
+
+  prueba(){
+    console.log('prueba')
   }
 
   /**
@@ -68,31 +73,6 @@ export class UserPage implements OnInit {
     });
   }
 
-  getMainCategory() {
-    return this.allCategories.filter((category) => category.idParent === null);
-  }
-
-  getSubCategory(idParent: any) {
-    return this.allCategories.filter(
-      (category) => category.idParent === idParent
-    );
-  }
-
-  selectCategory(event: any) {
-    this.selectedCategoryId = event.detail.value;
-    console.log('Selected category ID:', this.selectedCategoryId);
-    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
-  }
-  selectSubCategory(event: any) {
-    if (event && event.detail && event.detail.value) {
-      this.selectedSubCategoryId = event.detail.value;
-      console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
-    } else {
-      this.selectedSubCategoryId = undefined;
-      console.log('No subcategories available');
-    }
-  }
-
   showProducts() {
     console.log('Selected category ID:', this.selectedCategoryId);
     console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
@@ -111,5 +91,30 @@ export class UserPage implements OnInit {
         this.productos = response.resultado;
       },
     });
+  }
+
+  getMainCategory() {
+    return this.allCategories.filter((category) => category.idParent === null);
+  }
+
+  getSubCategory(idParent: any) {
+    return this.allCategories.filter(
+      (category) => category.idParent === idParent
+    );
+  }
+
+  selectCategory(event: any) {
+    this.selectedCategoryId = event.detail.value;
+    console.log('Selected category ID: ', this.selectedCategoryId);
+    console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
+  }
+  selectSubCategory(event: any) {
+    if (event && event.detail && event.detail.value) {
+      this.selectedSubCategoryId = event.detail.value;
+      console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
+    } else {
+      this.selectedSubCategoryId = undefined;
+      console.log('No subcategories available');
+    }
   }
 }

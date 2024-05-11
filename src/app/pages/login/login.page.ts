@@ -63,13 +63,20 @@ export class LoginPage implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = user != null;
-      this.setGoogleToken(user);
-      this.onGoogleSocialLogin();
+      this.onGoogleSocialLogin(user);
     });
     this.params.page = 0;
     this.infLogin();
   }
-
+  
+  togglePasswordVisibility(){
+    let password = document.getElementById('password') as HTMLInputElement;
+    if(password.type == 'password'){
+      password.type = 'text';
+    }else{
+      password.type = 'password';
+    }
+  }
   /**
    * Asigna los valores iniciales al formulario de inicio de sesión
    * @param event
@@ -106,39 +113,33 @@ export class LoginPage implements OnInit {
       this.socialUser = response;
       this.isLoggedin = response != null;
       this.facebookToken = response.authToken;
-      localStorage.setItem('FBToken', JSON.stringify(response.authToken));
-      this.onFacebookSocialLogin();
-      //this.router.navigateByUrl('/user');
+      this.onFacebookSocialLogin(response);
     });
   }
 
-
   /**
-   * Captura el token de inicio de sesión con Google
+   * Realiza el proceso de insersion de un usuario registrado con Google
+   * @param user 
    */
-  setGoogleToken(user: any) {
-    this.googleToken = user.idToken;
-    localStorage.setItem('googleToken', JSON.stringify(user.idToken));
-    //this.router.navigateByUrl('/user');
-  }
-
-  onGoogleSocialLogin() {
-    this.ApiRestFulService.registerGoogleSocial(this.socialUser).subscribe((response) => {
+  onGoogleSocialLogin(user: any) {
+    this.ApiRestFulService.registerGoogleSocial(user).subscribe((response) => {
       if (response.status === 200) {
-        console.log('Login success with status:', response.status);
+        this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
-        console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
       }
     });
   }
 
-  onFacebookSocialLogin() {
-    this.ApiRestFulService.registerFacebookSocial(this.socialUser).subscribe((response) => {
+  /**
+   * Realiza el proceso de insersion de un usuario registrado con Facebook
+   * @param user 
+   */
+  onFacebookSocialLogin(user: any) {
+    this.ApiRestFulService.registerFacebookSocial(user).subscribe((response) => {
       if (response.status === 200) {
-        console.log('Login success with status:', response.status);
+        this.router.navigate([this.ApiRestFulService.getRol()]);
       } else {
-        console.error('Login failed with status:', response.status);
         alert('Inicio de sesión fallido');
       }
     });

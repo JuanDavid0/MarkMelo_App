@@ -2,7 +2,16 @@
   display: flex;
   flex-direction: column; /* Muestra los botones en una columna */
   justify-content: center; /* Centra los botones horizontalmente */
+  align-items: center; /* Centra los botones verticalmente */
+  margin-top: 0%;
+  padding: auto;
+
 }
 ion-button.social {
   margin-top: 2rem;
+}
+
+div .google{
+  justify-content: center;
+  align-items: center;
 }
