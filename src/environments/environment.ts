@@ -14,8 +14,8 @@ export const environment = {
   register: '/users?register=true',
 
   urlApiProducts: 'https://api.toolsmarketingsas.com/proxy',
-  categorias: '/categorias/',
-  productos: '/productos/',
+  Categories: '/categorias/',
+  Products: '/productos/',
   stock: '/stock/',
 };
 

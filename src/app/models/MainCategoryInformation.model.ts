@@ -1,4 +1,4 @@
-export const categoriesData = [
+export const MainCategoryInformation = [
     { id: 12, name: 'Confecciones' },
     { id: 13, name: 'Cuidado Personal' },
     { id: 15, name: 'Herramientas' },

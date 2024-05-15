@@ -9,11 +9,28 @@ export class ApiProductsService {
   http = inject(HttpClient);
   constructor() {}
 
-  categorias() {
-    return this.http.get('https://api.toolsmarketingsas.com/proxy/categorias');
+  Categories() {
+    return this.http.get(environment.urlApiProducts + environment.Categories);
   }
 
   productsByCategory(id: number) {
-    return this.http.get(`https://api.toolsmarketingsas.com/proxy/categorias/${id}/productos/`);
+    return this.http.get(
+      environment.urlApiProducts +
+        environment.Categories +
+        id +
+        environment.Products
+    );
+  }
+
+  productsByIdorReference(id: number | string) {
+    return this.http.get(
+      environment.urlApiProducts + environment.Products + id
+    );
+  }
+
+  getStockByReference(reference: string) {
+    return this.http.get(
+      environment.urlApiProducts + environment.stock + reference
+    );
   }
 }

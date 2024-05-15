@@ -6,9 +6,9 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
-import { Categorias } from 'src/app/models/categorias.model';
-import { Productos } from 'src/app/models/productos.model';
-import { categoriesData } from 'src/app/models/mainCategorias';
+import { Categories } from 'src/app/models/Categories.model';
+import { Products } from 'src/app/models/Products.model';
+import { MainCategoryInformation } from 'src/app/models/MainCategoryInformation.model';
 
 @Component({
   selector: 'app-user',
@@ -29,24 +29,21 @@ export class UserPage implements OnInit {
   ApiRestFulService = inject(ApiRestFulService);
 
   userData: any;
-  allCategories: Categorias[] = [];
+  allCategories: Categories[] = [];
   selectedCategoryId!: number;
   selectedSubCategoryId?: number;
-  productos: Productos[] = [];
-  categoriesData = categoriesData;
+  Products: Products[] = [];
+  mainCategoryInformation = MainCategoryInformation;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log(
-      'cat' + this.selectedCategoryId + 'subCat' + this.selectedSubCategoryId
-    );
     this.showCurrentUser();
     this.getCategorys();
   }
 
-  prueba(){
-    console.log('prueba')
+  prueba() {
+    console.log('prueba');
   }
 
   /**
@@ -66,17 +63,15 @@ export class UserPage implements OnInit {
   }
 
   getCategorys() {
-    this.ApiProductsService.categorias().subscribe({
+    this.ApiProductsService.Categories().subscribe({
       next: (response: any) => {
         this.allCategories = response.resultado;
+        console.log('Categorias', this.allCategories);
       },
     });
   }
 
   showProducts() {
-    console.log('Selected category ID:', this.selectedCategoryId);
-    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
-
     let categoryIdToUse: number;
 
     if (this.selectedSubCategoryId !== undefined) {
@@ -87,8 +82,7 @@ export class UserPage implements OnInit {
 
     this.ApiProductsService.productsByCategory(categoryIdToUse).subscribe({
       next: (response: any) => {
-        console.log(response);
-        this.productos = response.resultado;
+        this.Products = response.resultado;
       },
     });
   }
@@ -105,16 +99,12 @@ export class UserPage implements OnInit {
 
   selectCategory(event: any) {
     this.selectedCategoryId = event.detail.value;
-    console.log('Selected category ID: ', this.selectedCategoryId);
-    console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
   }
   selectSubCategory(event: any) {
     if (event && event.detail && event.detail.value) {
       this.selectedSubCategoryId = event.detail.value;
-      console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
     } else {
       this.selectedSubCategoryId = undefined;
-      console.log('No subcategories available');
     }
   }
 }

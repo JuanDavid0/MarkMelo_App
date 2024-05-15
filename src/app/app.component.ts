@@ -4,11 +4,13 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
 import {
+  cart,
   chevronDownCircle,
   chevronExpandOutline,
   documentAttachOutline,
   eyeOutline,
   fileTrayFullOutline,
+  heart,
   logoFacebook,
   megaphoneOutline,
   menuOutline,
@@ -37,6 +39,8 @@ export class AppComponent {
       'file-tray-full-outline': fileTrayFullOutline,
       'document-attach-outline': documentAttachOutline,
       'logo-facebook': logoFacebook,
+      'heart': heart,
+      'cart': cart,
     });
   }
 }
