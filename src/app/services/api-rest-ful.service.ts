@@ -1,6 +1,6 @@
 import { SharedModule } from './../shared/shared.module';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {
@@ -103,6 +103,23 @@ export class ApiRestFulService {
         environment.users +
         '?select=username_user&linkTo=token_user&equalTo=' +
         localStorage.getItem(this.JWT_TOKEN)
+    );
+  }
+
+  get_id_User(): Observable<string> {
+    return this.http.get<any>(
+      environment.urlApiRestful +
+        environment.users +
+        '?select=id_user&linkTo=token_user&equalTo=' +
+        localStorage.getItem(this.JWT_TOKEN)
+    ).pipe(
+      map((response: any) => {
+        if (response.results && response.results.length > 0) {
+          return response.results[0].id_user;
+        } else {
+          throw new Error('No se pudo obtener el id_user.');
+        }
+      })
     );
   }
 
@@ -306,7 +323,7 @@ export class ApiRestFulService {
           this.doLoginUser(
             tokens.results[0].email_user,
             tokens.results[0].token_user
-          )
+          ) 
         )
       );
   }
@@ -316,6 +333,31 @@ export class ApiRestFulService {
     console.log('prueba');
     return rol;
   }
+
+  updateUserInfo(editar: any) {
+    const controls = editar.controls;
+    let queryString = '';
+    Object.keys(controls).forEach(key => {
+      const control = controls[key];
+      console.log(key, control);
+      if (control.status === 'VALID') queryString += key + '=' + control.value + '&';
+    });
+    console.log('AL FIN---> '+queryString);
+    const token = localStorage.getItem(this.JWT_TOKEN) || '';
+    this.get_id_User().subscribe((userId: string) => {
+      this.http.put('https://api.uptc.online/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
+      queryString, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }).subscribe((response: any) => {
+        console.log('Respuesta:', response);
+      });
+    });
+  }
+  
+
+  
 
   setMethodUser() {}
 }

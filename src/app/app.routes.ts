@@ -84,5 +84,9 @@ export const routes: Routes = [
       import('./pages/allUsers/user/vista-productos/vista-productos.page').then(
         (m) => m.VistaProductosPage
       ),
+  },  {
+    path: 'editar-perfil',
+    loadComponent: () => import('./pages/allUsers/user/editar-perfil/editar-perfil.page').then( m => m.EditarPerfilPage)
   },
+
 ];
