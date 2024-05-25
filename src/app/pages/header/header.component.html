@@ -1,0 +1,58 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button id="slide-menu">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="megaphone-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="people-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button id="profile-menu">
+        <ion-icon name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-popover trigger="slide-menu" [dismissOnSelect]="true">
+  <ng-template>
+    <ion-content style="border-radius: 50">
+      <ion-list>
+        <ion-item [button]="true" [detail]="false" (click)="prueba()">
+          <ion-icon name="time-outline"> </ion-icon>
+          <ion-label>&nbsp; Historial de pedidos</ion-label>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false">
+          <ion-icon name="file-tray-full-outline"></ion-icon>
+          <ion-label>&nbsp; Estado de pedidos</ion-label>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false">
+          <ion-icon name="document-attach-outline"></ion-icon>
+          <ion-label>&nbsp; Catalogo</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ion-popover trigger="profile-menu" [dismissOnSelect]="true">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" [detail]="false" (click)="prueba()" [routerLink]="['/editar-perfil']"
+          >editar perfil</ion-item>
+        <ion-item [button]="true" [detail]="false">configuracion</ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="logout()">cerrar sesion</ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

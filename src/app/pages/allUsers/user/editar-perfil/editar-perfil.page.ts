@@ -7,6 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { count } from 'rxjs';
+import { FooterComponent } from 'src/app/pages/footer/footer.component';
+import { HeaderComponent } from 'src/app/pages/header/header.component';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -20,6 +22,8 @@ import { count } from 'rxjs';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
+    FooterComponent,
+    HeaderComponent
   ],
 })
 export class EditarPerfilPage implements OnInit {

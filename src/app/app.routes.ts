@@ -84,9 +84,30 @@ export const routes: Routes = [
       import('./pages/allUsers/user/vista-productos/vista-productos.page').then(
         (m) => m.VistaProductosPage
       ),
-  },  {
-    path: 'editar-perfil',
-    loadComponent: () => import('./pages/allUsers/user/editar-perfil/editar-perfil.page').then( m => m.EditarPerfilPage)
   },
-
+  {
+    path: 'editar-perfil',
+    loadComponent: () => import('./pages/allUsers/user/editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage)
+  },
+  {
+    path: 'politicas-web',
+    loadComponent: () =>
+      import('./pages/website-policies/website-policies.component').then(
+        (m) => m.WebsitePoliciesComponent
+      ),
+  },
+  {
+    path: 'politicas-privacidad',
+    loadComponent: () =>
+      import('./pages/website-policies/privacy-polices/privacy-polices.component').then(
+        (m) => m.PrivacyPolicesComponent
+      ),
+  },
+  {
+    path: 'terminos-condiciones',
+    loadComponent: () =>
+      import('./pages/website-policies/terms-conditions/terms-conditions.component').then(
+        (m) => m.TermsConditionsComponent
+      ),
+    }
 ];

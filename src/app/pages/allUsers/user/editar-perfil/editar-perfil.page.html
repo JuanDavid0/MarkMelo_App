@@ -1,64 +1,50 @@
-<ion-header [translucent]="true">
+<ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-  </ion-header>
 
   <form [formGroup]="editar" class="ion-padding">
     <div class="button-container-login">
-      
+
       <ion-card-content>
         <div *ngIf="userData">
           <p style="text-align: center">
-            Username: {{ userData.results[0].username_user }} 
+            Username: {{ userData.results[0].username_user }}
           </p>
         </div>
         <div *ngIf="!userData">
-          <p>Loading user data...</p>
+          <p style="text-align: center">Loading user data...</p>
         </div>
       </ion-card-content>
-    
+
       <ion-card>
 
         <ion-item>
           <label for="country_user" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="country_user"
-            placeholder="Pais"
-          ></ion-input>
+          <ion-input formControlName="country_user" placeholder="Pais"></ion-input>
         </ion-item>
 
         <ion-item>
           <label for="city_user" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="city_user"
-            placeholder="Ciudad"
-          ></ion-input>
+          <ion-input formControlName="city_user" placeholder="Ciudad"></ion-input>
         </ion-item>
 
         <ion-item>
           <label for="address_user" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="address_user"
-            placeholder="Direccion"
-          ></ion-input>
+          <ion-input formControlName="address_user" placeholder="Direccion"></ion-input>
         </ion-item>
 
         <ion-item>
           <label for="country_code" class="ion-text-bold"></label>
-          <ion-input
-          id="country_code"
-            placeholder="Codigo de pais"
-          ></ion-input>
+          <ion-input id="country_code" placeholder="Codigo de pais"></ion-input>
         </ion-item>
 
         <ion-item>
           <label for="phone_user" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="phone_user"
-            placeholder="Telefono"
-          ></ion-input>
+          <ion-input formControlName="phone_user" placeholder="Telefono"></ion-input>
         </ion-item>
 
       </ion-card>
@@ -66,3 +52,10 @@
   </form>
   <ion-button (click)="updateProfile()" color="primary">actualizar</ion-button>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <app-footer></app-footer>
+  </ion-toolbar>
+</ion-footer>
+

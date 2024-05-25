@@ -10,6 +10,9 @@ import { Categories } from 'src/app/models/Categories.model';
 import { Products } from 'src/app/models/Products.model';
 import { MainCategoryInformation } from 'src/app/models/MainCategoryInformation.model';
 
+import { FooterComponent } from 'src/app/pages/footer/footer.component';
+import { HeaderComponent } from 'src/app/pages/header/header.component';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
@@ -22,7 +25,9 @@ import { MainCategoryInformation } from 'src/app/models/MainCategoryInformation.
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
-  ],
+    FooterComponent,
+    HeaderComponent
+    ],
 })
 export class UserPage implements OnInit {
   ApiProductsService = inject(ApiProductsService);
@@ -42,10 +47,6 @@ export class UserPage implements OnInit {
     this.getCategorys();
   }
 
-  prueba() {
-    console.log('prueba');
-  }
-
   /**
    * Metodo que se encarga de obtener los datos del usuario actual
    */
@@ -53,13 +54,6 @@ export class UserPage implements OnInit {
     this.ApiRestFulService.currentUser().subscribe((data: any) => {
       this.userData = data;
     });
-  }
-
-  /**
-   * Metodo que se encarga de cerrar la sesion del usuario
-   */
-  logout() {
-    this.ApiRestFulService.logout();
   }
 
   getCategorys() {

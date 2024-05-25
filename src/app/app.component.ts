@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonContent, IonHeader } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
 import {
@@ -23,7 +23,7 @@ import {
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, IonRouterOutlet, HttpClientModule,],
+  imports: [IonHeader, IonContent, IonApp, IonRouterOutlet, HttpClientModule,],
 })
 export class AppComponent {
   constructor() {
