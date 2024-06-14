@@ -1,4 +1,9 @@
 <ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <app-header></app-header>
+    </ion-toolbar>
+  </ion-header>
   <ion-card *ngIf="product">
     <div>
       <ion-buttons slot="end">
@@ -137,4 +142,9 @@
       </div>
     </ion-card-content>
   </ion-card>
+  <ion-header>
+    <ion-toolbar>
+      <app-footer></app-footer>
+    </ion-toolbar>
+  </ion-header>
 </ion-content>

@@ -8,6 +8,8 @@ import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { ApiProductsService } from 'src/app/services/api-products.service';
 import { ProductsByIdOrCat } from 'src/app/models/ProductsByIdOrCat.model';
 import { Stock } from 'src/app/models/stock.model';
+import { FooterComponent } from 'src/app/pages/footer/footer.component';
+import { HeaderComponent } from 'src/app/pages/header/header.component';
 
 @Component({
   selector: 'app-vista-productos',
@@ -21,6 +23,8 @@ import { Stock } from 'src/app/models/stock.model';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
+    FooterComponent,
+    HeaderComponent,
   ],
 })
 export class VistaProductosPage implements OnInit {
