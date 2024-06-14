@@ -14,14 +14,12 @@ import {
   SocialAuthService,
   GoogleSigninButtonModule,
   FacebookLoginProvider,
-  GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
 import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google.module';
-import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -98,7 +96,6 @@ export class LoginPage implements OnInit {
         if (response.status === 200) {
           this.router.navigate([this.ApiRestFulService.getRol()]);
         } else {
-          console.error('Login failed with status:', response.status);
           alert('Inicio de sesión fallido');
         }
       }
