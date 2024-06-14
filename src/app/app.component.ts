@@ -1,14 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonContent, IonHeader } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
 import {
+  cart,
   chevronDownCircle,
   chevronExpandOutline,
   documentAttachOutline,
   eyeOutline,
   fileTrayFullOutline,
+  heart,
   logoFacebook,
   megaphoneOutline,
   menuOutline,
@@ -21,10 +23,12 @@ import {
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, IonRouterOutlet, HttpClientModule,],
+  imports: [IonHeader, IonContent, IonApp, IonRouterOutlet, HttpClientModule,],
 })
+
 export class AppComponent {
   constructor() {
+    // Añade los iconos que se van a utilizar en la aplicación
     addIcons({
       'chevron-expand-outline': chevronExpandOutline,
       'eye-outline': eyeOutline,
@@ -37,6 +41,8 @@ export class AppComponent {
       'file-tray-full-outline': fileTrayFullOutline,
       'document-attach-outline': documentAttachOutline,
       'logo-facebook': logoFacebook,
+      'heart': heart,
+      'cart': cart,
     });
   }
 }

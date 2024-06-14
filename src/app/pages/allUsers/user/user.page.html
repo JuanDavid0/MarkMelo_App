@@ -1,22 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button id="slide-menu">
-          <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
-        </ion-button>
-        <ion-button>
-          <ion-icon name="megaphone-outline"></ion-icon>
-        </ion-button>
-        <ion-button>
-          <ion-icon name="people-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button id="perfil-menu">
-          <ion-icon name="person-circle"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <app-header></app-header>
     </ion-toolbar>
   </ion-header>
   <ion-card>
@@ -31,70 +16,28 @@
       </div>
     </ion-card-content>
   </ion-card>
-  
-  <ion-item>
-    <ion-label >Todas las categorias</ion-label>
-    <ion-select aria-label="Categoría">
-      <ion-select-option
-      >
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
+
+  <ion-button color="primary" [routerLink]="['/vista-productos']"
+    >Ver producto</ion-button
+  >
 
   <ion-col
-    *ngFor="let category of categoriesData"
+    *ngFor="let category of mainCategoryInformation"
     size-lg="4"
     size-md="6"
     size-sm="12"
     size="12"
   >
-      <img
-        alt="image_category"
-        src="assets/imgCategories/{{category.id}}{{category.name}}.webp"
-        style="display: block; margin: 0 auto; width: 200px; height: 150px"
-      />
+    <img
+      alt="image_category"
+      src="assets/imgCategories/{{category.id}}{{category.name}}.webp"
+      style="display: block; margin: 0 auto; width: 200px; height: 150px"
+    />
   </ion-col>
-  
-  <div>
-    <ion-button>
-      More Categories
-    </ion-button>
-  </div>
 
-  <ion-popover trigger="slide-menu" [dismissOnSelect]="true">
-    <ng-template>
-      <ion-content style="border-radius: 50">
-        <ion-list>
-          <ion-item [button]="true" [detail]="false" (click)="prueba()">
-            <ion-icon name="time-outline"> </ion-icon>
-            <ion-label>&nbsp; Historial de pedidos</ion-label>
-          </ion-item>
-          <ion-item [button]="true" [detail]="false">
-            <ion-icon name="file-tray-full-outline"></ion-icon>
-            <ion-label>&nbsp; Estado de pedidos</ion-label>
-          </ion-item>
-          <ion-item [button]="true" [detail]="false">
-            <ion-icon name="document-attach-outline"></ion-icon>
-            <ion-label>&nbsp; Catalogo</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
-  <ion-popover trigger="perfil-menu" [dismissOnSelect]="true">
-    <ng-template>
-      <ion-content>
-        <ion-list>
-          <ion-item [button]="true" [detail]="false" (click)="prueba()"
-            >editar perfil</ion-item
-          >
-          <ion-item [button]="true" [detail]="false">configuracion</ion-item>
-          <ion-item [button]="true" [detail]="false" (click)="logout()"
-            >cerrar sesion</ion-item
-          >
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
+  <ion-footer>
+    <ion-toolbar>
+      <app-footer></app-footer>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>
-

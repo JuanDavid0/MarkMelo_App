@@ -1,0 +1,91 @@
+ion-accordion {
+    margin: 0 auto;
+  }
+  
+  ion-accordion.accordion-expanding,
+  ion-accordion.accordion-expanded {
+    width: calc(100% - 32px);
+  
+    margin: 16px auto;
+  }
+  
+  ion-accordion.accordion-collapsing ion-item[slot='header'],
+  ion-accordion.accordion-collapsed ion-item[slot='header'] {
+    --background: var(--ion-color-light);
+    --color: var(--ion-color-light-contrast);
+  }
+  
+  ion-accordion.accordion-expanding ion-item[slot='header'],
+  ion-accordion.accordion-expanded ion-item[slot='header'] {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+  }
+  .price-item {
+    display: flex;
+    align-items: center; // Alinea los elementos verticalmente en el contenedor
+    padding: 5px;
+  }
+  
+  .price-label {
+    flex: 1; // Hace que la etiqueta de precio ocupe el 50% del espacio disponible
+    font-weight: bold; // Hace que el texto de la etiqueta de precio sea negrita
+  }
+  
+  .price-info {
+    display: flex;
+    flex-direction: column; // Los elementos dentro de este contenedor serán dispuestos en una columna
+    flex: 2; // Hace que el contenedor de información de precio ocupe el 50% del espacio disponible
+  }
+  
+  .price-value {
+    font-size: 18px; // Ajusta el tamaño de fuente del valor del precio
+  }
+  
+  .description-label {
+    font-style: italic; // Hace que la descripción sea en cursiva
+     // Añade un pequeño margen superior a la descripción
+  }
+
+  .buttons-product{
+    display: flex;
+    flex-direction: row;/* Centra los botones horizontalmente */
+    margin-right: auto;
+    padding: auto;
+  }
+
+  .button-cart-heart{
+    margin-left: auto;
+  }
+  
+  .div-mas-informacion {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .detalles,
+  .caracteristicas {
+    flex: 1;
+  }
+  
+  .detalles {
+    margin-top: 2rem;
+    margin-right: 10px;
+  }
+  
+  .caracteristicas {
+    margin-top: 2rem;
+    margin-left: 10px;
+  }
+  
+  .detalles h3,
+  .caracteristicas h3 {
+    margin-bottom: 10px;
+  }
+  
+  .detalles ion-label,
+  .caracteristicas ion-label {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  

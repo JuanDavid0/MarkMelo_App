@@ -18,5 +18,5 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
-  ],
+],
 });

@@ -6,9 +6,12 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Router, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
-import { Categorias } from 'src/app/models/categorias.model';
-import { Productos } from 'src/app/models/productos.model';
-import { categoriesData } from 'src/app/models/mainCategorias';
+import { Categories } from 'src/app/models/Categories.model';
+import { Products } from 'src/app/models/Products.model';
+import { MainCategoryInformation } from 'src/app/models/MainCategoryInformation.model';
+
+import { FooterComponent } from 'src/app/pages/footer/footer.component';
+import { HeaderComponent } from 'src/app/pages/header/header.component';
 
 @Component({
   selector: 'app-user',
@@ -22,35 +25,30 @@ import { categoriesData } from 'src/app/models/mainCategorias';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
-  ],
+    FooterComponent,
+    HeaderComponent
+    ],
 })
 export class UserPage implements OnInit {
   ApiProductsService = inject(ApiProductsService);
   ApiRestFulService = inject(ApiRestFulService);
 
   userData: any;
-  allCategories: Categorias[] = [];
+  allCategories: Categories[] = [];
   selectedCategoryId!: number;
   selectedSubCategoryId?: number;
-  productos: Productos[] = [];
-  categoriesData = categoriesData;
+  Products: Products[] = [];
+  mainCategoryInformation = MainCategoryInformation;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log(
-      'cat' + this.selectedCategoryId + 'subCat' + this.selectedSubCategoryId
-    );
     this.showCurrentUser();
     this.getCategorys();
   }
 
-  prueba(){
-    console.log('prueba')
-  }
-
   /**
-   * Metodo que se encarga de obtener los datos del usuario actual
+   * Metodo que se encarga de obtener la informacion del usuario logueado
    */
   showCurrentUser() {
     this.ApiRestFulService.currentUser().subscribe((data: any) => {
@@ -59,62 +57,14 @@ export class UserPage implements OnInit {
   }
 
   /**
-   * Metodo que se encarga de cerrar la sesion del usuario
+   * Metodo que se encarga de obtener las categorias de los productos
+   * para mostrarlos en el select
    */
-  logout() {
-    this.ApiRestFulService.logout();
-  }
-
   getCategorys() {
-    this.ApiProductsService.categorias().subscribe({
+    this.ApiProductsService.Categories().subscribe({
       next: (response: any) => {
         this.allCategories = response.resultado;
       },
     });
-  }
-
-  showProducts() {
-    console.log('Selected category ID:', this.selectedCategoryId);
-    console.log('Selected Sub Category ID:', this.selectedSubCategoryId);
-
-    let categoryIdToUse: number;
-
-    if (this.selectedSubCategoryId !== undefined) {
-      categoryIdToUse = this.selectedSubCategoryId;
-    } else {
-      categoryIdToUse = this.selectedCategoryId;
-    }
-
-    this.ApiProductsService.productsByCategory(categoryIdToUse).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.productos = response.resultado;
-      },
-    });
-  }
-
-  getMainCategory() {
-    return this.allCategories.filter((category) => category.idParent === null);
-  }
-
-  getSubCategory(idParent: any) {
-    return this.allCategories.filter(
-      (category) => category.idParent === idParent
-    );
-  }
-
-  selectCategory(event: any) {
-    this.selectedCategoryId = event.detail.value;
-    console.log('Selected category ID: ', this.selectedCategoryId);
-    console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
-  }
-  selectSubCategory(event: any) {
-    if (event && event.detail && event.detail.value) {
-      this.selectedSubCategoryId = event.detail.value;
-      console.log('Selected Sub Category ID: ', this.selectedSubCategoryId);
-    } else {
-      this.selectedSubCategoryId = undefined;
-      console.log('No subcategories available');
-    }
   }
 }

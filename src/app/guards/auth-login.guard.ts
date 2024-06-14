@@ -29,16 +29,16 @@ class LoginGuard {
     state: RouterStateSnapshot
   ): boolean {
     const accessAuth = this.apiService.getRol();
-    if(this.apiService.isloggedIn()){ // existe un token? si es asi
-      if(this.apiService.tokenExpired()){ // el token ha expirado? aun no expira
-        this.router.navigate([accessAuth]); // redirige a la ruta X
-        return false; // no permite entrar al login porque tiene token y esta vigente
-      }else{ // si el token ha expirado
-        localStorage.removeItem('JWT_TOKEN'); // elimina el token del localstorage
-        this.router.navigate(['/login']); // redirige a la pagina de login
-        return false;// no permite entrar al login porque el token ha expirado
+    if(this.apiService.isloggedIn()){
+      if(this.apiService.tokenExpired()){ 
+        this.router.navigate([accessAuth]); 
+        return false; 
+      }else{
+        localStorage.removeItem('JWT_TOKEN');
+        this.router.navigate(['/login']); 
+        return false;
       } 
-    }else{ // si no existe un token en el localstorage
+    }else{
       return true;
     }
   }

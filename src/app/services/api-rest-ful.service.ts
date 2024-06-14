@@ -1,9 +1,17 @@
-import { SharedModule } from './../shared/shared.module';
-import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Router} from '@angular/router';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  map,
+  of,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
@@ -19,15 +27,6 @@ export class ApiRestFulService {
   http = inject(HttpClient);
 
   constructor() {}
-
-  /**
-   * implementacion del metodo que se encarga de obtener los usuarios
-   * @returns
-   */
-  getUsers() {
-    return this.http.get('https://api.toolsmarketingsas.com/proxy/categorias');
-  }
-
   /**
    * Metodo que se encarga de obtener los datos del usuario actual
    * @returns retorna los datos del usuario actual
@@ -36,23 +35,29 @@ export class ApiRestFulService {
     const formData = new FormData();
     formData.append('email_user', user.email_user);
     formData.append('password_user', user.password_user);
-  
-    return this.http.post<any>(environment.urlApiRestful + environment.login, formData)
+
+    return this.http
+      .post<any>(environment.urlApiRestful + environment.login, formData)
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           console.error('Error during login:', error);
           throw error;
         }),
-        tap(tokens => {
+        tap((tokens) => {
           if (tokens.results && tokens.results[0].method_user === 'DIRECT') {
-            this.doLoginUser(tokens.results[0].email_user, tokens.results[0].token_user);
+            this.doLoginUser(
+              tokens.results[0].email_user,
+              tokens.results[0].token_user
+            );
           } else {
-              alert('Login attempted with non-direct method, use: '+ tokens.results[0].method_user);
+            alert(
+              'Login attempted with non-direct method, use: ' +
+                tokens.results[0].method_user
+            );
           }
         })
       );
   }
-  
 
   /**
    * Encargado de alamacenar el token del usuario en el localstorage
@@ -94,15 +99,38 @@ export class ApiRestFulService {
   currentUser() {
     return this.http.get(
       environment.urlApiRestful +
-      environment.users +
-      '?select=username_user&linkTo=token_user&equalTo=' +
-      localStorage.getItem(this.JWT_TOKEN)
+        environment.users +
+        '?select=username_user&linkTo=token_user&equalTo=' +
+        localStorage.getItem(this.JWT_TOKEN)
     );
   }
 
   /**
-   * Metodo que se encarga de verificar si el token ha expirado o no
-   * @returns retorna (false) si el token ha expirado(o no existe) o (true) si no ha expirado
+   * Obtiene el ID de usuario.
+   * @returns Un Observable que emite una cadena de texto que representa el ID de usuario.
+   */
+  get_id_User(): Observable<string> {
+    return this.http.get<any>(
+      environment.urlApiRestful +
+        environment.users +
+        '?select=id_user&linkTo=token_user&equalTo=' +
+        localStorage.getItem(this.JWT_TOKEN)
+    ).pipe(
+      map((response: any) => {
+        if (response.results && response.results.length > 0) {
+          return response.results[0].id_user;
+        } else {
+          throw new Error('No se pudo obtener el id_user.');
+        }
+      })
+    );
+  }
+
+
+  /**
+   * Comprueba si el token de autenticación ha expirado.
+   * 
+   * @returns {boolean} `true` si el token ha expirado, `false` en caso contrario.
    */
   tokenExpired() {
     const token = localStorage.getItem(this.JWT_TOKEN);
@@ -118,8 +146,14 @@ export class ApiRestFulService {
     return dateNow < expirationDate;
   }
 
-
-  register(user: any) : Observable<boolean> {
+  /**
+   * Registra un usuario en el sistema.
+   * 
+   * @param user - Los datos del usuario a registrar.
+   * @returns Un observable booleano que indica si el registro fue exitoso.
+   * @throws Un error si el correo electrónico ya está registrado o si ocurre un error durante el registro.
+   */
+  register(user: any): Observable<boolean> {
     return this.isExistingEmail(user.email_user).pipe(
       switchMap((exists: boolean) => {
         if (!exists) {
@@ -131,7 +165,10 @@ export class ApiRestFulService {
           formData.append('password_user', user.password_user);
           formData.append('method_user', 'DIRECT');
           alert('Registro exitoso.');
-          return this.http.post<any>('https://api.uptc.online/users?register=true', formData);
+          return this.http.post<any>(
+            'https://api.uptc.online/users?register=true',
+            formData
+          );
         } else {
           alert('El correo electrónico ya está registrado.');
           return throwError('El correo electrónico ya está registrado.');
@@ -146,13 +183,17 @@ export class ApiRestFulService {
 
   /**
    * Metodo que se encarga de verificar si el email ya esta registrado en la base de datos
-   * @param email 
+   * @param email
    * @returns retorna (true) si el email ya esta registrado o (false) si no esta registrado
    */
   isExistingEmail(email: string): Observable<boolean> {
     // Eliminar espacios en blanco alrededor del email
     const trimmedEmail = email.trim();
-    return this.http.get('https://api.uptc.online/users?select=email_user&linkTo=email_user&equalTo=' + trimmedEmail)
+    return this.http
+      .get(
+        'https://api.uptc.online/users?select=email_user&linkTo=email_user&equalTo=' +
+          trimmedEmail
+      )
       .pipe(
         map((response: any) => {
           if (response.results[0].email_user === trimmedEmail) {
@@ -168,11 +209,11 @@ export class ApiRestFulService {
       );
   }
 
-/**
- * Metodo que se encarga de registrar un usuario con Google
- * @param user 
- * @returns retorna el usuario registrado
- */
+  /**
+   * Metodo que se encarga de registrar un usuario con Google
+   * @param user
+   * @returns retorna el usuario registrado
+   */
   registerGoogleSocial(user: any): Observable<any> {
     return this.isExistingEmail(user.email).pipe(
       switchMap((exists: boolean) => {
@@ -182,50 +223,59 @@ export class ApiRestFulService {
           googleFormData.append('email_user', user.email);
           googleFormData.append('picture_user', user.photoUrl);
           googleFormData.append('method_user', user.provider);
-          return this.http.post<any>('https://api.uptc.online/users?register=true', googleFormData).pipe(
-            tap((tokens: any) =>
-              this.doLoginUser(
-                tokens.results[0].email_user,
-                tokens.results[0].token_user
-              )
+          return this.http
+            .post<any>(
+              'https://api.uptc.online/users?register=true',
+              googleFormData
             )
-          
-          );
+            .pipe(
+              tap((tokens: any) =>
+                this.doLoginUser(
+                  tokens.results[0].email_user,
+                  tokens.results[0].token_user
+                )
+              )
+            );
         } else {
           return this.postGoogleLogin(user);
         }
       }),
       catchError((error: any) => {
-        console.error('Error registrando o iniciando sesión con Google:', error);
-        return throwError('Ocurrió un error durante el registro o inicio de sesión con Google.');
+        console.error(
+          'Error registrando o iniciando sesión con Google:',
+          error
+        );
+        return throwError(
+          'Ocurrió un error durante el registro o inicio de sesión con Google.'
+        );
       })
     );
   }
 
-
   /**
    *  Metodo que se encarga de iniciar sesion con Google
-   * @param user 
+   * @param user
    * @returns retorna el usuario logueado
    */
   postGoogleLogin(user: any): Observable<any> {
     const googleFormData = new FormData();
     googleFormData.append('email_user', user.email);
 
-    return this.http.post<any>('https://api.uptc.online/users?login=true', googleFormData).pipe(
-      tap((tokens: any) =>
-        this.doLoginUser(
-          tokens.results[0].email_user,
-          tokens.results[0].token_user
+    return this.http
+      .post<any>('https://api.uptc.online/users?login=true', googleFormData)
+      .pipe(
+        tap((tokens: any) =>
+          this.doLoginUser(
+            tokens.results[0].email_user,
+            tokens.results[0].token_user
+          )
         )
-      )
-    );
+      );
   }
-
 
   /**
    * Metodo que se encarga de registrar un usuario con Facebook
-   * @param user 
+   * @param user
    * @returns retorna el usuario registrado
    */
   registerFacebookSocial(user: any): Observable<any> {
@@ -235,52 +285,94 @@ export class ApiRestFulService {
           const facebookFormData = new FormData();
           facebookFormData.append('username_user', user.name);
           facebookFormData.append('email_user', user.email);
-          facebookFormData.append('picture_user', user.response.picture.data.url);
-          facebookFormData.append('method_user', user.provider);
-          return this.http.post<any>('https://api.uptc.online/users?register=true', facebookFormData).pipe(
-            tap((tokens: any) =>
-              this.doLoginUser(
-                tokens.results[0].email_user,
-                tokens.results[0].token_user
-              )
-            )
+          facebookFormData.append(
+            'picture_user',
+            user.response.picture.data.url
           );
+          facebookFormData.append('method_user', user.provider);
+          return this.http
+            .post<any>(
+              'https://api.uptc.online/users?register=true',
+              facebookFormData
+            )
+            .pipe(
+              tap((tokens: any) =>
+                this.doLoginUser(
+                  tokens.results[0].email_user,
+                  tokens.results[0].token_user
+                )
+              )
+            );
         } else {
           return this.postFacebookLogin(user);
         }
       }),
       catchError((error: any) => {
-        console.error('Error registrando o iniciando sesión con Facebook:', error);
-        return throwError('Ocurrió un error durante el registro o inicio de sesión con Facebook.');
+        console.error(
+          'Error registrando o iniciando sesión con Facebook:',
+          error
+        );
+        return throwError(
+          'Ocurrió un error durante el registro o inicio de sesión con Facebook.'
+        );
       })
     );
   }
 
 
   /**
-   * Metodo que se encarga de iniciar sesion con Facebook
-   * @param user 
-   * @returns retorna el usuario logueado
+   * Realiza una solicitud de inicio de sesión utilizando la cuenta de Facebook del usuario.
+   * 
+   * @param user - Los datos del usuario de Facebook.
+   * @returns Un observable que emite la respuesta de la solicitud de inicio de sesión.
    */
   postFacebookLogin(user: any): Observable<any> {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
-
-    return this.http.post<any>('https://api.uptc.online/users?login=true', facebookFormData).pipe(
-      tap((tokens: any) =>
-        this.doLoginUser(
-          tokens.results[0].email_user,
-          tokens.results[0].token_user
+    return this.http
+      .post<any>('https://api.uptc.online/users?login=true', facebookFormData)
+      .pipe(
+        tap((tokens: any) =>
+          this.doLoginUser(
+            tokens.results[0].email_user,
+            tokens.results[0].token_user
+          ) 
         )
-      )
-    );
+      );
   }
 
+
+  /**
+   * Metodo que se encarga de obtener los datos del usuario actual (Para este caso se retorna el rol de usuario)
+   * @returns retorna los datos del usuario actual
+   */
   getRol() {
     const rol = 'user';
     console.log('prueba');
     return rol;
   }
 
-  setMethodUser() {}
+  /**
+   * Actualiza la información del usuario en base a los datos proporcionados en el formulario.
+   * @param editar - Los datos del formulario a actualizar.
+   */
+  updateUserInfo(editar: any) {
+    const controls = editar.controls;
+    let queryString = '';
+    Object.keys(controls).forEach(key => {
+      const control = controls[key];
+      if (control.status === 'VALID') queryString += key + '=' + control.value + '&';
+    });
+    const token = localStorage.getItem(this.JWT_TOKEN) || '';
+    this.get_id_User().subscribe((userId: string) => {
+      this.http.put('https://api.uptc.online/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
+      queryString, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }).subscribe((response: any) => {
+        console.log('Response:', response);
+      });
+    });
+  }
 }

@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-
   urlApiRestful: 'https://api.uptc.online',
   sales: '/sales',
   users: '/users',
@@ -10,17 +9,8 @@ export const environment = {
   login: '/users?login=true',
   register: '/users?register=true',
 
-  urlApiProducts: 'https://api.toolsmarketingsas.com/proxy',
-  categorias: '/categorias/',
-  productos: '/productos/',
+  urlApiProducts: 'https://api.toolsmarketingsas.com/proxy/',
+  Categories: '/categorias/',
+  Products: '/productos/',
   stock: '/stock/',
-
-
-
-
-
-
-
-
-
 };

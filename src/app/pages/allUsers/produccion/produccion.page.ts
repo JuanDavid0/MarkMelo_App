@@ -22,16 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule  ]
 })
-export class ProduccionPage implements OnInit {
-  ApiRestFulService = inject(ApiRestFulService);
+export class ProduccionPage{
   constructor(private router: Router) { }
-
-  ngOnInit() {
-    console.log('ProduccionPage');
-  }
-
-  logout(){
-    this.ApiRestFulService.logout();
-  }
 
 }

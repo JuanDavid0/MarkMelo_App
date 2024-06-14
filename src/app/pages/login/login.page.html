@@ -4,13 +4,9 @@
   </ion-toolbar>
   <script src="https://accounts.google.com/gsi/client" async></script>
   <div id="fb-root"></div>
-  <script
-    async
-    defer
-    crossorigin="anonymous"
+  <script async defer crossorigin="anonymous"
     src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0&appId=722074826741941"
-    nonce="8MUJQzur"
-  ></script>
+    nonce="8MUJQzur"></script>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -23,27 +19,14 @@
       <ion-card>
         <ion-item>
           <label for="email" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="email_user"
-            type="email"
-            id="email"
-            placeholder="Ingresa tu correo electrónico"
-          ></ion-input>
+          <ion-input formControlName="email_user" type="email" id="email"
+            placeholder="Ingresa tu correo electrónico"></ion-input>
         </ion-item>
         <ion-item>
           <label for="password" class="ion-text-bold"></label>
-          <ion-input
-            formControlName="password_user"
-            type="password"
-            id="password"
-            placeholder="Ingresa tu contraseña"
-          ></ion-input>
-          <ion-icon
-            name="eye-outline"
-            slot="end"
-            id="togglePassword"
-            (click)="togglePasswordVisibility()"
-          ></ion-icon>
+          <ion-input formControlName="password_user" type="password" id="password"
+            placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-icon name="eye-outline" slot="end" id="togglePassword" (click)="togglePasswordVisibility()"></ion-icon>
         </ion-item>
       </ion-card>
       <a [routerLink]="['/reset-password']">¿Olvidaste tú contraseña?</a>
@@ -53,22 +36,17 @@
   <div style="justify-content: center; align-items: center">
   </div>
   <div class="button-container-login">
-    <ion-button (click)="onLogin()" color="primary" [routerLink]="['/login']"
-      >Iniciar sesión</ion-button
-    >
+    <ion-button (click)="onLogin()" color="primary" [routerLink]="['/login']">Iniciar sesión</ion-button>
     <ion-button (click)="signInWithFB()" class="social" color="primary">
       <ion-icon name="logo-facebook"></ion-icon>
-        Inicia sesión con Facebook
+      Inicia sesión con Facebook
     </ion-button>
     <div class="google">
-      <asl-google-signin-button
-        type="standard"
-        size="large"
-        text="signin_with"
-        shape="square"
-        theme="outline"
-        logo_alignment="center"
-      ></asl-google-signin-button>
+      <asl-google-signin-button type="standard" size="large" text="signin_with" shape="square" theme="outline"
+        logo_alignment="center"></asl-google-signin-button>
     </div>
+  </div>
+  <div class="politicas">
+    <p>Al ingresar está aceptando nuestras <a href="/politicas-privacidad">políticas de privacidad</a> y nuestros <a href="/terminos-condiciones">terminos y condiciones</a>.</p>
   </div>
 </ion-content>

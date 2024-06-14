@@ -14,14 +14,12 @@ import {
   SocialAuthService,
   GoogleSigninButtonModule,
   FacebookLoginProvider,
-  GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
 import { LoginFacebookGoogleModule } from 'src/app/shared/login-facebook-google.module';
-import { from } from 'rxjs';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -59,6 +57,9 @@ export class LoginPage implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * Inicializa el componente de inicio de sesión
+   */
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
@@ -68,7 +69,10 @@ export class LoginPage implements OnInit {
     this.params.page = 0;
     this.infLogin();
   }
-  
+
+  /**
+   * Muestra u oculta la contraseña del campo de contraseña.
+   */
   togglePasswordVisibility(){
     let password = document.getElementById('password') as HTMLInputElement;
     if(password.type == 'password'){
@@ -98,7 +102,6 @@ export class LoginPage implements OnInit {
         if (response.status === 200) {
           this.router.navigate([this.ApiRestFulService.getRol()]);
         } else {
-          console.error('Login failed with status:', response.status);
           alert('Inicio de sesión fallido');
         }
       }
