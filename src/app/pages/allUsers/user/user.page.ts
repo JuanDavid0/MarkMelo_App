@@ -48,7 +48,7 @@ export class UserPage implements OnInit {
   }
 
   /**
-   * Metodo que se encarga de obtener los datos del usuario actual
+   * Metodo que se encarga de obtener la informacion del usuario logueado
    */
   showCurrentUser() {
     this.ApiRestFulService.currentUser().subscribe((data: any) => {
@@ -56,49 +56,15 @@ export class UserPage implements OnInit {
     });
   }
 
+  /**
+   * Metodo que se encarga de obtener las categorias de los productos
+   * para mostrarlos en el select
+   */
   getCategorys() {
     this.ApiProductsService.Categories().subscribe({
       next: (response: any) => {
         this.allCategories = response.resultado;
-        console.log('Categorias', this.allCategories);
       },
     });
-  }
-
-  showProducts() {
-    let categoryIdToUse: number;
-
-    if (this.selectedSubCategoryId !== undefined) {
-      categoryIdToUse = this.selectedSubCategoryId;
-    } else {
-      categoryIdToUse = this.selectedCategoryId;
-    }
-
-    this.ApiProductsService.productsByCategory(categoryIdToUse).subscribe({
-      next: (response: any) => {
-        this.Products = response.resultado;
-      },
-    });
-  }
-
-  getMainCategory() {
-    return this.allCategories.filter((category) => category.idParent === null);
-  }
-
-  getSubCategory(idParent: any) {
-    return this.allCategories.filter(
-      (category) => category.idParent === idParent
-    );
-  }
-
-  selectCategory(event: any) {
-    this.selectedCategoryId = event.detail.value;
-  }
-  selectSubCategory(event: any) {
-    if (event && event.detail && event.detail.value) {
-      this.selectedSubCategoryId = event.detail.value;
-    } else {
-      this.selectedSubCategoryId = undefined;
-    }
   }
 }

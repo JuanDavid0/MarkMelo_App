@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { AuthLoginGuard } from './guards/auth-login.guard';
 import { AuthAccessGuard } from './guards/auth-access.guard';
 
+
+// para cada pagina se debe asignar un guard para proterger el acceso a la misma
 export const routes: Routes = [
   {
     path: '',

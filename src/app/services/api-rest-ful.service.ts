@@ -1,6 +1,5 @@
-import { SharedModule } from './../shared/shared.module';
-import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Router} from '@angular/router';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {
@@ -106,6 +105,10 @@ export class ApiRestFulService {
     );
   }
 
+  /**
+   * Obtiene el ID de usuario.
+   * @returns Un Observable que emite una cadena de texto que representa el ID de usuario.
+   */
   get_id_User(): Observable<string> {
     return this.http.get<any>(
       environment.urlApiRestful +
@@ -123,9 +126,11 @@ export class ApiRestFulService {
     );
   }
 
+
   /**
-   * Metodo que se encarga de verificar si el token ha expirado o no
-   * @returns retorna (false) si el token ha expirado(o no existe) o (true) si no ha expirado
+   * Comprueba si el token de autenticación ha expirado.
+   * 
+   * @returns {boolean} `true` si el token ha expirado, `false` en caso contrario.
    */
   tokenExpired() {
     const token = localStorage.getItem(this.JWT_TOKEN);
@@ -141,6 +146,13 @@ export class ApiRestFulService {
     return dateNow < expirationDate;
   }
 
+  /**
+   * Registra un usuario en el sistema.
+   * 
+   * @param user - Los datos del usuario a registrar.
+   * @returns Un observable booleano que indica si el registro fue exitoso.
+   * @throws Un error si el correo electrónico ya está registrado o si ocurre un error durante el registro.
+   */
   register(user: any): Observable<boolean> {
     return this.isExistingEmail(user.email_user).pipe(
       switchMap((exists: boolean) => {
@@ -307,15 +319,16 @@ export class ApiRestFulService {
     );
   }
 
+
   /**
-   * Metodo que se encarga de iniciar sesion con Facebook
-   * @param user
-   * @returns retorna el usuario logueado
+   * Realiza una solicitud de inicio de sesión utilizando la cuenta de Facebook del usuario.
+   * 
+   * @param user - Los datos del usuario de Facebook.
+   * @returns Un observable que emite la respuesta de la solicitud de inicio de sesión.
    */
   postFacebookLogin(user: any): Observable<any> {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
-
     return this.http
       .post<any>('https://api.uptc.online/users?login=true', facebookFormData)
       .pipe(
@@ -328,21 +341,28 @@ export class ApiRestFulService {
       );
   }
 
+
+  /**
+   * Metodo que se encarga de obtener los datos del usuario actual (Para este caso se retorna el rol de usuario)
+   * @returns retorna los datos del usuario actual
+   */
   getRol() {
     const rol = 'user';
     console.log('prueba');
     return rol;
   }
 
+  /**
+   * Actualiza la información del usuario en base a los datos proporcionados en el formulario.
+   * @param editar - Los datos del formulario a actualizar.
+   */
   updateUserInfo(editar: any) {
     const controls = editar.controls;
     let queryString = '';
     Object.keys(controls).forEach(key => {
       const control = controls[key];
-      console.log(key, control);
       if (control.status === 'VALID') queryString += key + '=' + control.value + '&';
     });
-    console.log('AL FIN---> '+queryString);
     const token = localStorage.getItem(this.JWT_TOKEN) || '';
     this.get_id_User().subscribe((userId: string) => {
       this.http.put('https://api.uptc.online/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
@@ -351,13 +371,8 @@ export class ApiRestFulService {
           'Content-Type': 'application/x-www-form-urlencoded',
         }),
       }).subscribe((response: any) => {
-        console.log('Respuesta:', response);
+        console.log('Response:', response);
       });
     });
   }
-  
-
-  
-
-  setMethodUser() {}
 }

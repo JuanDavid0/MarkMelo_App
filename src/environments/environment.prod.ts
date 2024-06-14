@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-
   urlApiRestful: 'https://api.uptc.online',
   sales: '/sales',
   users: '/users',

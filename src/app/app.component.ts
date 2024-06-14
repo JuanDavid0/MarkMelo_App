@@ -25,8 +25,10 @@ import {
   standalone: true,
   imports: [IonHeader, IonContent, IonApp, IonRouterOutlet, HttpClientModule,],
 })
+
 export class AppComponent {
   constructor() {
+    // Añade los iconos que se van a utilizar en la aplicación
     addIcons({
       'chevron-expand-outline': chevronExpandOutline,
       'eye-outline': eyeOutline,

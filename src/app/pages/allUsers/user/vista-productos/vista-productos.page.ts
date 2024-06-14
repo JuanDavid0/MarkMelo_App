@@ -40,10 +40,13 @@ export class VistaProductosPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('vista Products');
-    this.showProduct('HO-72');
+    this.showProduct('HO-72'); // se establece la referncia del producto que se va a mostrar. 
   }
 
+  /**
+   * Busca un producto por su id o referencia y lo muestra en la vista de productos.
+   * @param id 
+   */
   showProduct(id: number | string) {
     this.apiProductsService
       .productsByIdorReference(id)
@@ -55,12 +58,20 @@ export class VistaProductosPage implements OnInit {
       });
   }
 
+  /**
+   * Selecciona el precio y la descripción del producto y lo asigna a las variables selectedPrice y selectedDescription.
+   * @param price 
+   * @param description 
+   */
   selectPrice(price: number, description: string): void {
     this.selectedPrice = price;
     this.selectedDescription = description;
-    console.log('Selected price:', price, description);
   }
 
+  /**
+   * Obtiene el stock del producto por su referencia.
+   * @param ref 
+   */ 
   stockProduct(ref: string) {
     this.apiProductsService.getStockByReference(ref).subscribe((data: any) => {
       this.stock = data.resultado;
