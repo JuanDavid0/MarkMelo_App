@@ -1,0 +1,17 @@
+ion-col {
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+
+    img {
+        display: inline-block;
+        width: 200px; 
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
+}
