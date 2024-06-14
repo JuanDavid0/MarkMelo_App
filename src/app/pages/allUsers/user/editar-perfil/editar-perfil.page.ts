@@ -38,6 +38,11 @@ export class EditarPerfilPage implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * Inicializa el formulario de edición de perfil.
+   * 
+   * @param event - El evento que desencadenó la llamada a este método (opcional).
+   */
   infLogin(event?: any) {
     this.editar = this.formBuilder.group({
       country_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
@@ -47,6 +52,9 @@ export class EditarPerfilPage implements OnInit {
     });
   }
 
+  /**
+   * Formatea el número de teléfono del usuario.
+   */
   formatPhone() {
     const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
     const countryCode = countryCodeInput.value;
@@ -58,18 +66,27 @@ export class EditarPerfilPage implements OnInit {
     } 
   }
 
+  /**
+   * Actualiza el perfil del usuario.
+   */
   updateProfile() {
     this.formatPhone();
     console.log('intento de editar perfl');
     this.ApiRestFulService.updateUserInfo(this.editar)
   }
 
+  /**
+   * Muestra la información del usuario actual.
+   */
   showCurrentUser() {
     this.ApiRestFulService.currentUser().subscribe((data: any) => {
       this.userData = data;
     });
   }
 
+  /**
+   * Inicializa la página de edición de perfil.
+   */
   ngOnInit() {
     this.infLogin();
     this.showCurrentUser();
