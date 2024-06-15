@@ -101,7 +101,7 @@ export const routes: Routes = [
   {
     path: 'politicas-privacidad',
     loadComponent: () =>
-      import('./pages/website-policies/privacy-polices/privacy-polices.component').then(
+      import('./pages/website-policies/privacy-polices/privacy-polices.component' ).then(
         (m) => m.PrivacyPolicesComponent
       ),
   },
