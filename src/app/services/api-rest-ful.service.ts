@@ -100,7 +100,7 @@ export class ApiRestFulService {
     return this.http.get(
       environment.urlApiRestful +
         environment.users +
-        '?select=username_user&linkTo=token_user&equalTo=' +
+        '?select=*&linkTo=token_user&equalTo=' +
         localStorage.getItem(this.JWT_TOKEN)
     );
   }
@@ -132,18 +132,18 @@ export class ApiRestFulService {
    * 
    * @returns {boolean} `true` si el token ha expirado, `false` en caso contrario.
    */
-  tokenExpired() {
+  isTokenExpired(): boolean {
     const token = localStorage.getItem(this.JWT_TOKEN);
-    if (!token) return false;
+    if (!token) return true;
 
     const decodedToken = jwtDecode(token);
 
-    if (!decodedToken.exp) return false;
+    if (!decodedToken.exp) return true;
 
     const expirationDate = decodedToken.exp * 1000;
     const dateNow = new Date().getTime();
     const dateformat = new Date(dateNow);
-    return dateNow < expirationDate;
+    return dateNow > expirationDate;
   }
 
   /**
@@ -346,10 +346,8 @@ export class ApiRestFulService {
    * Metodo que se encarga de obtener los datos del usuario actual (Para este caso se retorna el rol de usuario)
    * @returns retorna los datos del usuario actual
    */
-  getRol() {
-    const rol = 'user';
-    console.log('prueba');
-    return rol;
+  getRol(): Observable<any> {
+    return this.http.get<any>(`${environment.urlApiRestful}${environment.users}?select=rol_user&linkTo=token_user&equalTo=${localStorage.getItem(this.JWT_TOKEN)}`);
   }
 
   /**

@@ -1,6 +1,9 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header>
   <ion-toolbar>
@@ -17,6 +20,16 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button id="profile-menu">
+            <div *ngIf="userData !== undefined">
+              <p style="text-align: center">
+                " {{userData.username_user}} "
+              </p>
+            </div>
+            <div *ngIf="userData === undefined">
+              <p style="text-align: center">
+                Iniciar sesion
+              </p>
+            </div>
         <ion-icon name="person-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -46,12 +59,37 @@
 
 <ion-popover trigger="profile-menu" [dismissOnSelect]="true">
   <ng-template>
-    <ion-content>
+    <ion-content *ngIf="userData">
       <ion-list>
-        <ion-item [button]="true" [detail]="false" (click)="prueba()" [routerLink]="['/editar-perfil']"
-          >editar perfil</ion-item>
+        <ion-item
+          [button]="true"
+          [detail]="false"
+          (click)="prueba()"
+          [routerLink]="['/editar-perfil']"
+          >editar perfil</ion-item
+        >
         <ion-item [button]="true" [detail]="false">configuracion</ion-item>
-        <ion-item [button]="true" [detail]="false" (click)="logout()">cerrar sesion</ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="logout()"
+          >cerrar sesion</ion-item
+        >
+      </ion-list>
+    </ion-content>
+    <ion-content *ngIf="!userData">
+      <ion-list>
+        <ion-item
+          [button]="true"
+          [detail]="false"
+          (click)="prueba()"
+          [routerLink]="['/login']"
+          >iniciar sesion</ion-item
+        >
+        <ion-item
+          [button]="true"
+          [detail]="false"
+          (click)="prueba()"
+          [routerLink]="['/singup']"
+          >registrarse</ion-item
+        >
       </ion-list>
     </ion-content>
   </ng-template>

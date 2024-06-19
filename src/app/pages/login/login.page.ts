@@ -20,6 +20,7 @@ import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { User } from 'src/app/models/user.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -39,14 +40,13 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class LoginPage implements OnInit {
   params = {} as any;
-  users: any[] = [];
   email = '';
   password = '';
-
   loginForm!: FormGroup;
   socialUser!: any;
   isLoggedin: any;
   ApiRestFulService = inject(ApiRestFulService);
+  rol_user: String = '';
 
   private googleToken: any;
   private facebookToken: any;
@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
     @Inject(SocialAuthService) private authService: SocialAuthService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) { }
+  ) {}
 
   /**
    * Inicializa el componente de inicio de sesión
@@ -66,21 +66,22 @@ export class LoginPage implements OnInit {
       this.isLoggedin = user != null;
       this.onGoogleSocialLogin(user);
     });
+    this.setUser();
     this.params.page = 0;
     this.infLogin();
   }
-
   /**
    * Muestra u oculta la contraseña del campo de contraseña.
    */
-  togglePasswordVisibility(){
+  togglePasswordVisibility() {
     let password = document.getElementById('password') as HTMLInputElement;
-    if(password.type == 'password'){
+    if (password.type == 'password') {
       password.type = 'text';
-    }else{
+    } else {
       password.type = 'password';
     }
   }
+
   /**
    * Asigna los valores iniciales al formulario de inicio de sesión
    * @param event
@@ -92,15 +93,29 @@ export class LoginPage implements OnInit {
     });
   }
 
+  setUser() {
+    this.ApiRestFulService.getRol().subscribe((response) => {
+      if (response.status === 200) {
+        this.rol_user = response.results[0].rol_user;
+      } else {
+        alert('Inicio de sesión fallido');
+      }
+    });  
+  }
+
   /**
- * Realiza el inicio de sesión y segun la respuesta redirige a la pagina de usuarios
- * o muestra un mensaje de error
- */
+   * Realiza el inicio de sesión y segun la respuesta redirige a la pagina home o admin
+   * o muestra un mensaje de error
+   */
   onLogin() {
     this.ApiRestFulService.postlogin(this.loginForm.value).subscribe(
       (response) => {
         if (response.status === 200) {
-          this.router.navigate([this.ApiRestFulService.getRol()]);
+          if (this.rol_user == 'admin') {
+            this.router.navigate(['admin']);
+          } else {
+            this.router.navigate(['home']);
+          }
         } else {
           alert('Inicio de sesión fallido');
         }
@@ -112,22 +127,28 @@ export class LoginPage implements OnInit {
    * Realiza el inicio de sesión con Facebook
    */
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((response) => {
-      this.socialUser = response;
-      this.isLoggedin = response != null;
-      this.facebookToken = response.authToken;
-      this.onFacebookSocialLogin(response);
-    });
+    this.authService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((response) => {
+        this.socialUser = response;
+        this.isLoggedin = response != null;
+        this.facebookToken = response.authToken;
+        this.onFacebookSocialLogin(response);
+      });
   }
 
   /**
    * Realiza el proceso de insersion de un usuario registrado con Google
-   * @param user 
+   * @param user
    */
   onGoogleSocialLogin(user: any) {
     this.ApiRestFulService.registerGoogleSocial(user).subscribe((response) => {
       if (response.status === 200) {
-        this.router.navigate([this.ApiRestFulService.getRol()]);
+        if (this.rol_user == 'admin') {
+          this.router.navigate(['admin']);
+        } else {
+          this.router.navigate(['home']);
+        }
       } else {
         alert('Inicio de sesión fallido');
       }
@@ -136,15 +157,21 @@ export class LoginPage implements OnInit {
 
   /**
    * Realiza el proceso de insersion de un usuario registrado con Facebook
-   * @param user 
+   * @param user
    */
   onFacebookSocialLogin(user: any) {
-    this.ApiRestFulService.registerFacebookSocial(user).subscribe((response) => {
-      if (response.status === 200) {
-        this.router.navigate([this.ApiRestFulService.getRol()]);
-      } else {
-        alert('Inicio de sesión fallido');
+    this.ApiRestFulService.registerFacebookSocial(user).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          if (this.rol_user == 'admin') {
+            this.router.navigate(['admin']);
+          } else {
+            this.router.navigate(['home']);
+          }
+        } else {
+          alert('Inicio de sesión fallido');
+        }
       }
-    });
+    );
   }
 }
