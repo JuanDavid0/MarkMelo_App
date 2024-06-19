@@ -45,7 +45,7 @@ export class SingupPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       username_user: ['', Validators.required],
       email_user: ['', [Validators.required, Validators.email]],
-      phone_user: ['',] ,
+      phone_user: ['',Validators.minLength(10)],
       password_user: ['', [Validators.required, Validators.minLength(8), this.validateUppercase,this.validateSpecialCharacter,this.validateNumber]],
     });
   }
@@ -78,24 +78,6 @@ export class SingupPage implements OnInit {
   }
 
   /**
-   * Método para formatear el número de teléfono.
-   */
-  formatPhone() {
-    const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
-    const countryCode = countryCodeInput.value;
-    if (countryCode.trim() !== '' && this.registerForm.value.phone_user.trim() !== '') {
-      console.log(countryCodeInput.value);
-      this.registerForm.patchValue({
-        phone_user: "+"+ countryCodeInput.value + "_" + this.registerForm.value.phone_user
-      });
-    } else {
-      this.registerForm.patchValue({
-        phone_user: 'NULL'
-      });
-    }
-  }
-
-  /**
    * Método para verificar si las contraseñas coinciden.
    * @returns Retorna un valor booleano que indica si las contraseñas coinciden.
    */
@@ -113,7 +95,6 @@ export class SingupPage implements OnInit {
       if (this.checkPasswords()) {
         alert('Las contraseñas no coinciden.');
       } else {
-        this.formatPhone();
         this.apiRestFulService.register(this.registerForm.value).subscribe(response => {
         }, error => {
           alert('Registro fallido! Intente nuevamente.');

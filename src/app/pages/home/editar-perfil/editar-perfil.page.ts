@@ -45,32 +45,16 @@ export class EditarPerfilPage implements OnInit {
    */
   infLogin(event?: any) {
     this.editar = this.formBuilder.group({
-      country_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
       city_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
-      address_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
-      phone_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
+      address_user: ['', [Validators.required, Validators.pattern(/^\S+$/),]],
+      phone_user: ['', [Validators.required, Validators.pattern(/^\S+$/),Validators.minLength(10)]],
     });
-  }
-
-  /**
-   * Formatea el número de teléfono del usuario.
-   */
-  formatPhone() {
-    const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
-    const countryCode = countryCodeInput.value;
-    if (countryCode.trim() !== '' && this.editar.value.phone_user.trim() !== '') {
-      console.log(countryCodeInput.value);
-      this.editar.patchValue({
-        phone_user: "+"+ countryCodeInput.value + "_" + this.editar.value.phone_user
-      });
-    } 
   }
 
   /**
    * Actualiza el perfil del usuario.
    */
   updateProfile() {
-    this.formatPhone();
     console.log('intento de editar perfl');
     this.ApiRestFulService.updateUserInfo(this.editar)
   }
