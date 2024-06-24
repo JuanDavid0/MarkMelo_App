@@ -1,0 +1,91 @@
+<div>
+  <h3>Poductos recientes</h3>
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpoints"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide *ngFor="let slide of products">
+      <ion-card button="true">
+        <img [src]="slide.banner" />
+          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div>
+  <h3>Poductos que te gustan</h3>
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpoints"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide *ngFor="let slide of products">
+      <ion-card button="true">
+        <img [src]="slide.banner" />
+          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div>
+  <h3>Poductos recomendados</h3>
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpoints"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide *ngFor="let slide of products">
+      <ion-card button="true">
+        <img [src]="slide.banner" />
+          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div>
+  <h3>Poductos en oferta</h3>
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpoints"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide *ngFor="let slide of products">
+      <ion-card button="true">
+        <img [src]="slide.banner" />
+          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>

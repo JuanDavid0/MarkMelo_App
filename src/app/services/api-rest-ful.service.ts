@@ -21,12 +21,20 @@ export class ApiRestFulService {
   private loggedUser?: string;
   private value: any;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   private router = inject(Router);
   public userDetails?: any;
 
   http = inject(HttpClient);
 
   constructor() {}
+
+
+  pruebaProductos(){
+    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=42');
+  }
+
+
   /**
    * Metodo que se encarga de obtener los datos del usuario actual
    * @returns retorna los datos del usuario actual
@@ -81,7 +89,7 @@ export class ApiRestFulService {
   logout() {
     localStorage.removeItem(this.JWT_TOKEN);
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   /**

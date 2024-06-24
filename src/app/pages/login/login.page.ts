@@ -94,13 +94,18 @@ export class LoginPage implements OnInit {
   }
 
   setUser() {
-    this.ApiRestFulService.getRol().subscribe((response) => {
-      if (response.status === 200) {
-        this.rol_user = response.results[0].rol_user;
-      } else {
-        alert('Inicio de sesión fallido');
-      }
-    });  
+    if(this.ApiRestFulService.isloggedIn()){
+      this.ApiRestFulService.getRol().subscribe((response) => {
+        if (response.status === 200) {
+          this.rol_user = response.results[0].rol_user;
+        } else {
+          alert('No se pudo obtener el rol del usuario, porque no has inciado sesión');
+          throw new Error('Error al obtener el rol del usuario');   
+        }
+      });
+    }else{
+      this.rol_user = '';
+    }
   }
 
   /**

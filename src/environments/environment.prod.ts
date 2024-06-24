@@ -8,9 +8,4 @@ export const environment = {
 
   login: '/users?login=true',
   register: '/users?register=true',
-
-  urlApiProducts: 'https://api.toolsmarketingsas.com/proxy/',
-  Categories: '/categorias/',
-  Products: '/productos/',
-  stock: '/stock/',
 };

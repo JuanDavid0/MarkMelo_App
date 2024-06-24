@@ -1,12 +1,8 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <app-header></app-header>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  
-  <ion-footer class="footer">
-    <app-footer></app-footer>
-  </ion-footer>
+
+<ion-content>
+  <app-header [userData]="userData" ></app-header>
+  <app-banner [slides]="slides"></app-banner>
+  <app-vista-productos [products]="products"></app-vista-productos>
+  <app-footer></app-footer>
 </ion-content>

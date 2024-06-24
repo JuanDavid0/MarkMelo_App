@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -13,27 +13,14 @@ import { User } from 'src/app/models/user.model';
   imports: [IonicModule, CommonModule, RouterModule, ]
 })
 
-export class HeaderComponent implements OnInit{
+export class HeaderComponent{
   ApiRestFulService = inject(ApiRestFulService);
-  userData: User | undefined;
+  @Input() userData: User | undefined;
 
   prueba(){
     console.log("Hola");
   }
-  ngOnInit(){
-    this.showCurrentUser();
-  }
-
-  showCurrentUser() {
-    if (this.ApiRestFulService.isloggedIn()){
-      this.ApiRestFulService.currentUser().subscribe((user: any) => {
-        console.log(user.results[0]);
-        this.userData = user.results[0];
-      });
-    }
-    console.log('usuario' + this.userData);
-  }
-
+  
   logout() {
     this.ApiRestFulService.logout();
   }
