@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="searchbar-container">
+    <h2 (click)="toggleCategories()" class="categories-title">Categorías</h2>
+    <ion-searchbar placeholder="Buscar..."></ion-searchbar>
+  </div>
+  <div *ngIf="showCategories" class="categories-list">
+    <ion-list>
+      <ion-item *ngFor="let category of categories">{{ category }}</ion-item>
+    </ion-list>
+  </div>
+
+  <ion-footer class="footer">
+    <app-footer></app-footer>
+  </ion-footer>
+</ion-content>

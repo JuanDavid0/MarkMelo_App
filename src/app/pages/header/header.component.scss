@@ -1,5 +1,30 @@
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+ion-header {
+    font-family: 'Montserrat', sans-serif;
+}
+
+ion-button {
+    color: var(--ion-color-primary);
+}
+
+.left-menu {
+    ion-list {
+        ion-item {
+
+            ion-label {
+                --color: var(--ion-color-primary);
+            }
+
+            ion-icon {
+                color: var(--ion-color-primary);
+            }
+        }
+    }
+}
+
+.login {
+    ion-list {
+        ion-item {
+            --color: var(--ion-color-primary);
+        }
+    }
 }

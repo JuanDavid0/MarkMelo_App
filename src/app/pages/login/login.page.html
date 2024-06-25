@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="text-align: center; background: none">MarkMelo</ion-title>
+    <ion-title>MarkMelo</ion-title>
   </ion-toolbar>
   <script src="https://accounts.google.com/gsi/client" async></script>
   <div id="fb-root"></div>
@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-text center>
-    <h1 class="ion-padding" style="text-align: center">Iniciar sesión</h1>
+    <h1 class="ion-padding">Iniciar sesión</h1>
   </ion-text>
 
   <form [formGroup]="loginForm" class="ion-padding">
@@ -19,13 +19,13 @@
       <ion-card>
         <ion-item>
           <label for="email" class="ion-text-bold"></label>
-          <ion-input formControlName="email_user" type="email" id="email"
-            placeholder="Ingresa tu correo electrónico"></ion-input>
+          <ion-input formControlName="email_user" type="email" id="email" label="Correo electrónico"
+            labelPlacement="floating" placeholder="Ingresa tu correo electrónico"></ion-input>
         </ion-item>
         <ion-item>
           <label for="password" class="ion-text-bold"></label>
-          <ion-input formControlName="password_user" type="password" id="password"
-            placeholder="Ingresa tu contraseña"></ion-input>
+          <ion-input formControlName="password_user" type="password" id="password" label="Contraseña"
+            labelPlacement="floating" placeholder="Ingresa tu contraseña"></ion-input>
           <ion-icon name="eye-outline" slot="end" id="togglePassword" (click)="togglePasswordVisibility()"></ion-icon>
         </ion-item>
       </ion-card>
@@ -33,13 +33,12 @@
       <p>¿No tienes cuenta? <a [routerLink]="['/singup']">Registrate</a></p>
     </div>
   </form>
-  <div style="justify-content: center; align-items: center">
-  </div>
+
   <div class="button-container-login">
     <ion-button (click)="onLogin()" color="primary" [routerLink]="['/home']">Iniciar sesión</ion-button>
     <ion-button (click)="signInWithFB()" class="social" color="primary">
       <ion-icon name="logo-facebook"></ion-icon>
-      Inicia sesión con Facebook
+      Acceder con Facebook
     </ion-button>
     <div class="google">
       <asl-google-signin-button type="standard" size="large" text="signin_with" shape="square" theme="outline"
@@ -47,6 +46,7 @@
     </div>
   </div>
   <div class="politicas">
-    <p>Al ingresar está aceptando nuestras <a href="/politicas-privacidad">políticas de privacidad</a> y nuestros <a href="/terminos-condiciones">terminos y condiciones</a>.</p>
+    <p>Al ingresar está aceptando nuestras <a href="/politicas-privacidad">políticas de privacidad</a> y nuestros <a
+        href="/terminos-condiciones">terminos y condiciones</a>.</p>
   </div>
 </ion-content>

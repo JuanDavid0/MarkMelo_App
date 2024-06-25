@@ -1,12 +1,13 @@
-footer {
-    color: black;
+ion-footer {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: var(--ion-color-primary);
 
     .Copyright {
-        font-size: 14px;
         font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
         text-align: center;
     }
 
@@ -46,17 +47,18 @@ footer {
                 padding: 8px;
 
                 a {
+                    font-family: 'Montserrat', sans-serif;
                     color: #ffffff;
                     text-decoration: none;
 
                     &:hover {
-                        color: #c9c9c9;
+                        color: #dddddd;
                         text-decoration: underline;
                     }
                 }
             }
 
-            @media (max-width: 767px) {
+            @media screen and (max-width: 767px) {
                 text-align: center;
 
                 li {
@@ -68,8 +70,8 @@ footer {
     }
 
     .Designer {
-        font-size: 12px;
         font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
         margin-top: 24px;
         text-align: center;
     }

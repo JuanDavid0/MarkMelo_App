@@ -1,23 +1,87 @@
+//Estilos para el título superior
+ion-title {
+  text-align: center;
+  background: none;
+  color: var(--ion-color-background-contrast);
+  font-family: 'Montserrat', sans-serif;
+}
+
+//Background general y color de texto
+ion-content {
+  --background: var(--ion-color-background);
+  --color: var(--ion-color-background-contrast);
+  font-family: 'Montserrat', sans-serif;
+}
+
+//Estilos para el contenedor de inicio de sesión
 .button-container-login {
   display: flex;
-  flex-direction: column; /* Muestra los botones en una columna */
-  justify-content: center; /* Centra los botones horizontalmente */
-  align-items: center; /* Centra los botones verticalmente */
+  flex-direction: column;
+  /* Muestra los botones en una columna */
+  justify-content: center;
+  /* Centra los botones horizontalmente */
+  align-items: center;
+  /* Centra los botones verticalmente */
   margin-top: 0%;
   padding: auto;
 
 }
+
+//Posición título para inicio de sesión
+ion-text h1 {
+  text-align: center;
+}
+
+//Estilos para el contenedor general de inicio de sesión
+ion-card {
+  @media screen and (min-width: 768px) {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    --background: var(--ion-color-tertiary);
+  }
+}
+
+//Estilos para el contenedor de inicio de sesión
+ion-input {
+  font-family: 'Montserrat', sans-serif;
+  --placeholer-color: #ddd;
+}
+
+//Estilos para los links del formulario
+form a {
+  font-size: 15px;
+}
+
+//Estilos para los links del formulario
+form a:hover {
+  color: var(--ion-color-tertiary);
+}
+
+//Estilos para los párrafos del formulario
+form p {
+  font-size: 15px;
+}
+
+//Estilos para el boton de facebook
 ion-button.social {
   margin-top: 2rem;
 }
 
-div .google{
+//Estilos para el boton de google
+div .google {
   justify-content: center;
   align-items: center;
 }
 
-p {
-  font-size: 10px;
+//Estilos para el link a políticas de privacidad
+.politicas {
+  font-size: 15px;
   text-align: center;
   margin-top: 1rem;
+
+  @media screen and (max-width: 767px) {
+    font-size: 10px;
+  }
 }

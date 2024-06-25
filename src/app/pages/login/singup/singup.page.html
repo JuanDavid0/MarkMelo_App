@@ -10,6 +10,7 @@
   <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <div class="ion-padding">
       <ion-card>
+
         <ion-item>
           <ion-input
             formControlName="username_user"
@@ -36,19 +37,8 @@
         <div *ngIf="registerForm.get('email_user')?.hasError('email') && registerForm.get('email_user')?.touched">
           <ion-text color="danger">Ingresa un correo electrónico válido.</ion-text>
         </div>
-
-        <div style="display: flex;">
-          <ion-item style="flex: 1;">
-            <ion-input 
-            type="tel" 
-            id="country_code" 
-            placeholder="codigo de pais"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '');"
-            required>
-            </ion-input>
-          </ion-item>
-          
-          <ion-item style="flex: 4;">
+        
+          <ion-item>
             <ion-input 
             formControlName="phone_user" 
             type="tel" id="phone_user"
@@ -56,14 +46,16 @@
             oninput="this.value = this.value.replace(/[^0-9]/g, '');">
             </ion-input>
           </ion-item>
-        </div>
+          <div *ngIf="registerForm.get('phone_user')?.hasError('minlength') && registerForm.get('phone_user')?.touched">
+            <ion-text color="danger">El telefono debe tener 10 digios</ion-text>
+          </div>
 
         <ion-item>
           <ion-input
             formControlName="password_user"
             type="password"
             id="password"
-            placeholder="Ingresa tu contraseña"
+            placeholder="Ingrese su contraseña"
           ></ion-input>
         </ion-item>
         <div *ngIf="registerForm.get('password_user')?.hasError('required') && registerForm.get('password_user')?.touched">

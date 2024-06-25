@@ -13,6 +13,7 @@ import {
   throwError,
 } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { getLocaleDateFormat } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -174,6 +175,8 @@ export class ApiRestFulService {
           formData.append('phone_user', user.phone_user);
           formData.append('password_user', user.password_user);
           formData.append('method_user', 'DIRECT');
+          formData.append('rol_user', 'DEFAULT');
+          formData.append('date_created_user', new Date().toISOString());
           alert('Registro exitoso.');
           return this.http.post<any>(
             'https://api.uptc.online/users?register=true',
@@ -383,4 +386,9 @@ export class ApiRestFulService {
       });
     });
   }
+
+  getProductById(productId : number) {
+    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=' + productId);
+  }
+  
 }
