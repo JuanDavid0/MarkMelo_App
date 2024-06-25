@@ -29,15 +29,7 @@ export class ApiRestFulService {
   http = inject(HttpClient);
 
   constructor() {}
-
-  getProducts(): Observable<any> {
-    return this.http.get(environment.urlApiRestful + environment.products);
-  }
-  getBanners(): Observable<any> {
-    return this.http.get(environment.urlApiRestful + environment.banners);
-  }
-
-
+  
   /**
    * Metodo que se encarga de obtener los datos del usuario actual
    * @returns retorna los datos del usuario actual

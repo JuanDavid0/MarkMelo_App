@@ -1,3 +1,4 @@
+import { ApiProductManagementService } from './../../services/api-product-management.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -40,6 +41,7 @@ import { Banner } from 'src/app/models/banner.model';
 })
 export class HomePage implements OnInit {
   ApiRestFulService = inject(ApiRestFulService);
+  ApiProductManagement = inject(ApiProductManagementService);
   
   banners: Banner[] = [];
   products: Product[] = [];
@@ -67,13 +69,13 @@ export class HomePage implements OnInit {
   }
 
   getBanners() {
-    this.ApiRestFulService.getBanners().subscribe((data) => {
+    this.ApiProductManagement.getBanners().subscribe((data) => {
       this.banners = data.results;
     });
   }
 
   getProducts() {
-    this.ApiRestFulService.getProducts().subscribe((data) => {
+    this.ApiProductManagement.getProducts().subscribe((data) => {
       this.products = data.results;
     });
   }
