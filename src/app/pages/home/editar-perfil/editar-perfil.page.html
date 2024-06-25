@@ -38,16 +38,22 @@
           <label for="phone_user" class="ion-text-bold"></label>
           <ion-input 
           formControlName="phone_user" 
-          placeholder="Telefono"></ion-input>
+          placeholder="Telefono"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </ion-input>
         </ion-item>
         <div *ngIf="editar.get('phone_user')?.hasError('minlength') && editar.get('phone_user')?.touched">
           <ion-text color="danger">El telefono debe tener 10 digios</ion-text>
         </div>
-
       </ion-card>
     </div>
   </form>
+
   <ion-button (click)="updateProfile()" color="primary">actualizar</ion-button>
+
+  <div class="button-container-login" flex-direction="column">
+    <ion-button color="primary" [routerLink]="['/home']">Back</ion-button>
+  </div>
 </ion-content>
 
 <ion-footer>

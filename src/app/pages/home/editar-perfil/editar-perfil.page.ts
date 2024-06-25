@@ -47,7 +47,7 @@ export class EditarPerfilPage implements OnInit {
     this.editar = this.formBuilder.group({
       city_user: ['', [Validators.required, Validators.pattern(/^\S+$/)]],
       address_user: ['', [Validators.required, Validators.pattern(/^\S+$/),]],
-      phone_user: ['', [Validators.required, Validators.pattern(/^\S+$/),Validators.minLength(10)]],
+      phone_user: ['',[Validators.required, Validators.pattern(/^\S+$/),Validators.minLength(10)]],
     });
   }
 

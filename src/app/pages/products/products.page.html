@@ -1,0 +1,42 @@
+
+<ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="product">
+
+  <img [src]="product.image_product">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ product.name_product }}</ion-card-title>
+      <ion-card-subtitle>{{ product.price_product | currency:'COP' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div [innerHTML]="product.description_product"></div>
+      <p><strong>Stock:</strong> {{ product.stock_product }}</p>
+      <p><strong>Delivery Time:</strong> {{ product.delivery_time_product }} days</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="product.gallery_product && product.gallery_product.length > 0">
+    <ion-card-header>
+      <ion-card-title>Product Gallery</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!--<ion-slides pager="true">
+        <ion-slide *ngFor="let image of product.gallery_product">
+          <img [src]="image" alt="Product Image" />
+        </ion-slide>
+      </ion-slides>-->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>
+  
+</ion-content>
+
