@@ -21,6 +21,7 @@ Este es un proyecto multiplataforma creado para la empresa MarkMelo
     - npm install @capacitor/storage
     - npm install @auth0/angular-jwt
     - npm install jwt-decode
+    - npm install swiper@latest
     ```
 ## Uso
 Para ejecutar el proyecto, use el siguiente comando:
