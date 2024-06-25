@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { IonicSlides} from '@ionic/angular';
+import { Banner } from 'src/app/models/banner.model';
 
 @Component({
   selector: 'app-banner',
@@ -16,7 +17,8 @@ import { IonicSlides} from '@ionic/angular';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BannerComponent implements OnInit {
-  @Input() slides: any[] = [];
+  @Input() banners: Banner[] = [];
+
   swiperModules = [IonicSlides];
 
   constructor() {}
@@ -24,4 +26,9 @@ export class BannerComponent implements OnInit {
   ngOnInit() {
     console.log('BannerComponent');
   }
+
+  prueba(){
+    console.log('prueba');
+  }
+
 }

@@ -29,9 +29,11 @@ export class ApiRestFulService {
 
   constructor() {}
 
-
-  pruebaProductos(){
-    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=42');
+  getProducts(): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.products);
+  }
+  getBanners(): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.banners);
   }
 
 

@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-vista-productos',
@@ -16,12 +17,16 @@ import { IonicSlides } from '@ionic/angular';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VistaProductosComponent implements OnInit {
-  @Input() products: any[] = [];
+  @Input() products: Product[] = [];
   swiperModules = [IonicSlides];
   constructor() {}
 
   ngOnInit() {
     console.log('VistaProductosComponent');
+  }
+
+  prueba(){
+    console.log('seleccione un prueba');
   }
   
   breakpoints = {

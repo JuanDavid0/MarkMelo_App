@@ -1,4 +1,4 @@
-<div *ngIf="slides.length > 0">
+<div *ngIf="banners.length > 0">
   <swiper-container
     [modules]="swiperModules"
     [loop]="true"
@@ -6,8 +6,8 @@
     [pagination]="{ clickable: true }"
     [autoplay]="{ delay: 3000, disableOnInteraction: false }"
   >
-    <swiper-slide *ngFor="let slide of slides; let i = index">
-      <img [src]="slide.banner" [loading]="i === 0 ? 'eager' : 'lazy'"  />
+    <swiper-slide *ngFor="let b of banners; let i = index" (click)="prueba()">
+      <img [src]="b.horizontal_slider_banner" [loading]="i === 0 ? 'eager' : 'lazy'"  />
     </swiper-slide>
   </swiper-container>
 </div>

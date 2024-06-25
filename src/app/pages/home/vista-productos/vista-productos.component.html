@@ -12,10 +12,12 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let slide of products">
-      <ion-card button="true">
-        <img [src]="slide.banner" />
-          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+    <swiper-slide *ngFor="let p of products" (click)="prueba()">
+      <ion-card button="true" loading="lazy">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-subtitle>
+          {{ p.name_product }}
+        </ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>
@@ -35,10 +37,10 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let slide of products">
+    <swiper-slide *ngFor="let p of products">
       <ion-card button="true">
-        <img [src]="slide.banner" />
-          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+        <img [src]="p.image_product" />
+        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>
@@ -58,10 +60,10 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let slide of products">
+    <swiper-slide *ngFor="let p of products">
       <ion-card button="true">
-        <img [src]="slide.banner" />
-          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+        <img [src]="p.image_product" />
+        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>
@@ -81,10 +83,10 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let slide of products">
+    <swiper-slide *ngFor="let p of products">
       <ion-card button="true">
-        <img [src]="slide.banner" />
-          <ion-card-subtitle>Nombre del producto</ion-card-subtitle>
+        <img [src]="p.image_product" />
+        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>
