@@ -17,6 +17,7 @@ import { VistaProductosComponent } from './vista-productos/vista-productos.compo
 import { User } from 'src/app/models/user.model';
 import { Product } from 'src/app/models/product.model';
 import { Banner } from 'src/app/models/banner.model';
+import { Category } from 'src/app/models/categories';
 
 @Component({
   selector: 'app-home',
@@ -45,13 +46,14 @@ export class HomePage implements OnInit {
   
   banners: Banner[] = [];
   products: Product[] = [];
+  mainCategories: Category[] = [];
   userData!: User;
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('HomePage-OnInit');
     this.getBanners();
     this.getProducts();
+    this.getCategories();
   }
 
   getInformationUser(){
@@ -77,6 +79,12 @@ export class HomePage implements OnInit {
   getProducts() {
     this.ApiProductManagement.getProducts().subscribe((data) => {
       this.products = data.results;
+    });
+  }
+
+  getCategories() {
+    this.ApiProductManagement.getCategories().subscribe((data) => {
+      this.mainCategories = data.results;
     });
   }
 

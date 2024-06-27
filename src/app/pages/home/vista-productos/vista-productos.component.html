@@ -1,8 +1,38 @@
 <div>
-  <h3>Poductos recientes</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Categorias</h3>
+  <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
-    [breakpoints]="breakpoints"
+    [breakpoints]="breakpointsForCategories"
+    [autoHeight]="true"
+    [slidesPerView]="3"
+    [spaceBetween]="0"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let c of mainCategories"
+      (click)="idSelected = c.id_category; setInformationForOneCategory()"
+    >
+      <div>
+        {{ c.name_category }}
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Vistos recientemente</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
     [slidesPerView]="2"
     [spaceBetween]="10"
     [mousewheel]="{
@@ -12,11 +42,50 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let p of products" (click)="prueba()">
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
       <ion-card button="true" loading="lazy">
         <img [src]="p.image_product" loading="lazy" />
-        <ion-card-subtitle>
+        <ion-card-title>
           {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Lista de deseos</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
         </ion-card-subtitle>
       </ion-card>
     </swiper-slide>
@@ -24,10 +93,13 @@
 </div>
 
 <div>
-  <h3>Poductos que te gustan</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">En oferta</h3>
+  <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
-    [breakpoints]="breakpoints"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
     [slidesPerView]="2"
     [spaceBetween]="10"
     [mousewheel]="{
@@ -37,20 +109,31 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let p of products">
-      <ion-card button="true">
-        <img [src]="p.image_product" />
-        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>
 </div>
 
 <div>
-  <h3>Poductos recomendados</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Productos relacionados</h3>
+  <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
-    [breakpoints]="breakpoints"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
     [slidesPerView]="2"
     [spaceBetween]="10"
     [mousewheel]="{
@@ -60,33 +143,18 @@
       sensitivity: 1
     }"
   >
-    <swiper-slide *ngFor="let p of products">
-      <ion-card button="true">
-        <img [src]="p.image_product" />
-        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
-      </ion-card>
-    </swiper-slide>
-  </swiper-container>
-</div>
-
-<div>
-  <h3>Poductos en oferta</h3>
-  <swiper-container
-    [modules]="swiperModules"
-    [breakpoints]="breakpoints"
-    [slidesPerView]="2"
-    [spaceBetween]="10"
-    [mousewheel]="{
-      forceToAxis: true,
-      invert: false,
-      releaseOnEdges: true,
-      sensitivity: 1
-    }"
-  >
-    <swiper-slide *ngFor="let p of products">
-      <ion-card button="true">
-        <img [src]="p.image_product" />
-        <ion-card-subtitle>{{ p.name_product }}o</ion-card-subtitle>
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
       </ion-card>
     </swiper-slide>
   </swiper-container>

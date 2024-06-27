@@ -378,9 +378,5 @@ export class ApiRestFulService {
       });
     });
   }
-
-  getProductById(productId : number) {
-    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=' + productId);
-  }
   
 }

@@ -5,7 +5,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonicSlides } from '@ionic/angular';
+import { Category } from 'src/app/models/categories';
 import { Product } from 'src/app/models/product.model';
 
 @Component({
@@ -18,18 +20,27 @@ import { Product } from 'src/app/models/product.model';
 })
 export class VistaProductosComponent implements OnInit {
   @Input() products: Product[] = [];
+  @Input() mainCategories: any[] = [];
+
   swiperModules = [IonicSlides];
-  constructor() {}
+  idSelected?: number;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('VistaProductosComponent');
+    console.log('VistaProductosComponent-OnInit');
   }
 
-  prueba(){
-    console.log('seleccione un prueba');
+  setInformationForOneProduct(){
+    this.router.navigate(['/products', this.idSelected]);
   }
+
+  setInformationForOneCategory(){
+    this.router.navigate(['/categories', this.idSelected]);
+  }
+
   
-  breakpoints = {
+  breakpointsForProducts = {
     320: {
       slidesPerView: 3,
       spaceBetween: 10,
@@ -55,4 +66,33 @@ export class VistaProductosComponent implements OnInit {
       spaceBetween: 15,
     },
   };
+  
+  breakpointsForCategories = {
+    320: {
+      slidesPerView: 4,
+      spaceBetween: 10,
+    },
+    480: {
+      slidesPerView: 5,
+      spaceBetween: 10,
+    },
+    640: {
+      slidesPerView: 6,
+      spaceBetween: 10,
+    },
+    768: {
+      slidesPerView: 6,
+      spaceBetween: 15,
+    },
+    1024: {
+      slidesPerView: 7,
+      spaceBetween: 15,
+    },
+    1280: {
+      slidesPerView: 9,
+      spaceBetween: 15,
+    },
+  };
+
+
 }
