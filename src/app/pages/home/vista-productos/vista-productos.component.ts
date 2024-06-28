@@ -69,11 +69,11 @@ export class VistaProductosComponent implements OnInit {
   
   breakpointsForCategories = {
     320: {
-      slidesPerView: 4,
+      slidesPerView: 3.5,
       spaceBetween: 10,
     },
     480: {
-      slidesPerView: 5,
+      slidesPerView: 4.5,
       spaceBetween: 10,
     },
     640: {

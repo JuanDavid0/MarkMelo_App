@@ -20,7 +20,7 @@
       (click)="idSelected = c.id_category; setInformationForOneCategory()"
     >
       <div>
-        {{ c.name_category }}
+        <p>{{ c.name_category }}</p>
       </div>
     </swiper-slide>
   </swiper-container>
@@ -46,7 +46,7 @@
       *ngFor="let p of products"
       (click)="idSelected = p.id_product; setInformationForOneProduct()"
     >
-      <ion-card button="true" loading="lazy">
+      <ion-card button="true" loading="lazy" mode="md">
         <img [src]="p.image_product" loading="lazy" />
         <ion-card-title>
           {{ p.name_product }}

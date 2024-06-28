@@ -68,14 +68,14 @@ export const routes: Routes = [
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'categories/:id',
+    path: 'categories/:id?',
     loadComponent: () =>
       import('./pages/categories/categories.component').then(
         (m) => m.CategoriesComponent
       ),
   },
   {
-    path: 'products/:id',
+    path: 'products/:id?',
     loadComponent: () => import('./pages/products/products.page').then( m => m.ProductsPage)
   },
   {
@@ -83,6 +83,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/vista-productos/vista-productos.component').then(
         (m) => m.VistaProductosComponent
+      ),
+  },
+  {
+    path: 'header',
+    loadComponent: () =>
+      import('./pages/header/header.component').then(
+        (m) => m.HeaderComponent
       ),
   },
 ];

@@ -1,30 +1,54 @@
 ion-header {
-    font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 ion-button {
-    color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
 
 .left-menu {
-    ion-list {
-        ion-item {
+  ion-list {
+    ion-item {
+      ion-label {
+        --color: var(--ion-color-primary);
+      }
 
-            ion-label {
-                --color: var(--ion-color-primary);
-            }
-
-            ion-icon {
-                color: var(--ion-color-primary);
-            }
-        }
+      ion-icon {
+        color: var(--ion-color-primary);
+      }
     }
+  }
 }
 
 .login {
-    ion-list {
-        ion-item {
-            --color: var(--ion-color-primary);
-        }
+  ion-list {
+    ion-item {
+      --color: var(--ion-color-primary);
+    }
+  }
+}
+
+.toolbar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border: 1rem;
+    @media (max-width: 800px) {
+        display: none;
+    }
+}
+
+#slide-menu {
+    display: none;
+    @media (max-width: 800px) {
+        display: block;
+    }
+}
+
+.prueba{
+    display: block;
+    @media (max-width: 600px) {
+        display: none;
     }
 }

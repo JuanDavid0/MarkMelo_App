@@ -84,7 +84,9 @@ export class ApiRestFulService {
   logout() {
     localStorage.removeItem(this.JWT_TOKEN);
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then(() => {
+      window.location.reload();
+    });
   }
 
   /**
