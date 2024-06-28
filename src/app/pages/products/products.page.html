@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar>
     <app-header></app-header>
@@ -25,18 +24,23 @@
     <ion-card-header>
       <ion-card-title>Product Gallery</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <!--<ion-slides pager="true">
-        <ion-slide *ngFor="let image of product.gallery_product">
-          <img [src]="image" alt="Product Image" />
-        </ion-slide>
-      </ion-slides>-->
-    </ion-card-content>
+
+    <app-gallery-product></app-gallery-product>
+
+    <ion-grid>
+      <ion-row *ngFor="let product of products">
+        <ion-col size="6" *ngFor="let imageUrl of product.gallery_product">
+          <ion-card>
+            <img [src]="imageUrl" alt="Product Image">
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </ion-card>
 
   <ion-footer>
     <app-footer></app-footer>
   </ion-footer>
-  
-</ion-content>
 
+</ion-content>

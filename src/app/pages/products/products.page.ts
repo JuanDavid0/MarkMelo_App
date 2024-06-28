@@ -2,13 +2,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonicModule} from '@ionic/angular';
-import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
+import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from 'src/app/pages/footer/footer.component';
 import { HeaderComponent } from 'src/app/pages/header/header.component';
+import { ApiProductManagementService } from 'src/app/services/api-product-management.service';
+import { Product } from 'src/app/models/product.model';
+import { GalleryProductComponent } from './gallery-product/gallery-product.component';
 
 
 @Component({
@@ -24,26 +26,40 @@ import { HeaderComponent } from 'src/app/pages/header/header.component';
     RouterModule,
     ReactiveFormsModule,
     FooterComponent,
-    HeaderComponent
-  ],
+    HeaderComponent,
+    GalleryProductComponent
+  ]
 })
 export class ProductsPage implements OnInit {
-
-  apiService = inject(ApiRestFulService); 
   product: any;
+  ApiProductManagement = inject(ApiProductManagementService);
 
-  constructor() { }
+  products: Product[] = [];
 
-  getProductData(){
-    this.apiService.getProductById(42).subscribe((response: any) => {
+  constructor(private router: Router) { }
+
+  getProductData() {
+    this.ApiProductManagement.getProductById(42).subscribe((response: any) => {
       if (response && response.results && response.results.length > 0) {
         this.product = response.results[0];
-        this.product.gallery_product = JSON.parse(this.product.gallery_product);
       }
     });
   }
 
+  getGalleryProducts() {
+    this.ApiProductManagement.getGalleryProducts(42).subscribe((data: any) => {
+      this.products = data.results.map((result: any) => {
+        return {
+          ...result,
+          gallery_product: JSON.parse(result.gallery_product)
+        };
+      });
+    });
+  }
+
+
   ngOnInit(): void {
     this.getProductData();
+    this.getGalleryProducts();
   }
 }

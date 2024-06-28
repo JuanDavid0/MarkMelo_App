@@ -27,4 +27,11 @@ export class ApiProductManagementService {
     return this.http.get(environment.urlApiRestful + environment.banners);
   }
 
+  getProductById(productId: number) {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId);
+  }
+
+  getGalleryProducts(productId: number) {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId + '&select=gallery_product');
+  }
 }
