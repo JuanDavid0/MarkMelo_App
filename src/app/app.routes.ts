@@ -75,7 +75,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'products/:id?',
+    path: 'products/:id',
     loadComponent: () => import('./pages/products/products.page').then( m => m.ProductsPage)
   },
   {

@@ -1,13 +1,13 @@
-<div *ngIf="banners.length > 0">
-  <swiper-container
+<div *ngIf="GalleryProductComponent.length > 0">
+    <swiper-container 
     [modules]="swiperModules"
-    [loop]="true"
-    [effect]="'fade'"
-    [pagination]="{ clickable: true }"
-    [autoplay]="{ delay: 3000, disableOnInteraction: false }"
-  >
-    <swiper-slide *ngFor="let b of banners; let i = index" (click)="prueba()">
-      <img [src]="b.horizontal_slider_banner" [loading]="i === 0 ? 'eager' : 'lazy'"  />
-    </swiper-slide>
-  </swiper-container>
+    [navigation]="true"
+    [pagination]="{type:'bullets' , clickable: true }"
+    >
+        <swiper-slide *ngFor="let imageUrl of GalleryProductComponent">
+            <img [src]="imageUrl"/>
+        </swiper-slide>
+
+    </swiper-container>
+
 </div>

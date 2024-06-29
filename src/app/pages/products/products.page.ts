@@ -1,5 +1,4 @@
-import { ApiProductManagementService } from './../../services/api-product-management.service';
-// src/app/pages/products/products.page.ts
+
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -34,38 +33,32 @@ import { GalleryProductComponent } from './gallery-product/gallery-product.compo
 export class ProductsPage implements OnInit {
   product: any;
   ApiProductManagement = inject(ApiProductManagementService);
-
-  products: Product[] = [];
+  gallery_products: any[] = [];
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.getProductData(id);
-  }
-
-  getProductData() {
-    this.ApiProductManagement.getProductById(42).subscribe((response: any) => {
+  getProductData(id: string) {
+    this.ApiProductManagement.getProductById(id).subscribe((response: any) => {
       if (response && response.results && response.results.length > 0) {
         this.product = response.results[0];
       }
     });
   }
 
-  getGalleryProducts() {
-    this.ApiProductManagement.getGalleryProducts(42).subscribe((data: any) => {
-      this.products = data.results.map((result: any) => {
-        return {
-          ...result,
-          gallery_product: JSON.parse(result.gallery_product)
-        };
-      });
+  getGalleryProducts(id: string) {
+    this.ApiProductManagement.getGalleryProducts(id).subscribe((data: any) => {
+      this.gallery_products = data.results.map((result: any) => 
+        JSON.parse(result.gallery_product)
+      ).flat(); // sirve para aplanar un array de arrays y dejarlo en un solo array
     });
   }
-
+  
+  
 
   ngOnInit(): void {
-    this.getProductData();
-    this.getGalleryProducts();
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.getProductData(id);
+    this.getGalleryProducts(id);
   }
+
 }

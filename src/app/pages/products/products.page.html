@@ -7,6 +7,8 @@
 <ion-content *ngIf="product">
 
   <img [src]="product.image_product">
+  
+  <app-gallery-product [GalleryProductComponent]="gallery_products"></app-gallery-product>
 
   <ion-card>
     <ion-card-header>
@@ -18,25 +20,6 @@
       <p><strong>Stock:</strong> {{ product.stock_product }}</p>
       <p><strong>Delivery Time:</strong> {{ product.delivery_time_product }} days</p>
     </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="product.gallery_product && product.gallery_product.length > 0">
-    <ion-card-header>
-      <ion-card-title>Product Gallery</ion-card-title>
-    </ion-card-header>
-
-    <app-gallery-product></app-gallery-product>
-
-    <ion-grid>
-      <ion-row *ngFor="let product of products">
-        <ion-col size="6" *ngFor="let imageUrl of product.gallery_product">
-          <ion-card>
-            <img [src]="imageUrl" alt="Product Image">
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
   </ion-card>
 
   <ion-footer>

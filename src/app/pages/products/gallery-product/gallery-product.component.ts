@@ -18,7 +18,7 @@ import { IonicSlides} from '@ionic/angular';
 })
 export class GalleryProductComponent  implements OnInit {
 
-  @Input() GalleryProductComponent: GalleryProductComponent[] = [];
+  @Input() GalleryProductComponent: string[] = [];
 
   swiperModules = [IonicSlides];
 

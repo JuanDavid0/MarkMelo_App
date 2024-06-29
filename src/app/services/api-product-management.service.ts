@@ -31,14 +31,11 @@ export class ApiProductManagementService {
     return this.http.get(environment.urlApiRestful + environment.categories);
   }
 
-  getProductById(productId : string) {
-    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=' + productId);
-  }
-  getProductById(productId: number) {
+  getProductById(productId: String) {
     return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId);
   }
 
-  getGalleryProducts(productId: number) {
+  getGalleryProducts(productId: string) {
     return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId + '&select=gallery_product');
   }
 }
