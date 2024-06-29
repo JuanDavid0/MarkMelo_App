@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
 import { User } from 'src/app/models/user.model';
 
@@ -13,15 +13,18 @@ import { User } from 'src/app/models/user.model';
   imports: [IonicModule, CommonModule, RouterModule, ]
 })
 
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
   ApiRestFulService = inject(ApiRestFulService);
   @Input() userData: User | undefined;
 
-  prueba(){
-    console.log("Hola");
-  }
+  constructor(private activatedRoute: ActivatedRoute) { }
   
-  logout() {
+  ngOnInit(){
+    console.log("onInit Header");
+  }
+
+  makeLogout(){
     this.ApiRestFulService.logout();
   }
+  
 }

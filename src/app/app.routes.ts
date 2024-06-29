@@ -1,3 +1,5 @@
+import { VistaProductosComponent } from './pages/home/vista-productos/vista-productos.component';
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AuthAccessGuard } from './guards/auth-access.guard';
 import { AuthLoginGuard } from './guards/auth-login.guard';
@@ -66,14 +68,28 @@ export const routes: Routes = [
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'categories',
+    path: 'categories/:id?',
     loadComponent: () =>
       import('./pages/categories/categories.component').then(
         (m) => m.CategoriesComponent
       ),
-  },  {
-    path: 'products',
+  },
+  {
+    path: 'products/:id?',
     loadComponent: () => import('./pages/products/products.page').then( m => m.ProductsPage)
-  }
-
+  },
+  {
+    path: 'vista-productos',
+    loadComponent: () =>
+      import('./pages/home/vista-productos/vista-productos.component').then(
+        (m) => m.VistaProductosComponent
+      ),
+  },
+  {
+    path: 'header',
+    loadComponent: () =>
+      import('./pages/header/header.component').then(
+        (m) => m.HeaderComponent
+      ),
+  },
 ];

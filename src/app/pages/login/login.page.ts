@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
       this.isLoggedin = user != null;
       this.onGoogleSocialLogin(user);
     });
-    this.setUser();
+    this.setUserRol();
     this.params.page = 0;
     this.infLogin();
   }
@@ -93,7 +93,7 @@ export class LoginPage implements OnInit {
     });
   }
 
-  setUser() {
+  setUserRol() {
     if(this.ApiRestFulService.isloggedIn()){
       this.ApiRestFulService.getRol().subscribe((response) => {
         if (response.status === 200) {
@@ -117,9 +117,13 @@ export class LoginPage implements OnInit {
       (response) => {
         if (response.status === 200) {
           if (this.rol_user == 'admin') {
-            this.router.navigate(['admin']);
+            this.router.navigate(['/admin']).then(() => {
+              window.location.reload();
+            });
           } else {
-            this.router.navigate(['home']);
+            this.router.navigate(['/home']).then(() => {
+              window.location.reload();
+            });
           }
         } else {
           alert('Inicio de sesión fallido');

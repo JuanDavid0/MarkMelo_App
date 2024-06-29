@@ -1,5 +1,5 @@
 export interface Product {
-    id_product: string;
+    id_product: number;
     approval_product: string;
     feedback_product: string;
     state_product: string;

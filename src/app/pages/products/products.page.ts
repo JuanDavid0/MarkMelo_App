@@ -1,10 +1,11 @@
+import { ApiProductManagementService } from './../../services/api-product-management.service';
 // src/app/pages/products/products.page.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from 'src/app/pages/footer/footer.component';
 import { HeaderComponent } from 'src/app/pages/header/header.component';
@@ -36,7 +37,12 @@ export class ProductsPage implements OnInit {
 
   products: Product[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.getProductData(id);
+  }
 
   getProductData() {
     this.ApiProductManagement.getProductById(42).subscribe((response: any) => {

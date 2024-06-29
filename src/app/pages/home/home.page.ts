@@ -1,6 +1,6 @@
 import { ApiProductManagementService } from './../../services/api-product-management.service';
 import { Observable } from 'rxjs';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, SimpleChanges, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -17,6 +17,8 @@ import { VistaProductosComponent } from './vista-productos/vista-productos.compo
 import { User } from 'src/app/models/user.model';
 import { Product } from 'src/app/models/product.model';
 import { Banner } from 'src/app/models/banner.model';
+import { Category } from 'src/app/models/categories';
+import { ChangeDetectionStrategy } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -42,28 +44,37 @@ import { Banner } from 'src/app/models/banner.model';
 export class HomePage implements OnInit {
   ApiRestFulService = inject(ApiRestFulService);
   ApiProductManagement = inject(ApiProductManagementService);
-  
+
   banners: Banner[] = [];
   products: Product[] = [];
+  mainCategories: Category[] = [];
   userData!: User;
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('HomePage-OnInit');
+    this.getInformationUser();
     this.getBanners();
     this.getProducts();
+    this.getCategories();
   }
 
-  getInformationUser(){
+  getInformationUser() {
+    if (this.isOneUserLogged()) {
+      this.ApiRestFulService.currentUser().subscribe((data: any) => {
+        this.userData = data.results[0];
+      });
+    }
   }
 
-  isOneUserLogged(){
-    if(this.ApiRestFulService.isloggedIn()){
-      if(this.ApiRestFulService.isTokenExpired()){
+  isOneUserLogged() {
+    if (this.ApiRestFulService.isloggedIn()) {
+      if (this.ApiRestFulService.isTokenExpired()) {
         this.ApiRestFulService.logout();
+        alert('Sesión expirada, por favor vuelva a iniciar sesión');
+        return false;
       }
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -80,4 +91,9 @@ export class HomePage implements OnInit {
     });
   }
 
+  getCategories() {
+    this.ApiProductManagement.getCategories().subscribe((data) => {
+      this.mainCategories = data.results;
+    });
+  }
 }
