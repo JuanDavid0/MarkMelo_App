@@ -91,5 +91,9 @@ export const routes: Routes = [
       import('./pages/header/header.component').then(
         (m) => m.HeaderComponent
       ),
+  },  {
+    path: 'shopping-cart',
+    loadComponent: () => import('./pages/shopping-cart/shopping-cart.page').then( m => m.ShoppingCartPage)
   },
+
 ];

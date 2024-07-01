@@ -69,12 +69,12 @@ export class ApiRestFulService {
    */
   private doLoginUser(email: string, token: any) {
     this.loggedUser = email;
-    this.storeJwtToken(token);
+    this.storeJwtToken(token);  //
     this.isAuthenticatedSubject.next(true);
   }
 
   private storeJwtToken(jwt: string) {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
+    localStorage.setItem(this.JWT_TOKEN, jwt); //
   }
 
   /**

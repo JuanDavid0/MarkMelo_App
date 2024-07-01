@@ -11,6 +11,7 @@ import { HeaderComponent } from 'src/app/pages/header/header.component';
 import { ApiProductManagementService } from 'src/app/services/api-product-management.service';
 import { Product } from 'src/app/models/product.model';
 import { GalleryProductComponent } from './gallery-product/gallery-product.component';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 
 @Component({
@@ -35,7 +36,9 @@ export class ProductsPage implements OnInit {
   ApiProductManagement = inject(ApiProductManagementService);
   gallery_products: any[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private shoppingCartService: ShoppingCartService
+  ) { }
 
   getProductData(id: string) {
     this.ApiProductManagement.getProductById(id).subscribe((response: any) => {
@@ -52,13 +55,15 @@ export class ProductsPage implements OnInit {
       ).flat(); // sirve para aplanar un array de arrays y dejarlo en un solo array
     });
   }
-  
-  
+
+  addToCart(product: any) {
+    this.shoppingCartService.addToCart(product);
+  }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
     this.getProductData(id);
-    this.getGalleryProducts(id);
+    this.getGalleryProducts(id); 
   }
 
 }

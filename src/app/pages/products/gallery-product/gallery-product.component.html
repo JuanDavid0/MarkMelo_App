@@ -1,13 +1,28 @@
 <div *ngIf="GalleryProductComponent.length > 0">
-    <swiper-container 
+    <swiper-container
     [modules]="swiperModules"
     [navigation]="true"
     [pagination]="{type:'bullets' , clickable: true }"
+    class="mySwiper"
+    thumbs-swiper = ".mySwiper2"
     >
         <swiper-slide *ngFor="let imageUrl of GalleryProductComponent">
             <img [src]="imageUrl"/>
         </swiper-slide>
-
+        
     </swiper-container>
 
+    <swiper-container
+    [modules]="swiperModules"
+    space-between="10"
+    slides-per-view="5"
+    free-mode="true"
+    class="mySwiper2"
+    >
+        <swiper-slide *ngFor="let imageUrl of GalleryProductComponent">
+            <img [src]="imageUrl"/>
+        </swiper-slide>
+        
+    </swiper-container>
 </div>
+

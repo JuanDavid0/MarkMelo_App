@@ -27,8 +27,4 @@ export class GalleryProductComponent  implements OnInit {
   ngOnInit() {
 
   }
-
-  prueba(){
-  }
-
 }
