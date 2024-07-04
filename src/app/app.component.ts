@@ -17,6 +17,7 @@ import {
   menuOutline,
   peopleOutline,
   personCircle,
+  timeOutline,
   trashOutline,
 } from 'ionicons/icons';
 
@@ -48,7 +49,8 @@ export class AppComponent {
       'heart': heart,
       'cart': cart,
       'create': create,
-      'trash-outline': trashOutline
+      'trash-outline': trashOutline,
+      'timer-outline': timeOutline,
     });
   }
 }
