@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="cart.length > 0; else emptyCart">
+    <ion-item *ngFor="let product of cart">
+      <img [src]="product.image_product" alt="Product Image" style="width: 50px; height: 50px;">
+      <ion-label>
+        {{ product.name_product }} - {{ product.price_product | currency:'COP'}}
+      </ion-label>
+      <ion-button (click)="removeFromCart(product)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Total:</strong> ${{ total }}</ion-label>
+    </ion-item>
+    <ion-button >Comprar</ion-button>
+  </ion-list>
+  <ng-template #emptyCart>
+    <ion-item>
+      <ion-label>El carrito está vacío.</ion-label>
+    </ion-item>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <app-footer></app-footer>
+</ion-footer>

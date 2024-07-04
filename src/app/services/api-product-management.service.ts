@@ -31,7 +31,15 @@ export class ApiProductManagementService {
     return this.http.get(environment.urlApiRestful + environment.categories);
   }
 
-  getProductById(productId : string) {
-    return this.http.get('https://api.uptc.online/products?linkTo=id_product&equalTo=' + productId);
+  getProductsByCategory(categoryId: string): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_category_product&equalTo=' + categoryId);
+  }
+
+  getProductById(productId: String) {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId);
+  }
+
+  getGalleryProducts(productId: string) {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId + '&select=gallery_product');
   }
 }

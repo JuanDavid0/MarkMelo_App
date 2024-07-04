@@ -1,5 +1,7 @@
-ion-header {
-  font-family: "Montserrat", sans-serif;
+ion-header,
+p,
+ion-title {
+  font-family: 'Montserrat', sans-serif;
 }
 
 ion-button {
@@ -11,6 +13,7 @@ ion-button {
     ion-item {
       ion-label {
         --color: var(--ion-color-primary);
+        font-family: 'Montserrat', sans-serif;
       }
 
       ion-icon {
@@ -24,6 +27,7 @@ ion-button {
   ion-list {
     ion-item {
       --color: var(--ion-color-primary);
+      font-family: 'Montserrat', sans-serif;
     }
   }
 }
@@ -50,15 +54,17 @@ ion-button {
 }
 
 #slide-menu {
-    display: none;
-    @media (max-width: 800px) {
-        display: block;
-    }
+  display: none;
+
+  @media (max-width: 800px) {
+    display: block;
+  }
 }
 
-.prueba{
-    display: block;
-    @media (max-width: 600px) {
-        display: none;
-    }
+.prueba {
+  display: block;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 }

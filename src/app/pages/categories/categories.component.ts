@@ -1,11 +1,15 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from 'src/app/pages/footer/footer.component';
 import { HeaderComponent } from 'src/app/pages/header/header.component';
+
+import { ApiProductManagementService } from './../../services/api-product-management.service';
+import { Category } from 'src/app/models/categories';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-categories',
@@ -22,14 +26,38 @@ import { HeaderComponent } from 'src/app/pages/header/header.component';
     HeaderComponent,
   ]
 })
-export class CategoriesComponent {
-
-  //Temporal mientras se carga el service.
+export class CategoriesComponent implements OnInit {
+  ApiProductManagement = inject(ApiProductManagementService);
+  mainCategories: Category[] = [];
+  products: Product[] = [];
   showCategories = false;
-  categories = ['Categoría 1', 'Categoría 2', 'Categoría 3', 'Categoría 4'];
+  idSelected?: number;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  
+  ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.getProductsByCategory(id);
+    this.getCategories();
+  }
 
   toggleCategories() {
     this.showCategories = !this.showCategories;
   }
-  
+
+  getCategories() {
+    this.ApiProductManagement.getCategories().subscribe((data) => {
+      this.mainCategories = data.results;
+    });
+  }
+
+  getProductsByCategory(categoryId: string) {
+    this.ApiProductManagement.getProductsByCategory(categoryId).subscribe((data) => {
+      this.products = data.results;
+    });
+  }
+
+  setInformationForOneProduct(){
+    this.router.navigate(['/products', this.idSelected]);
+  }
 }

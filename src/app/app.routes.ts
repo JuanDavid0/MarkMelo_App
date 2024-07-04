@@ -103,4 +103,9 @@ export const routes: Routes = [
         (m) => m.HeaderComponent
       ),
   },
+  {
+    path: 'shopping-cart',
+    loadComponent: () => import('./pages/shopping-cart/shopping-cart.page').then( m => m.ShoppingCartPage)
+  },
+
 ];

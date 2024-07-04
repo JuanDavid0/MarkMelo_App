@@ -1,5 +1,4 @@
-import { ApiProductManagementService } from './../../services/api-product-management.service';
-// src/app/pages/products/products.page.ts
+
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -16,6 +15,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from 'src/app/pages/footer/footer.component';
 import { HeaderComponent } from 'src/app/pages/header/header.component';
+import { ApiProductManagementService } from 'src/app/services/api-product-management.service';
+import { Product } from 'src/app/models/product.model';
+import { GalleryProductComponent } from './gallery-product/gallery-product.component';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+
 
 @Component({
   selector: 'app-products',
@@ -31,31 +35,42 @@ import { HeaderComponent } from 'src/app/pages/header/header.component';
     ReactiveFormsModule,
     FooterComponent,
     HeaderComponent,
-  ],
+    GalleryProductComponent
+  ]
 })
 export class ProductsPage implements OnInit {
-  ApiProductManagement = inject(ApiProductManagementService);
   product: any;
+  ApiProductManagement = inject(ApiProductManagementService);
+  gallery_products: any[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    if (id !== undefined && id !== null && id !== '') {
-      console.log('valor de ID: ' + id);
-      this.getProductData(id);
-    } else {
-      console.log('No se encontró el producto');
-      console.log('valor de ID: ' + id);
-    }
-  }
+  constructor(private activatedRoute: ActivatedRoute,
+    private shoppingCartService: ShoppingCartService
+  ) { }
 
   getProductData(id: string) {
     this.ApiProductManagement.getProductById(id).subscribe((response: any) => {
       if (response && response.results && response.results.length > 0) {
         this.product = response.results[0];
-        this.product.gallery_product = JSON.parse(this.product.gallery_product);
       }
     });
   }
+
+  getGalleryProducts(id: string) {
+    this.ApiProductManagement.getGalleryProducts(id).subscribe((data: any) => {
+      this.gallery_products = data.results.map((result: any) => 
+        JSON.parse(result.gallery_product)
+      ).flat(); // sirve para aplanar un array de arrays y dejarlo en un solo array
+    });
+  }
+
+  addToCart(product: any) {
+    this.shoppingCartService.addToCart(product);
+  }
+
+  ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.getProductData(id);
+    this.getGalleryProducts(id); 
+  }
+
 }

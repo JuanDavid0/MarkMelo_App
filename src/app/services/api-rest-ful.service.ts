@@ -1,4 +1,4 @@
-import { Router} from '@angular/router';
+import { Router, UrlHandlingStrategy} from '@angular/router';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -69,12 +69,12 @@ export class ApiRestFulService {
    */
   private doLoginUser(email: string, token: any) {
     this.loggedUser = email;
-    this.storeJwtToken(token);
+    this.storeJwtToken(token);  //
     this.isAuthenticatedSubject.next(true);
   }
 
   private storeJwtToken(jwt: string) {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
+    localStorage.setItem(this.JWT_TOKEN, jwt); //
   }
 
   /**
@@ -173,7 +173,7 @@ export class ApiRestFulService {
           formData.append('date_created_user', new Date().toISOString());
           alert('Registro exitoso.');
           return this.http.post<any>(
-            'https://api.uptc.online/users?register=true',
+            environment.urlApiRestful + environment.users,
             formData
           );
         } else {
@@ -198,7 +198,7 @@ export class ApiRestFulService {
     const trimmedEmail = email.trim();
     return this.http
       .get(
-        'https://api.uptc.online/users?select=email_user&linkTo=email_user&equalTo=' +
+        environment.urlApiRestful + '/users?select=email_user&linkTo=email_user&equalTo=' +
           trimmedEmail
       )
       .pipe(
@@ -232,7 +232,7 @@ export class ApiRestFulService {
           googleFormData.append('method_user', user.provider);
           return this.http
             .post<any>(
-              'https://api.uptc.online/users?register=true',
+              environment.urlApiRestful + environment.register,
               googleFormData
             )
             .pipe(
@@ -269,7 +269,7 @@ export class ApiRestFulService {
     googleFormData.append('email_user', user.email);
 
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', googleFormData)
+      .post<any>(environment.urlApiRestful + environment.login, googleFormData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -299,7 +299,7 @@ export class ApiRestFulService {
           facebookFormData.append('method_user', user.provider);
           return this.http
             .post<any>(
-              'https://api.uptc.online/users?register=true',
+              environment.urlApiRestful + environment.register,
               facebookFormData
             )
             .pipe(
@@ -337,7 +337,7 @@ export class ApiRestFulService {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', facebookFormData)
+      .post<any>(environment.urlApiRestful + environment.login, facebookFormData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -370,7 +370,7 @@ export class ApiRestFulService {
     });
     const token = localStorage.getItem(this.JWT_TOKEN) || '';
     this.get_id_User().subscribe((userId: string) => {
-      this.http.put('https://api.uptc.online/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
+      this.http.put(environment.urlApiRestful + '/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
       queryString, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -380,5 +380,4 @@ export class ApiRestFulService {
       });
     });
   }
-  
 }

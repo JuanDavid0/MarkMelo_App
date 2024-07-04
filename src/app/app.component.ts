@@ -19,7 +19,9 @@ import {
   personCircle,
   trashOutline,
 } from 'ionicons/icons';
+
 import { register } from 'swiper/element/bundle';
+
 register();
 @Component({
   selector: 'app-root',
@@ -46,7 +48,7 @@ export class AppComponent {
       'heart': heart,
       'cart': cart,
       'create': create,
-      'trash-outline': trashOutline,
+      'trash-outline': trashOutline
     });
   }
 }
