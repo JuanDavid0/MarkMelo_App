@@ -31,6 +31,10 @@ export class ApiProductManagementService {
     return this.http.get(environment.urlApiRestful + environment.categories);
   }
 
+  getProductsByCategory(categoryId: string): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_category_product&equalTo=' + categoryId);
+  }
+
   getProductById(productId: String) {
     return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId);
   }

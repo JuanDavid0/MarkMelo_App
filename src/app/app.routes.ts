@@ -68,7 +68,7 @@ export const routes: Routes = [
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'categories/:id?',
+    path: 'categories/:id',
     loadComponent: () =>
       import('./pages/categories/categories.component').then(
         (m) => m.CategoriesComponent
@@ -91,7 +91,8 @@ export const routes: Routes = [
       import('./pages/header/header.component').then(
         (m) => m.HeaderComponent
       ),
-  },  {
+  },
+  {
     path: 'shopping-cart',
     loadComponent: () => import('./pages/shopping-cart/shopping-cart.page').then( m => m.ShoppingCartPage)
   },
