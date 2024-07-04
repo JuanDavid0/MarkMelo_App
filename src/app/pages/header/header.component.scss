@@ -34,8 +34,18 @@ ion-button {
     align-items: center;
     padding: 0 10px;
     border: 1rem;
-    @media (max-width: 800px) {
+}
+
+.menu-outline {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .toolbar-row {
         display: none;
+    }
+    .menu-outline {
+        display: block;
     }
 }
 

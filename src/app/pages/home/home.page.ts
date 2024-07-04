@@ -52,31 +52,9 @@ export class HomePage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.getInformationUser();
     this.getBanners();
     this.getProducts();
     this.getCategories();
-  }
-
-  getInformationUser() {
-    if (this.isOneUserLogged()) {
-      this.ApiRestFulService.currentUser().subscribe((data: any) => {
-        this.userData = data.results[0];
-      });
-    }
-  }
-
-  isOneUserLogged() {
-    if (this.ApiRestFulService.isloggedIn()) {
-      if (this.ApiRestFulService.isTokenExpired()) {
-        this.ApiRestFulService.logout();
-        alert('Sesión expirada, por favor vuelva a iniciar sesión');
-        return false;
-      }
-      return true;
-    } else {
-      return false;
-    }
   }
 
   getBanners() {

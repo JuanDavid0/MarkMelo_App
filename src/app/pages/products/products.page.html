@@ -5,8 +5,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="product">
+<ion-content>
 
+  <div *ngIf="product">
   <img [src]="product.image_product">
 
   <ion-card>
@@ -33,7 +34,7 @@
       </ion-slides>-->
     </ion-card-content>
   </ion-card>
-
+</div>
   <ion-footer>
     <app-footer></app-footer>
   </ion-footer>

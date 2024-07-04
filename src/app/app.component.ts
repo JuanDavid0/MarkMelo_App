@@ -17,6 +17,7 @@ import {
   menuOutline,
   peopleOutline,
   personCircle,
+  trashOutline,
 } from 'ionicons/icons';
 import { register } from 'swiper/element/bundle';
 register();
@@ -45,6 +46,7 @@ export class AppComponent {
       'heart': heart,
       'cart': cart,
       'create': create,
+      'trash-outline': trashOutline,
     });
   }
 }

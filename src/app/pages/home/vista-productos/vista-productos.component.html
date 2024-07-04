@@ -60,7 +60,7 @@
 </div>
 <div>
   <HR noshade size="5" width="100%" align="center" />
-  <h3 class="titulos">Lista de deseos</h3>
+  <h3 class="titulos">Vistos recientemente</h3>
   <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
@@ -79,7 +79,7 @@
       *ngFor="let p of products"
       (click)="idSelected = p.id_product; setInformationForOneProduct()"
     >
-      <ion-card button="true" loading="lazy">
+      <ion-card button="true" loading="lazy" mode="md">
         <img [src]="p.image_product" loading="lazy" />
         <ion-card-title>
           {{ p.name_product }}
@@ -91,10 +91,9 @@
     </swiper-slide>
   </swiper-container>
 </div>
-
 <div>
   <HR noshade size="5" width="100%" align="center" />
-  <h3 class="titulos">En oferta</h3>
+  <h3 class="titulos">Vistos recientemente</h3>
   <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
@@ -113,7 +112,7 @@
       *ngFor="let p of products"
       (click)="idSelected = p.id_product; setInformationForOneProduct()"
     >
-      <ion-card button="true" loading="lazy">
+      <ion-card button="true" loading="lazy" mode="md">
         <img [src]="p.image_product" loading="lazy" />
         <ion-card-title>
           {{ p.name_product }}
@@ -125,10 +124,9 @@
     </swiper-slide>
   </swiper-container>
 </div>
-
 <div>
   <HR noshade size="5" width="100%" align="center" />
-  <h3 class="titulos">Productos relacionados</h3>
+  <h3 class="titulos">Vistos recientemente</h3>
   <HR noshade size="5" width="100%" align="center" />
   <swiper-container
     [modules]="swiperModules"
@@ -147,7 +145,7 @@
       *ngFor="let p of products"
       (click)="idSelected = p.id_product; setInformationForOneProduct()"
     >
-      <ion-card button="true" loading="lazy">
+      <ion-card button="true" loading="lazy" mode="md">
         <img [src]="p.image_product" loading="lazy" />
         <ion-card-title>
           {{ p.name_product }}
@@ -159,3 +157,36 @@
     </swiper-slide>
   </swiper-container>
 </div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Vistos recientemente</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy" mode="md">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>  
