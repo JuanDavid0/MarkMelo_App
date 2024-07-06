@@ -47,6 +47,7 @@ export class HomePage implements OnInit {
 
   banners: Banner[] = [];
   products: Product[] = [];
+  topViewedProducts: Product[] = [];
   mainCategories: Category[] = [];
   userData!: User;
   constructor(private router: Router) {}
@@ -55,6 +56,7 @@ export class HomePage implements OnInit {
     this.getBanners();
     this.getProducts();
     this.getCategories();
+    this.getTopViewedProducts();
   }
 
   getBanners() {
@@ -66,6 +68,14 @@ export class HomePage implements OnInit {
   getProducts() {
     this.ApiProductManagement.getProducts().subscribe((data) => {
       this.products = data.results;
+    });
+  }
+
+  getTopViewedProducts() {
+    this.ApiProductManagement.getProducts().subscribe((data) => {
+      this.topViewedProducts = data.results.sort((a: Product, b: Product) => {
+        return b.views_product - a.views_product;
+      });
     });
   }
 

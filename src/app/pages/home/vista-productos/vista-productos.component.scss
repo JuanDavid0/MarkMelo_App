@@ -36,7 +36,7 @@ swiper-slide ion-card {
   text-align: center;
 }
 
-swiper-slide div{
+swiper-slide div {
   width: 100%;
   height: 100%;
   display: flex;
@@ -45,7 +45,45 @@ swiper-slide div{
   align-items: center;
   font-weight: bold;
 }
-.titulos{
+.titulos {
   text-align: center;
-  color: #5321BF;
+  color: #5321bf;
+}
+
+.buttons-heart-cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0;
+  z-index: 100;
+}
+
+.buttons-heart-cart ion-button {
+  --background: none;
+  --border-radius: 0;
+  --border-width: 0;
+  --box-shadow: none;
+  --padding-end: 0;
+  --padding-start: 0;
+  --background-hover: none;
+  --background-activated: none;
+  color: rgb(67, 67, 67); /* color negro por defecto */
+}
+
+.heart-button:hover ion-icon,
+.heart-button:active ion-icon {
+  color: rgb(255, 0, 0) !important; /* color rojo al pasar el ratón o hacer clic */
+}
+
+.cart-button:hover ion-icon,
+.cart-button:active ion-icon {
+  color: var(--ion-color-primary) !important; /* color morado al pasar el ratón o hacer clic */
+}
+
+.buttons-heart-cart ion-button ion-icon {
+  color: inherit; /* hereda el color del botón */
+  font-size: 1.5rem;
 }

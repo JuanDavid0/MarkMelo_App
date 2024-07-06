@@ -34,17 +34,18 @@ ion-button {
 
 .toolbar-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0;
-    border: 1rem;
+    font-size: small;
+    ion-button {
+        margin-left: auto;
+    }
 }
 
 .menu-outline {
     display: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .toolbar-row {
         display: none;
     }
@@ -53,10 +54,10 @@ ion-button {
     }
 }
 
-#slide-menu {
+.slide-menu {
   display: none;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     display: block;
   }
 }

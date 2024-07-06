@@ -21,6 +21,7 @@ import { Product } from 'src/app/models/product.model';
 export class VistaProductosComponent implements OnInit {
   @Input() products: Product[] = [];
   @Input() mainCategories: any[] = [];
+  @Input() topViewedProducts: Product[] = [];
 
   swiperModules = [IonicSlides];
   idSelected?: number;
@@ -38,8 +39,15 @@ export class VistaProductosComponent implements OnInit {
   setInformationForOneCategory(){
     this.router.navigate(['/categories', this.idSelected]);
   }
+  navigateToLogin(event: Event) {
+    event.stopPropagation();
+    alert('le has dado me gusta');
+  }
+  navigateToCart(event: Event) {
+    event.stopPropagation();
+    alert('se ha añadido al carrito');
+  }
 
-  
   breakpointsForProducts = {
     320: {
       slidesPerView: 3,

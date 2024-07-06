@@ -23,7 +23,7 @@ export interface Product {
     reviews_product: null;
     tags_product: string;
     sales_product: null;
-    views_product: string;
+    views_product: number;
     date_created_product: string;
     date_updated_product: string;
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ApiRestFulService } from 'src/app/services/api-rest-ful.service';
@@ -16,13 +16,33 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 export class HeaderComponent implements OnInit{
   ApiRestFulService = inject(ApiRestFulService);
   userData: User | undefined;
-
+  @ViewChild('popoverMenu') popoverMenu: any;
+  @ViewChild('popoverProfile') popoverProfile: any;
 
   constructor(private activatedRoute: ActivatedRoute) { }
   
   ngOnInit(){
     console.log("onInit Header");
     this.getInformationUser();
+  }
+
+  isOpenMenu = false;
+  isOpenProfile = false;
+
+  presentPopoverMenu(e: Event) {
+    this.popoverMenu.event = e;
+    this.isOpenMenu = true;
+  }
+  closePopoverMenu() {
+    this.isOpenMenu = false;
+  }
+
+  presentPopoverProfile(e: Event) {
+    this.popoverProfile.event = e;
+    this.isOpenProfile = true;
+  }
+  closePopoverProfile() {
+    this.isOpenProfile = false;
   }
 
   getInformationUser() {
