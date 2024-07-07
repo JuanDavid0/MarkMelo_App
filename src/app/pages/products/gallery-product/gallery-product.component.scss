@@ -13,3 +13,15 @@
 .mySwiper2 .swiper-slide-thumb-active{
     opacity: 1;
 }
+
+.mySwiper img {
+    width: 300px;
+    height: 300px; 
+    display: block; /* Asegura que la imagen se comporte como un bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+div {
+    width: 100%; 
+    height: 160%; 
+}

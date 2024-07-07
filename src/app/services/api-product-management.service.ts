@@ -42,4 +42,24 @@ export class ApiProductManagementService {
   getGalleryProducts(productId: string) {
     return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_product&equalTo=' + productId + '&select=gallery_product');
   }
+
+  /*updateUserInfo(editar: any) {
+    const controls = editar.controls;
+    let queryString = '';
+    Object.keys(controls).forEach(key => {
+      const control = controls[key];
+      if (control.status === 'VALID') queryString += key + '=' + control.value + '&';
+    });
+    const token = localStorage.getItem(this.JWT_TOKEN) || '';
+    this.get_id_User().subscribe((userId: string) => {
+      this.http.put(environment.urlApiRestful + '/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
+      queryString, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }).subscribe((response: any) => {
+        console.log('Response:', response);
+      });
+    });
+  }*/
 }

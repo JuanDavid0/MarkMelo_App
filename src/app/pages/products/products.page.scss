@@ -1,0 +1,50 @@
+.container {
+  display: flex; 
+  justify-content: space-between; // Espacio entre la galería y la información
+}
+
+.gallery-container {
+    display: flex;
+    width: 50%; // Ancho de la galería
+    margin-right: 10px; // Espacio entre la galería y la información
+  }
+
+.info-container {
+    display: flex;
+    width: 50%;
+    margin-left: 10px
+}
+
+.info-card {
+  width: 100%; // Ancho de la tarjeta de información
+}
+
+.title-container {
+  display: flex;
+  align-items: center; // Centrar el título
+  justify-content: space-between; // Espacio entre el título y el botón de corazón
+}
+
+.heart-button {
+  font-size: 14px;  // Tamaño del botón de corazón
+  margin-left: 10px; // Espacio entre el título y el botón de corazón
+}
+
+.card-container {
+  margin-top: 35%;  // Que tan abajo se muestra el boton de agregar al carrito
+}
+
+.cart-button {
+  width: 100%; // Ancho del botón de agregar al carrito
+}
+
+@media (max-width: 600px) {  // Estilos para pantallas pequeñas
+  .container {
+    flex-direction: column;
+  }
+
+  .info-container {
+    margin-left: 0;
+    margin-top: 10px; 
+  }
+}
