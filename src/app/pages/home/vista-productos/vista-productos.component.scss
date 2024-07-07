@@ -14,6 +14,11 @@ swiper-container {
   --swiper-navigation-sides-offset: 10px;
   --swiper-navigation-color: var(--swiper-theme-color);
 }
+
+.categories {
+  cursor: pointer;
+}
+
 swiper-slide {
   justify-content: center;
   align-items: center;

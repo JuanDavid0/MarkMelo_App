@@ -27,10 +27,22 @@ export class ApiProductManagementService {
     return this.http.get(environment.urlApiRestful + environment.banners);
   }
 
+  // Metodo que obtiene las categorias
   getCategories(): Observable<any> {
     return this.http.get(environment.urlApiRestful + environment.categories);
   }
 
+  // Metodo que obtiene el titulo de la categoria seleccionada
+  getTitleCategory(categoryId: string): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.categories+'?select=name_category&linkTo=id_category&equalTo=' + categoryId);
+  }
+
+  // Metodo que obtiene la imagen de la categoria seleccionada
+  getImageCategory(categoryId: string): Observable<any> {
+    return this.http.get(environment.urlApiRestful + environment.categories+'?select=image_category&linkTo=id_category&equalTo=' + categoryId);
+  }
+
+  // Metodo que obtiene todos los productos de una categoria seleccionada
   getProductsByCategory(categoryId: string): Observable<any> {
     return this.http.get(environment.urlApiRestful + environment.products+'?linkTo=id_category_product&equalTo=' + categoryId);
   }
