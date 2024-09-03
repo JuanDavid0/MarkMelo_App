@@ -1,20 +1,20 @@
+import { VistaProductosComponent } from './pages/home/vista-productos/vista-productos.component';
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
-import { AuthLoginGuard } from './guards/auth-login.guard';
 import { AuthAccessGuard } from './guards/auth-access.guard';
-
+import { AuthLoginGuard } from './guards/auth-login.guard';
 
 // para cada pagina se debe asignar un guard para proterger el acceso a la misma
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.page').then((m) => m.LoginPage),
-    canActivate: [AuthLoginGuard],
   },
   {
     path: 'singup',
@@ -29,67 +29,17 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'produccion',
-    loadComponent: () =>
-      import('./pages/allUsers/produccion/produccion.page').then(
-        (m) => m.ProduccionPage
-      ),
-    canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'montaje-digital',
-    loadComponent: () =>
-      import('./pages/allUsers/montaje-digital/montaje-digital.page').then(
-        (m) => m.MontajeDigitalPage
-      ),
-    canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'marcacion',
-    loadComponent: () =>
-      import('./pages/allUsers/marcacion/marcacion.page').then(
-        (m) => m.MarcacionPage
-      ),
-    canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'empaque',
-    loadComponent: () =>
-      import('./pages/allUsers/empaque/empaque.page').then(
-        (m) => m.EmpaquePage
-      ),
-    canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'entrega',
-    loadComponent: () =>
-      import('./pages/allUsers/entrega/entrega.page').then(
-        (m) => m.EntregaPage
-      ),
-    canActivate: [AuthAccessGuard],
-  },
-  {
     path: 'admin',
     loadComponent: () =>
-      import('./pages/allUsers/admin/admin.page').then((m) => m.AdminPage),
+      import('./pages/admin/admin.page').then((m) => m.AdminPage),
     canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'user',
-    loadComponent: () =>
-      import('./pages/allUsers/user/user.page').then((m) => m.UserPage),
-    canActivate: [AuthAccessGuard],
-  },
-  {
-    path: 'vista-productos',
-    loadComponent: () =>
-      import('./pages/allUsers/user/vista-productos/vista-productos.page').then(
-        (m) => m.VistaProductosPage
-      ),
   },
   {
     path: 'editar-perfil',
-    loadComponent: () => import('./pages/allUsers/user/editar-perfil/editar-perfil.page').then(m => m.EditarPerfilPage)
+    loadComponent: () =>
+      import('./pages/home/editar-perfil/editar-perfil.page').then(
+        (m) => m.EditarPerfilPage
+      ),
   },
   {
     path: 'politicas-web',
@@ -101,15 +51,61 @@ export const routes: Routes = [
   {
     path: 'politicas-privacidad',
     loadComponent: () =>
-      import('./pages/website-policies/privacy-polices/privacy-polices.component' ).then(
-        (m) => m.PrivacyPolicesComponent
-      ),
+      import(
+        './pages/website-policies/privacy-polices/privacy-polices.component'
+      ).then((m) => m.PrivacyPolicesComponent),
   },
   {
     path: 'terminos-condiciones',
     loadComponent: () =>
-      import('./pages/website-policies/terms-conditions/terms-conditions.component').then(
-        (m) => m.TermsConditionsComponent
+      import(
+        './pages/website-policies/terms-conditions/terms-conditions.component'
+      ).then((m) => m.TermsConditionsComponent),
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home.page').then((m) => m.HomePage),
+  },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import('./pages/categories/categories.component').then(
+        (m) => m.CategoriesComponent
       ),
-    }
+  },
+  {
+    path: 'categories/:id',
+    loadComponent: () =>
+      import('./pages/categories/categories.component').then(
+        (m) => m.CategoriesComponent
+      ),
+  },
+  {
+    path: 'products',
+    loadComponent: () => import('./pages/products/products.page').then( m => m.ProductsPage),
+  },
+  {
+    path: 'products/:id',
+    loadComponent: () => import('./pages/products/products.page').then( m => m.ProductsPage),
+  },
+  {
+    path: 'vista-productos',
+    loadComponent: () =>
+      import('./pages/home/vista-productos/vista-productos.component').then(
+        (m) => m.VistaProductosComponent
+      ),
+  },
+  {
+    path: 'header',
+    loadComponent: () =>
+      import('./pages/header/header.component').then(
+        (m) => m.HeaderComponent
+      ),
+  },
+  {
+    path: 'shopping-cart',
+    loadComponent: () => import('./pages/shopping-cart/shopping-cart.page').then( m => m.ShoppingCartPage)
+  },
+
 ];

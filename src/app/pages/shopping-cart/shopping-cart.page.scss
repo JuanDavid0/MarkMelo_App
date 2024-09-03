@@ -1,0 +1,19 @@
+.quantity-container {
+    display: flex;
+    align-items: center; // Centrar los botones de cantidad
+}
+
+.quantity-label {
+    margin: 0 10px; // Espacio entre la etiqueta de cantidad y los botones
+}
+
+.cart-container {
+    width: 80%; // Ancho del contenedor de carrito
+    height: 100%; // Altura del contenedor de carrito
+    margin: 0 auto; // Centrar el contenedor de carrito
+}
+
+.buy-button {
+    display: flex;
+    justify-content: center;
+}

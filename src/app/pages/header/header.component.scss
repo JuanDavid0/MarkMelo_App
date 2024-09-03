@@ -1,0 +1,71 @@
+ion-header,
+p,
+ion-title {
+  font-family: 'Montserrat', sans-serif;
+}
+
+ion-button {
+  color: var(--ion-color-primary);
+}
+
+.left-menu {
+  ion-list {
+    ion-item {
+      ion-label {
+        --color: var(--ion-color-primary);
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      ion-icon {
+        color: var(--ion-color-primary);
+      }
+    }
+  }
+}
+
+.login {
+  ion-list {
+    ion-item {
+      --color: var(--ion-color-primary);
+      font-family: 'Montserrat', sans-serif;
+    }
+  }
+}
+
+.toolbar-row {
+    display: flex;
+    align-items: center;
+    font-size: small;
+    ion-button {
+        margin-left: auto;
+    }
+}
+
+.menu-outline {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .toolbar-row {
+        display: none;
+    }
+    .menu-outline {
+        display: block;
+    }
+}
+
+.slide-menu {
+  display: none;
+
+  @media (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.prueba {
+  display: block;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}

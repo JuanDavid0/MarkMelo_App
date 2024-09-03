@@ -3,26 +3,33 @@
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-color-primary: #3e065f;
-  --ion-color-primary-rgb: 62, 6, 95;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #370554;
-  --ion-color-primary-tint: #511f6f;
+  --ion-color-primary: #5321BF;
+	--ion-color-primary-rgb: 83,33,191;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-contrast-rgb: 255,255,255;
+	--ion-color-primary-shade: #491da8;
+	--ion-color-primary-tint: #6437c5;
 
-  --ion-color-secondary: #700b97;
-  --ion-color-secondary-rgb: 112, 11, 151;
-  --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #630a85;
-  --ion-color-secondary-tint: #7e23a1;
+	--ion-color-secondary: #7B21BF;
+	--ion-color-secondary-rgb: 123,33,191;
+	--ion-color-secondary-contrast: #ffffff;
+	--ion-color-secondary-contrast-rgb: 255,255,255;
+	--ion-color-secondary-shade: #6c1da8;
+	--ion-color-secondary-tint: #8837c5;
 
-  --ion-color-tertiary: #8e05c2;
-  --ion-color-tertiary-rgb: 142, 5, 194;
-  --ion-color-tertiary-contrast: #ffffff;
-  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #7d04ab;
-  --ion-color-tertiary-tint: #991ec8;
+	--ion-color-tertiary: #A221BF;
+	--ion-color-tertiary-rgb: 162,33,191;
+	--ion-color-tertiary-contrast: #ffffff;
+	--ion-color-tertiary-contrast-rgb: 255,255,255;
+	--ion-color-tertiary-shade: #8f1da8;
+	--ion-color-tertiary-tint: #ab37c5;
+
+  --ion-color-background: #ffffff;
+  --ion-color-background-rgb: 255,255,255;
+  --ion-color-background-contrast: #000000;
+  --ion-color-background-contrast-rgb: 0,0,0;
+  --ion-color-background-shade: #e0e0e0;
+  --ion-color-background-tint: #ffffff;
 
   --ion-color-success: #2dd55b;
   --ion-color-success-rgb: 45, 213, 91;
@@ -67,13 +74,13 @@
   --ion-color-dark-tint: #1a1a1a;
 }
 
-@media (prefers-color-scheme: dark) {
+//@media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
    * -------------------------------------------
    */
 
-  body {
+  body.dark {
     --ion-color-primary: #3e065f;
     --ion-color-primary-rgb: 62, 6, 95;
     --ion-color-primary-contrast: #ffffff;
@@ -94,6 +101,13 @@
     --ion-color-tertiary-contrast-rgb: 255, 255, 255;
     --ion-color-tertiary-shade: #7d04ab;
     --ion-color-tertiary-tint: #991ec8;
+
+    --ion-color-background: #000000;
+    --ion-color-background-rgb: 0, 0, 0;
+    --ion-color-background-contrast: #ffffff;
+    --ion-color-background-contrast-rgb: 255, 255, 255;
+    --ion-color-background-shade: #000000;
+    --ion-color-background-tint: #1a1a1a;
 
     --ion-color-success: #2fdf75;
     --ion-color-success-rgb: 47, 223, 117;
@@ -143,7 +157,7 @@
    * -------------------------------------------
    */
 
-  .ios body {
+  .ios body.dark {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0, 0, 0;
 
@@ -179,7 +193,7 @@
     --ion-card-background: #5f5f5f;
   }
 
-  .ios ion-modal {
+  .ios ion-modal.dark {
     --ion-background-color: var(--ion-color-step-100);
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
@@ -190,7 +204,7 @@
    * -------------------------------------------
    */
 
-  .md body {
+  .md body.dark {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18, 18, 18;
 
@@ -227,7 +241,46 @@
 
     --ion-card-background: #2e2e2e;
   }
+//}
+
+.md body.dark {
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18, 18, 18;
+
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-border-color: #222222;
+
+  --ion-color-step-50: #1e1e1e;
+  --ion-color-step-100: #2a2a2a;
+  --ion-color-step-150: #363636;
+  --ion-color-step-200: #414141;
+  --ion-color-step-250: #4d4d4d;
+  --ion-color-step-300: #595959;
+  --ion-color-step-350: #656565;
+  --ion-color-step-400: #717171;
+  --ion-color-step-450: #7d7d7d;
+  --ion-color-step-500: #898989;
+  --ion-color-step-550: #949494;
+  --ion-color-step-600: #a0a0a0;
+  --ion-color-step-650: #acacac;
+  --ion-color-step-700: #b8b8b8;
+  --ion-color-step-750: #c4c4c4;
+  --ion-color-step-800: #d0d0d0;
+  --ion-color-step-850: #dbdbdb;
+  --ion-color-step-900: #e7e7e7;
+  --ion-color-step-950: #f3f3f3;
+
+  --ion-item-background: #3e065f;
+
+  --ion-toolbar-background: #3e065f;
+
+  --ion-tab-bar-background: #700b97;
+
+  --ion-card-background: #2e2e2e;
 }
+
 html {
   /* 
    * For more information on dynamic font scaling, visit the documentation:

@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="searchbar-container">
+    <div class="categories-title" (click)="toggleCategories()">
+      <h2>Categorías</h2>
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAZklEQVR4nO3QMQqAQAxE0X8JxfvfQ2vFzsbjKIJbitlNos18GEj3IKCUUsrRBBzBGy3wkgDPFrgDtkB0Bwbru6PwKjQKb0K9uAttxUPQWjwUteIp6Bueij7hn6ClHljvXbdSit86AUl3ltPxBzVwAAAAAElFTkSuQmCC">
+      </div>
+    <ion-searchbar placeholder="Buscar..."></ion-searchbar>
+  </div>
+  <div *ngIf="showCategories" class="categories-list">
+    <ion-list>
+      <ion-item *ngFor="let c of mainCategories" (click)="idSelected = c.id_category; setInformationForOneCategory()">{{ c.name_category }}</ion-item>
+    </ion-list>
+  </div>
+
+  <div class="categories-title-image">
+    <ion-item lines="none">
+      <img *ngIf="imageCategory" [src]="imageCategory" alt="{{ titleCategory }}">
+      <h1>{{titleCategory}}</h1>
+    </ion-item>
+  </div>
+
+  <div class="product-list">
+    <ion-item *ngFor="let p of products" (click)="idSelected = p.id_product; setInformationForOneProduct()" lines="none">
+      <div class="product-item">
+        <ion-thumbnail>
+          <img [src]="p.image_product" alt="{{p.name_product}}">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ p.name_product }}</h2>
+          <p>${{ p.price_product }}</p>
+        </ion-label>
+      </div>
+    </ion-item>
+  </div>
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>
+</ion-content>

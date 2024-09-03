@@ -1,0 +1,29 @@
+export interface Product {
+    id_product: number;
+    approval_product: string;
+    feedback_product: string;
+    state_product: string;
+    id_category_product: string;
+    id_subcategory_product: string;
+    title_list_product: string;
+    name_product: string;
+    url_product: string;
+    image_product: string;
+    price_product: string;
+    shipping_product: string;
+    stock_product: string;
+    delivery_time_product: string;
+    offer_product: string;
+    description_product: string;
+    summary_product: string;
+    details_product: string;
+    specifications_product: string;
+    gallery_product: string;
+    video_product: string;
+    reviews_product: null;
+    tags_product: string;
+    sales_product: null;
+    views_product: number;
+    date_created_product: string;
+    date_updated_product: string;
+}

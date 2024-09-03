@@ -4,6 +4,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { ApiRestFulService } from '../services/api-rest-ful.service';
 import { interceptorService } from '../interceptor/api.interceptor';
 import { RouterModule } from '@angular/router';
+import { ApiProductManagementService } from '../services/api-product-management.service';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     ApiRestFulService,
+    ApiProductManagementService,
     interceptorService,
   ]
 })

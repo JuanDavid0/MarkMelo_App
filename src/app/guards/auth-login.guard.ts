@@ -28,15 +28,15 @@ class LoginGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const accessAuth = this.apiService.getRol();
+    const currentPage = route.url[0].path;
     if(this.apiService.isloggedIn()){
-      if(this.apiService.tokenExpired()){ 
-        this.router.navigate([accessAuth]); 
-        return false; 
-      }else{
+      if(this.apiService.isTokenExpired()){
         localStorage.removeItem('JWT_TOKEN');
         this.router.navigate(['/login']); 
         return false;
+      }else{
+        this.router.navigate([currentPage]); 
+        return false; 
       } 
     }else{
       return true;

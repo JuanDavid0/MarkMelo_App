@@ -1,0 +1,191 @@
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Categorias</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForCategories"
+    [autoHeight]="true"
+    [slidesPerView]="3"
+    [spaceBetween]="0"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let c of mainCategories"
+      (click)="idSelected = c.id_category; setInformationForOneCategory()"
+    >
+      <div class="categories">
+        <p>{{ c.name_category }}</p>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Favoritos</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy" mode="md">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+        <ion-buttons class="buttons-heart-cart">
+          <ion-button class="heart-button" (click)="navigateToLogin($event)">
+            <ion-icon name="heart"></ion-icon>
+          </ion-button>
+          <ion-button class="cart-button" (click)="navigateToCart($event)">
+            <ion-icon name="cart"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Ofertas</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy" mode="md">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+        <ion-buttons class="buttons-heart-cart">
+          <ion-button class="heart-button" (click)="navigateToLogin($event)">
+            <ion-icon name="heart"></ion-icon>
+          </ion-button>
+          <ion-button class="cart-button" (click)="navigateToCart($event)">
+            <ion-icon name="cart"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Los mas comprados</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let p of products"
+      (click)="idSelected = p.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy" mode="md">
+        <img [src]="p.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ p.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ p.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+        <ion-buttons class="buttons-heart-cart">
+          <ion-button class="heart-button" (click)="navigateToLogin($event)">
+            <ion-icon name="heart"></ion-icon>
+          </ion-button>
+          <ion-button class="cart-button" (click)="navigateToCart($event)">
+            <ion-icon name="cart"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div>
+  <HR noshade size="5" width="100%" align="center" />
+  <h3 class="titulos">Los mas vistos</h3>
+  <HR noshade size="5" width="100%" align="center" />
+  <swiper-container
+    [modules]="swiperModules"
+    [breakpoints]="breakpointsForProducts"
+    [autoHeight]="true"
+    [slidesPerView]="2"
+    [spaceBetween]="10"
+    [mousewheel]="{
+      forceToAxis: true,
+      invert: false,
+      releaseOnEdges: true,
+      sensitivity: 1
+    }"
+  >
+    <swiper-slide
+      *ngFor="let tview of topViewedProducts"
+      (click)="idSelected = tview.id_product; setInformationForOneProduct()"
+    >
+      <ion-card button="true" loading="lazy" mode="md">
+        <img [src]="tview.image_product" loading="lazy" />
+        <ion-card-title>
+          {{ tview.name_product }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ tview.price_product | currency : "USD" }}
+        </ion-card-subtitle>
+        <ion-buttons class="buttons-heart-cart">
+          <ion-button class="heart-button" (click)="navigateToLogin($event)">
+            <ion-icon name="heart"></ion-icon>
+          </ion-button>
+          <ion-button class="cart-button" (click)="navigateToCart($event)">
+            <ion-icon name="cart"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+</div>
