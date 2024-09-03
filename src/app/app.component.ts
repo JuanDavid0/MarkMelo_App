@@ -1,12 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet, IonContent, IonHeader } from '@ionic/angular/standalone';
-import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
 import {
+  addOutline,
+  apps,
   cart,
   chevronDownCircle,
   chevronExpandOutline,
+  create,
   documentAttachOutline,
   eyeOutline,
   fileTrayFullOutline,
@@ -16,9 +18,14 @@ import {
   menuOutline,
   peopleOutline,
   personCircle,
+  removeOutline,
   timeOutline,
+  trashOutline,
 } from 'ionicons/icons';
 
+import { register } from 'swiper/element/bundle';
+
+register();
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -37,12 +44,17 @@ export class AppComponent {
       'menu-outline': menuOutline,
       'megaphone-outline': megaphoneOutline,
       'people-outline': peopleOutline,
-      'time-outline': timeOutline,
+      'apps': apps,
       'file-tray-full-outline': fileTrayFullOutline,
       'document-attach-outline': documentAttachOutline,
       'logo-facebook': logoFacebook,
       'heart': heart,
       'cart': cart,
+      'create': create,
+      'trash-outline': trashOutline,
+      'timer-outline': timeOutline,
+      "add-outline": addOutline,
+      "remove-outline": removeOutline,
     });
   }
 }

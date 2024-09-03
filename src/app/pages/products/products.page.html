@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="product">
+  <div class="container">
+
+    <div class="gallery-container">
+      <ion-card>
+        <app-gallery-product [GalleryProductComponent]="gallery_products"></app-gallery-product>
+      </ion-card>
+    </div>
+
+    <div class="info-container">
+      <ion-card class="info-card">
+        <ion-card-header>
+          <div class="title-container">
+            <ion-card-title>{{ product.name_product }}</ion-card-title>
+            <ion-button class="heart-button">
+              <ion-icon slot="icon-only" name="heart"></ion-icon>
+            </ion-button>
+          </div>
+          <ion-card-subtitle>{{ product.price_product | currency:'COP ' }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div [innerHTML]="product.summary_product"></div>
+
+          <p><strong>Stock:</strong> {{ product.stock_product }}</p>
+
+          <p><strong>Delivery Time:</strong> {{ product.delivery_time_product }} days</p>
+
+          <div class="card-container">
+            <ion-button expand="block" color="primary" class="cart-button" [routerLink]="['/shopping-cart']"
+              (click)="addToCart(product)">
+              Agregar al carrito
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Descripción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div [innerHTML]="product.description_product"></div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>
+
+</ion-content>
+
+
+
+
+
+
+<!--ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="product">
+
+  <div *ngIf="product">
+  <img [src]="product.image_product">
+  
+  <app-gallery-product [GalleryProductComponent]="gallery_products"></app-gallery-product>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ product.name_product }}</ion-card-title>
+      <ion-card-subtitle>{{ product.price_product | currency:'COP' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div [innerHTML]="product.description_product"></div>
+      <p><strong>Stock:</strong> {{ product.stock_product }}</p>
+      <p><strong>Delivery Time:</strong> {{ product.delivery_time_product }} days</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>
+
+</ion-content-->

@@ -29,15 +29,9 @@ class AccessGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const accessAuth = this.apiService.getRol(); 
     const currentPage = route.url[0].path; 
-    if(this.apiService.isloggedIn() && this.apiService.tokenExpired()){
-      if(accessAuth == currentPage){
-        return true;
-      }else {
-        this.router.navigate([accessAuth]);
-        return false;
-      }
+    if(this.apiService.isloggedIn() && !this.apiService.isTokenExpired()){
+      return true;
     }else{
       this.router.navigate(['/login']);
       return false;

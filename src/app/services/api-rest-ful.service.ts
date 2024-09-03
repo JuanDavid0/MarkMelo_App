@@ -1,4 +1,4 @@
-import { Router} from '@angular/router';
+import { Router, UrlHandlingStrategy} from '@angular/router';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,7 @@ import {
   throwError,
 } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { getLocaleDateFormat } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,12 +22,14 @@ export class ApiRestFulService {
   private loggedUser?: string;
   private value: any;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   private router = inject(Router);
   public userDetails?: any;
 
   http = inject(HttpClient);
 
   constructor() {}
+  
   /**
    * Metodo que se encarga de obtener los datos del usuario actual
    * @returns retorna los datos del usuario actual
@@ -66,12 +69,12 @@ export class ApiRestFulService {
    */
   private doLoginUser(email: string, token: any) {
     this.loggedUser = email;
-    this.storeJwtToken(token);
+    this.storeJwtToken(token);  //
     this.isAuthenticatedSubject.next(true);
   }
 
   private storeJwtToken(jwt: string) {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
+    localStorage.setItem(this.JWT_TOKEN, jwt); //
   }
 
   /**
@@ -81,7 +84,9 @@ export class ApiRestFulService {
   logout() {
     localStorage.removeItem(this.JWT_TOKEN);
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']).then(() => {
+      window.location.reload();
+    });
   }
 
   /**
@@ -100,7 +105,7 @@ export class ApiRestFulService {
     return this.http.get(
       environment.urlApiRestful +
         environment.users +
-        '?select=username_user&linkTo=token_user&equalTo=' +
+        '?select=*&linkTo=token_user&equalTo=' +
         localStorage.getItem(this.JWT_TOKEN)
     );
   }
@@ -132,18 +137,18 @@ export class ApiRestFulService {
    * 
    * @returns {boolean} `true` si el token ha expirado, `false` en caso contrario.
    */
-  tokenExpired() {
+  isTokenExpired(): boolean {
     const token = localStorage.getItem(this.JWT_TOKEN);
-    if (!token) return false;
+    if (!token) return true;
 
     const decodedToken = jwtDecode(token);
 
-    if (!decodedToken.exp) return false;
+    if (!decodedToken.exp) return true;
 
     const expirationDate = decodedToken.exp * 1000;
     const dateNow = new Date().getTime();
     const dateformat = new Date(dateNow);
-    return dateNow < expirationDate;
+    return dateNow > expirationDate;
   }
 
   /**
@@ -164,9 +169,11 @@ export class ApiRestFulService {
           formData.append('phone_user', user.phone_user);
           formData.append('password_user', user.password_user);
           formData.append('method_user', 'DIRECT');
+          formData.append('rol_user', 'DEFAULT');
+          formData.append('date_created_user', new Date().toISOString());
           alert('Registro exitoso.');
           return this.http.post<any>(
-            'https://api.uptc.online/users?register=true',
+            environment.urlApiRestful + environment.users,
             formData
           );
         } else {
@@ -191,7 +198,7 @@ export class ApiRestFulService {
     const trimmedEmail = email.trim();
     return this.http
       .get(
-        'https://api.uptc.online/users?select=email_user&linkTo=email_user&equalTo=' +
+        environment.urlApiRestful + '/users?select=email_user&linkTo=email_user&equalTo=' +
           trimmedEmail
       )
       .pipe(
@@ -225,7 +232,7 @@ export class ApiRestFulService {
           googleFormData.append('method_user', user.provider);
           return this.http
             .post<any>(
-              'https://api.uptc.online/users?register=true',
+              environment.urlApiRestful + environment.register,
               googleFormData
             )
             .pipe(
@@ -262,7 +269,7 @@ export class ApiRestFulService {
     googleFormData.append('email_user', user.email);
 
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', googleFormData)
+      .post<any>(environment.urlApiRestful + environment.login, googleFormData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -292,7 +299,7 @@ export class ApiRestFulService {
           facebookFormData.append('method_user', user.provider);
           return this.http
             .post<any>(
-              'https://api.uptc.online/users?register=true',
+              environment.urlApiRestful + environment.register,
               facebookFormData
             )
             .pipe(
@@ -330,7 +337,7 @@ export class ApiRestFulService {
     const facebookFormData = new FormData();
     facebookFormData.append('email_user', user.email);
     return this.http
-      .post<any>('https://api.uptc.online/users?login=true', facebookFormData)
+      .post<any>(environment.urlApiRestful + environment.login, facebookFormData)
       .pipe(
         tap((tokens: any) =>
           this.doLoginUser(
@@ -346,10 +353,8 @@ export class ApiRestFulService {
    * Metodo que se encarga de obtener los datos del usuario actual (Para este caso se retorna el rol de usuario)
    * @returns retorna los datos del usuario actual
    */
-  getRol() {
-    const rol = 'user';
-    console.log('prueba');
-    return rol;
+  getRol(): Observable<any> {
+    return this.http.get<any>(`${environment.urlApiRestful}${environment.users}?select=rol_user&linkTo=token_user&equalTo=${localStorage.getItem(this.JWT_TOKEN)}`);
   }
 
   /**
@@ -365,7 +370,7 @@ export class ApiRestFulService {
     });
     const token = localStorage.getItem(this.JWT_TOKEN) || '';
     this.get_id_User().subscribe((userId: string) => {
-      this.http.put('https://api.uptc.online/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
+      this.http.put(environment.urlApiRestful + '/users?id=' + userId + '&nameId=id_user&token=' + token + '&table=users&suffix=user',
       queryString, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
