@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ShoppingCartService {
 
+ 
   constructor() { }
 
   getCart() {
@@ -20,7 +21,15 @@ export class ShoppingCartService {
     if (cart === null) {
       cart = [];
     }
-    cart.push(product); // 
+
+    const existingProduct = cart.find((p: any) => p.id_product === product.id_product);
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      product.quantity = 1;
+      cart.push(product);
+    }
+
     this.setCart(cart);
   }
 
@@ -30,31 +39,23 @@ export class ShoppingCartService {
     this.setCart(cart);
   }
 
+  updateQuantity(product: any, quantity: number) {
+    if (quantity < 1) return;
+
+    let cart = this.getCart();
+    const existingProduct = cart.find((p: any) => p.id_product === product.id_product);
+    if (existingProduct) {
+      existingProduct.quantity = quantity;
+      this.setCart(cart);
+    }
+  }
+
   getTotal() {
     let cart = this.getCart();
     if (cart === null) {
       return 0;
     }
-    return cart.reduce((acc: number, p: any) => acc + Number(p.price_product), 0);
+    return cart.reduce((acc: number, p: any) => acc + Number(p.price_product) * p.quantity, 0);
   }
 
-  /*getQuantity() {
-    let cart = this.getCart();
-    if (cart === null) {
-      return 0;
-    }
-    return cart.length;
-  }
-
-  isInCart(product: any) {
-    let cart = this.getCart();
-    if (cart === null) {
-      return false;
-    }
-    return cart.some((p: any) => p.id === product.id);
-  }*/
-
-
-
-  
 }

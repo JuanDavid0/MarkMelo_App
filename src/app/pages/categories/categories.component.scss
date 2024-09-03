@@ -5,38 +5,38 @@ ion-content {
 }
 
 .searchbar-container {
-position: relative; /* Añadir esta línea */
-display: flex;
-align-items: center;
-padding: 10px;
-background-color: var(--ion-color-background-shade);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--ion-color-background-shade);
 }
 
 .categories-title {
-display: flex;
-align-items: center;
-cursor: pointer;
-margin: 0;
-padding: 10px 10px 10px 0;
-font-size: 1.2em;
-color: var(--ion-color-background-contrast);
-white-space: nowrap;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  padding: 10px 10px 10px 0;
+  font-size: 1.2em;
+  color: var(--ion-color-background-contrast);
+  white-space: nowrap;
 }
 
 .categories-title h2 {
-font-size: 20px;
-margin: 0;
-padding-right: 5px;
+  font-size: 20px;
+  margin: 0;
+  padding-right: 5px;
 }
 
-.categories-title img { 
-width: 10px;
+.categories-title img {
+  width: 10px;
 }
 
 ion-searchbar {
---background: #ffffff;
---color: #000000;
-flex: 1;
+  --background: #ffffff;
+  --color: #000000;
+  flex: 1;
 }
 
 .categories-list {
@@ -71,7 +71,83 @@ flex: 1;
   font-size: 14px;
 }
 
+.categories-list ion-item {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .categories-list ion-item:hover {
+  cursor: pointer;
   font-weight: bold;
   --background: var(--ion-color-background-shade);
+}
+
+.categories-title-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.categories-title-image img {
+  width: 100%;
+  height: 240px;
+}
+
+.categories-title-image h1 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--ion-color-background);
+  text-shadow: 2px 2px 4px var(--ion-color-secondary);
+  padding: 5px 10px;
+  font-size: 5em;
+}
+
+// CSS para la lista de productos
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.product-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 300px;
+  padding: 20px;
+}
+
+.product-item ion-thumbnail {
+  --size: 240px;
+  margin-bottom: 10px;
+}
+
+.product-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product-item ion-label h2 {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.product-item ion-label p {
+  font-size: 20px;
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.product-item:hover {
+  background-color: var(--ion-color-background-shade);
 }

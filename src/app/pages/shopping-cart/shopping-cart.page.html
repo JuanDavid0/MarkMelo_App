@@ -5,24 +5,40 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="cart.length > 0; else emptyCart">
-    <ion-item *ngFor="let product of cart">
-      <img [src]="product.image_product" alt="Product Image" style="width: 50px; height: 50px;">
-      <ion-label>
-        {{ product.name_product }} - {{ product.price_product | currency:'COP'}}
-      </ion-label>
-      <ion-button (click)="removeFromCart(product)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label><strong>Total:</strong> ${{ total }}</ion-label>
-    </ion-item>
-    <ion-button >Comprar</ion-button>
-  </ion-list>
-  <ng-template #emptyCart>
-    <ion-item>
-      <ion-label>El carrito está vacío.</ion-label>
-    </ion-item>
-  </ng-template>
+  <div class="cart-container">
+    <ion-card>
+      <ion-list *ngIf="cart.length > 0; else emptyCart">
+        <ion-item *ngFor="let product of cart">
+          <img [src]="product.image_product" alt="Product Image" style="width: 50px; height: 50px; margin-right: 15px;">
+          <ion-label>
+            {{ product.name_product }} - {{ product.price_product | currency:'COP'}}
+          </ion-label>
+          <div class="quantity-container">
+            <ion-button (click)="updateQuantity(product, -1)" color="medium" [disabled]="product.quantity <= 1"
+              class="quantity-buttons">
+              <ion-icon name="remove-outline"></ion-icon>
+            </ion-button>
+            <ion-label class="quantity-label">{{ product.quantity }}</ion-label>
+            <ion-button (click)="updateQuantity(product, 1)" color="medium" class="quantity-buttons">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </div>
+          <ion-button (click)="removeFromCart(product)" color="danger">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Total:</strong> {{ total | currency:'COP ' }}</ion-label>
+        </ion-item>
+        <div class="buy-button"><ion-button >Comprar</ion-button></div>
+      </ion-list>
+      <ng-template #emptyCart>
+        <ion-item>
+          <ion-label>El carrito está vacío.</ion-label>
+        </ion-item>
+      </ng-template>
+    </ion-card>
+  </div>
 </ion-content>
 
 <ion-footer>

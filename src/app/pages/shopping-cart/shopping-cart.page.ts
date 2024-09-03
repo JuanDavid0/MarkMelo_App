@@ -41,4 +41,12 @@ export class ShoppingCartPage implements OnInit {
     this.shoppingCartService.removeFromCart(product);
     this.loadCart();
   }
+
+  updateQuantity(product: any, change: number) {
+    const newQuantity = product.quantity + change;
+    if (newQuantity >= 1) {
+      this.shoppingCartService.updateQuantity(product, newQuantity);
+      this.loadCart();
+    }
+  }
 }

@@ -32,11 +32,15 @@ export class CategoriesComponent implements OnInit {
   products: Product[] = [];
   showCategories = false;
   idSelected?: number;
+  titleCategory?: string;
+  imageCategory?: string;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
-  
+
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
+    this.getTitleCategory(id);
+    this.getImageCategory(id);
     this.getProductsByCategory(id);
     this.getCategories();
   }
@@ -57,7 +61,23 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  setInformationForOneProduct(){
+  getTitleCategory(categoryId: string) {
+    this.ApiProductManagement.getTitleCategory(categoryId).subscribe((data) => {
+      return this.titleCategory = data.results[0].name_category;
+    });
+  }
+
+  getImageCategory(categoryId: string) {
+    this.ApiProductManagement.getImageCategory(categoryId).subscribe((data) => {
+      return this.imageCategory = data.results[0].image_category;
+    });
+  }
+
+  setInformationForOneCategory(){
+    this.router.navigate(['/categories', this.idSelected]);
+  }
+
+  setInformationForOneProduct() {
     this.router.navigate(['/products', this.idSelected]);
   }
 }

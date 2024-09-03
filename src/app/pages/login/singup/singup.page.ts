@@ -12,20 +12,24 @@ import {
   Validators,
   ReactiveFormsModule
 } from '@angular/forms';
+import { HeaderComponent } from "../../header/header.component";
+import { FooterComponent } from "../../footer/footer.component";
 
 @Component({
-  selector: 'app-singup',
-  templateUrl: './singup.page.html',
-  styleUrls: ['./singup.page.scss'],
-  standalone: true,
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    RouterModule,
-    ReactiveFormsModule
-  ]
+    selector: 'app-singup',
+    templateUrl: './singup.page.html',
+    styleUrls: ['./singup.page.scss'],
+    standalone: true,
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        RouterModule,
+        ReactiveFormsModule,
+        HeaderComponent,
+        FooterComponent
+    ]
 })
 export class SingupPage implements OnInit {
 
